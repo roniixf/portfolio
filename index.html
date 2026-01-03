@@ -4,13 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>COBRASTORE | Platform Game Online</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
-    margin: 0; padding: 0;
+    margin: 0;
     font-family: "Poppins", sans-serif;
     background: #000;
     color: #fff;
+    text-align: center;
     overflow-x: hidden;
   }
 
@@ -19,7 +19,7 @@
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    z-index: 1; /* Di bawah konten, di atas BG */
+    z-index: 1;
     pointer-events: none;
   }
 
@@ -27,68 +27,93 @@
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background: url('https://festahoki99.shop/images.jpeg') no-repeat center center/cover;
-    opacity: 0.3;
+    opacity: 0.4;
     z-index: 0;
   }
 
   .content-wrapper {
     position: relative;
     z-index: 10;
-    text-align: center;
   }
 
-  /* STYLE KARTU GAME SEPERTI DI FOTO */
+  /* WELCOME (TEKS ASLI ANDA) */
   .welcome {
-    background: rgba(0,0,0,0.85);
-    width: 90%;
-    max-width: 800px;
-    margin: 30px auto;
-    border-radius: 20px;
-    padding: 20px;
-    border: 1px solid #ffcc00;
+    background: rgba(0,0,0,0.65);
+    width: 87%;
+    max-width: 850px;
+    margin: 20px auto;
+    border-radius: 25px;
+    padding: 15px;
+    line-height: 1.0em;
   }
 
+  /* GAME GRID */
   .games {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    padding: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
     max-width: 1100px;
     margin: auto;
   }
-
   .game-box {
-    background: #111;
+    background: rgba(255,255,255,0.1);
     border-radius: 15px;
-    padding: 10px;
-    border: 1px solid rgba(255, 204, 0, 0.2);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    padding: 15px;
+    transition: all 0.3s;
   }
-
   .game-box img {
     width: 100%;
-    border-radius: 10px;
-    aspect-ratio: 9/16;
+    border-radius: 12px;
+    aspect-ratio: 9/16; /* Portrait seperti foto */
     object-fit: cover;
-    display: block;
   }
-
-  .game-box h4 { margin: 10px 0 2px; font-size: 16px; }
-  .game-box p { margin: 0 0 10px; color: #ffcc00; font-weight: bold; }
-
   .order-btn {
     background: #ffcc00;
-    color: #000;
     border: none;
-    padding: 10px;
-    width: 100%;
+    padding: 10px 20px;
     border-radius: 8px;
-    font-weight: 800;
+    font-weight: bold;
     cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
   }
 
-  .floating-icons { position: fixed; right: 15px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 100; }
-  .floating-icons img { width: 45px; height: 45px; }
+  /* REVIEWS (BINTANG-BINTANG) */
+  .reviews {
+    background: rgba(0,0,0,0.7);
+    padding: 25px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+  .review-slider {
+    display: flex;
+    animation: slideLeft 30s linear infinite;
+  }
+  @keyframes slideLeft {
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
+  }
+  .review-box {
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    margin: 0 10px;
+    border-radius: 10px;
+    width: 220px;
+    flex-shrink: 0;
+    text-align: left;
+  }
+
+  .floating-icons {
+    position: fixed;
+    right: 20px;
+    bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 300;
+  }
+  .floating-icons img { width: 50px; height: 50px; }
 </style>
 </head>
 <body>
@@ -98,13 +123,23 @@
 
 <div class="content-wrapper">
   <div class="welcome">
-    <h2 style="color:#ffcc00; margin:0;">COBRASTORE</h2>
-    <p style="font-size: 12px; margin-top: 5px;">🔥 SITUS TERINTEGRASI API - BLACK SCATTER MODE 🔥</p>
+    <h2>Selamat Datang Di Situs <p style="position: relative; top: 10px; color: yellow;">COBRASTORE</h2></p>
+    <p style="position: relative; top: 15px;">Kami sangat bangga menyambut Anda disini,strategi mencari cuan banyak sudah di depan mata. Di sini, Anda bukan menjadi pemain, tapi pahlawan sejati yang siap mengukir sejarah dalam kehidupan.</p>
+    <p style="position: relative; top: 10px;">Berikut ini tampilan situs<br>yang kami tawarkan ke anda,silahkan skrol kebawah untuk melihat.</p>
+    <p style="position: relative; top: 10px; color: orange;">Semua situs sudah TERINTEGRASI API</p>
+    <p>memudahkan anda untuk secepatnya mengelola situs gamenya</p>proses pengerjaan kami berbagai variasi. pengerjaan situs harga murah prosesnya hanya 1-10jam,tidak lebih tidak kurang. dan untuk pengerjaan situs all provider game prosesnya 5 hari selesai.<br><p style="color: red;">situs yang bisa di sewakan, hanya situs yang harga 2juta kebawah</p><p style="color: yellow">harga jual 8,5juta, kami memberikan fasilitas full provider game on.<br>sudah terintegrasi PGA,serta kami bantu tembuskan link situs ke  GOOGLE</p>
+    <p>Jangan lupa hubungi kontak whatsapp & telegaram kami, jika anda sudah mengorder</p>
   </div>
 
-  <div class="games" id="gamesContainer"></div>
-  
-  <p style="margin: 40px 0; font-size: 12px; opacity: 0.6;">Copyright 2025 - COBRASTORE</p>
+  <div class="games" id="games"></div>
+
+  <div class="reviews">
+    <div class="review-slider" id="reviewsContainer"></div>
+  </div>
+
+  <div style="padding: 40px 0;">
+    <p>copyright 2025</p>
+  </div>
 </div>
 
 <div class="floating-icons">
@@ -113,79 +148,72 @@
 </div>
 
 <script>
-/* DATA GAMES (FIXED RENDER) */
+/* DATA GAMES */
 const games = [
-  {title:"Pay4D", price:"Rp 2.000.000", img:"https://festahoki99.shop/pay4d.png"},
-  {title:"UG/Onix", price:"Rp 2.000.000", img:"https://festahoki99.shop/UG.png"},
-  {title:"Nuke", price:"Rp 2.000.000", img:"https://festahoki99.shop/nuke.png"},
-  {title:"Nexus", price:"Rp 2.000.000", img:"https://festahoki99.shop/nexus.png"}
+  {title:"Pay4D", price:"Rp 200.000", img:"https://festahoki99.shop/pay4d.png"},
+  {title:"UG/Onix", price:"Rp 300.000", img:"https://festahoki99.shop/UG.png"},
+  {title:"Nuke", price:"Rp 500.000", img:"https://festahoki99.shop/nuke.png"},
+  {title:"Nexus", price:"Rp 580.000", img:"https://festahoki99.shop/nexus.png"}
 ];
 
-const container = document.getElementById('gamesContainer');
+const gDiv = document.getElementById('games');
 games.forEach(g => {
-  container.innerHTML += `
+  gDiv.innerHTML += `
     <div class="game-box">
       <img src="${g.img}">
       <h4>${g.title}</h4>
-      <p>${g.price}</p>
+      <p style="color:#ffcc00">${g.price}</p>
       <button class="order-btn">Order Segera</button>
     </div>
   `;
 });
 
-/* SCRIPT HUJAN SCATTER HITAM PERSIS FOTO */
+/* REVIEWS (DENGAN BINTANG) */
+const reviewsData = [
+  "Pelayanan cepat dan terpercaya! ⭐⭐⭐⭐⭐",
+  "Transaksi aman, game langsung aktif! ⭐⭐⭐⭐⭐",
+  "Harga murah banget dibanding tempat lain! ⭐⭐⭐⭐⭐",
+  "Respon admin super cepat! ⭐⭐⭐⭐⭐",
+  "Sistemnya simpel dan mudah dipakai. ⭐⭐⭐⭐"
+];
+const rDiv = document.getElementById('reviewsContainer');
+[...reviewsData, ...reviewsData].forEach(r => {
+  rDiv.innerHTML += `
+    <div class="review-box">
+      <div style="color:yellow">⭐⭐⭐⭐⭐</div>
+      <p style="font-size:13px">${r}</p>
+    </div>
+  `;
+});
+
+/* SCRIPT HUJAN SCATTER HITAM */
 const canvas = document.getElementById('scatterCanvas');
 const ctx = canvas.getContext('2d');
-
 let w, h;
-function init() {
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
-}
+function init() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
 init();
 window.onresize = init;
 
-const dots = [];
+const particles = [];
 for (let i = 0; i < 25; i++) {
-  dots.push({
-    x: Math.random() * w,
-    y: Math.random() * h,
-    r: Math.random() * 20 + 15, // Ukuran Scatter
-    s: Math.random() * 2 + 1,    // Kecepatan Jatuh
-    a: Math.random() * 0.5 + 0.2 // Transparansi
-  });
+  particles.push({ x: Math.random() * w, y: Math.random() * h, r: 18, s: Math.random() * 2 + 1 });
 }
 
 function draw() {
   ctx.clearRect(0, 0, w, h);
-  dots.forEach(d => {
-    // 1. Gambar Lingkaran Hitam (Body Scatter)
+  particles.forEach(p => {
     ctx.beginPath();
-    ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(0, 0, 0, ${d.a})`;
-    ctx.fill();
-    
-    // 2. Garis Pinggir (Glow Emas)
-    ctx.strokeStyle = `rgba(255, 204, 0, ${d.a})`;
-    ctx.lineWidth = 2;
-    ctx.stroke();
-
-    // 3. Tulisan "SCATTER" Merah di Tengah
-    ctx.fillStyle = `rgba(255, 0, 0, ${d.a})`;
-    ctx.font = `bold ${d.r * 0.4}px Arial`;
-    ctx.textAlign = "center";
-    ctx.fillText("SCATTER", d.x, d.y + (d.r * 0.15));
-
-    d.y += d.s;
-    if (d.y > h + 50) {
-      d.y = -50;
-      d.x = Math.random() * w;
-    }
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = "black"; ctx.fill();
+    ctx.strokeStyle = "#ffcc00"; ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = "red"; ctx.font = "bold 8px Arial"; ctx.textAlign = "center";
+    ctx.fillText("SCATTER", p.x, p.y + 3);
+    p.y += p.s;
+    if (p.y > h + 20) { p.y = -20; p.x = Math.random() * w; }
   });
   requestAnimationFrame(draw);
 }
 draw();
 </script>
-
 </body>
 </html>
