@@ -1,148 +1,787 @@
-<!--
---  Uploaded on : https://haxor.my.id/open/asek.html
---  Official Web : https://prinsh.com
---  script-deface-generator.prinsh.com
--->
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta property="og:image" content="https://media.tenor.com/km4Uar9tjtwAAAAi/rain-alone.gif">
-  <meta name="description" content="jangan pacaran dulu karena wanita itu scam kata timoty:v">
-  <title>JOKOWI</title>
-
-  <!-- Font Hacker Clean -->
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: #0a0f1a;
-      background-image: 
-        radial-gradient(circle at top, #1a2a44 0%, #0a0f1a 70%),
-        linear-gradient(to bottom, rgba(10,15,26,0.8), #0a0f1a);
-      color: #ccc;
-      font-family: 'IBM Plex Mono', monospace;
-      text-align: center;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      position: relative;
-      padding: 20px;
-    }
-
-    /* Hujan Halus */
-    .rain { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-    .drop { 
-      position: absolute; width: 1.5px; height: 40px; 
-      background: rgba(150, 200, 255, 0.4); 
-      animation: fall linear infinite;
-    }
-    @keyframes fall { to { transform: translateY(120vh); } }
-
-    /* GIF */
-    .gif { 
-      width: 240px; height: 240px; margin-bottom: 30px; 
-      border: 1px solid #334; border-radius: 16px; 
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6); z-index: 2;
-    }
-
-    /* Quote Utama – SATU PARAGRAF, SAMBUNG */
-    .quote {
-      font-size: 1.05rem;
-      line-height: 1.8;
-      max-width: 720px;
-      color: #aabbcc;
-      margin: 0 auto 35px;
-      padding: 0 20px;
-      z-index: 2;
-    }
-
-    /* Hacked By – JELAS, BESAR, BOLD */
-    .hacked-by {
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: #ff6666;
-      margin: 15px 0;
-      letter-spacing: 1px;
-      z-index: 2;
-    }
-
-    /* Info Kecil */
-    .info {
-      font-size: 0.9rem;
-      color: #889;
-      margin: 8px 0;
-      z-index: 2;
-    }
-    .info a {
-      color: #99ccff;
-      text-decoration: none;
-    }
-    .info a:hover { text-decoration: underline; }
-
-    /* Greetz – PALING BAWAH */
-    .greetz {
-      margin-top: 50px;
-      color: #ff5555;
-      font-weight: bold;
-      font-size: 1rem;
-      z-index: 2;
-    }
-
-    /* Audio */
-    audio { position: absolute; opacity: 0; pointer-events: none; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone Message Generator | By RoniiXF</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Space Grotesk', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        :root {
+            --primary: #64FFDA;
+            --primary-dark: #47d6b6;
+            --secondary: #6272a4;
+            --accent: #FF79C6;
+            --dark: #282a36;
+            --darker: #1E2029;
+            --light: #F8F8F2;
+            --gray: #6272A4;
+            --gradient-start: #282a36;
+            --gradient-end: #44475a;
+            --card-bg: rgba(40, 42, 54, 0.95);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --code-font: 'JetBrains Mono', monospace;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        .background-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.05;
+        }
+        
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: -100px;
+            left: -100px;
+        }
+        
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--accent);
+            bottom: -50px;
+            right: -50px;
+        }
+        
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            background: var(--secondary);
+            top: 50%;
+            left: 70%;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            z-index: 1;
+        }
+        
+        .header {
+            text-align: center;
+            animation: fadeInDown 1s ease;
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(100, 255, 218, 0.4);
+            letter-spacing: -0.5px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            color: var(--light);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .form-container {
+            flex: 1;
+            min-width: 350px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(10px);
+            animation: slideInLeft 0.8s ease;
+            transition: var(--transition);
+            border: 1px solid var(--gray);
+        }
+        
+        .form-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+        
+        .preview-container {
+            flex: 1;
+            min-width: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: slideInRight 0.8s ease;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--secondary);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: var(--transition);
+            background: rgba(40, 42, 54, 0.7);
+            color: var(--light);
+            font-family: var(--code-font);
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        .input-with-icon input {
+            padding-left: 50px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--dark);
+            border: none;
+            padding: 18px 30px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            box-shadow: 0 6px 12px rgba(100, 255, 218, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: var(--code-font);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        button:hover {
+            background: linear-gradient(135deg, var(--primary-dark), #3acbab);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(100, 255, 218, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .iphone-mockup {
+            width: 340px;
+            background: #000;
+            border-radius: 50px;
+            padding: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            transition: var(--transition);
+            animation: float 6s ease-in-out infinite;
+            border: 2px solid var(--primary);
+        }
+        
+        .iphone-mockup:hover {
+            transform: translateY(-10px);
+        }
+        
+        .screen {
+            background: linear-gradient(165deg, #8bb4f9, #f9c6d2);
+            border-radius: 40px;
+            overflow: hidden;
+            height: 660px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 25px;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            font-family: var(--code-font);
+        }
+        
+        .message-container {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+        }
+        
+        .message-bubble {
+            background: var(--primary);
+            color: var(--dark);
+            padding: 18px 24px;
+            border-radius: 24px;
+            border-bottom-right-radius: 4px;
+            max-width: 80%;
+            align-self: flex-end;
+            box-shadow: 0 4px 12px rgba(100, 255, 218, 0.3);
+            transition: var(--transition);
+            animation: messagePulse 2s infinite;
+            font-weight: 500;
+        }
+        
+        .message-time {
+            font-size: 13px;
+            color: rgba(40, 42, 54, 0.7);
+            margin-top: 8px;
+            text-align: right;
+            font-family: var(--code-font);
+        }
+        
+        .result-container {
+            position: relative;
+            display: none;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+        
+        .result-image {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--primary);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .result-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+        
+        .download-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(40, 42, 54, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            opacity: 0;
+            transition: var(--transition);
+            pointer-events: none;
+        }
+        
+        .result-container:hover .download-overlay {
+            opacity: 1;
+        }
+        
+        .download-text {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            color: var(--light);
+            margin-top: 30px;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(100, 255, 218, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        .creator {
+            color: var(--light);
+            margin-top: 40px;
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease;
+            font-family: var(--code-font);
+        }
+        
+        .creator a {
+            font-weight: 700;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            padding: 0 5px;
+        }
+        
+        .creator a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 15px rgba(255, 121, 198, 0.5);
+        }
+        
+        .creator a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: bottom right;
+        }
+        
+        .creator a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        
+        .terminal-header {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px 20px;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--code-font);
+            border-bottom: 1px solid var(--gray);
+        }
+        
+        .terminal-button {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .terminal-button.close {
+            background: #FF5F56;
+        }
+        
+        .terminal-button.minimize {
+            background: #FFBD2E;
+        }
+        
+        .terminal-button.maximize {
+            background: #27C93F;
+        }
+        
+        /* Animations */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        @keyframes messagePulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.03);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .form-container, .preview-container {
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .iphone-mockup {
+                width: 300px;
+            }
+            
+            .screen {
+                height: 580px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .form-container {
+                padding: 25px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>iPhone Message Generator</h1>
+            <p class="subtitle">Buat kata kata keren dari tools ini jembut jangan lupa support developer RoniiXF</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="form-container">
+                <div class="terminal-header">
+                    <div class="terminal-button close"></div>
+                    <div class="terminal-button minimize"></div>
+                    <div class="terminal-button maximize"></div>
+                    <span style="margin-left: 10px;">roniixf.py</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="messageText"><i class="fas fa-comment"></i> Your Message</label>
+                    <textarea id="messageText" placeholder="Type your message here...">Masukkan Teks! - RoniiXF!</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="battery"><i class="fas fa-battery-three-quarters"></i> Battery Percentage</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-battery-three-quarters"></i>
+                        <input type="number" id="battery" min="0" max="100" value="85" placeholder="Enter battery percentage">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="time"><i class="fas fa-clock"></i> Time</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-clock"></i>
+                        <input type="time" id="time" value="14:30">
+                    </div>
+                </div>
+                
+                <button id="generateBtn">
+                    <i class="fas fa-bolt"></i> Generate Message
+                </button>
+            </div>
+            
+            <div class="preview-container">
+                <div class="iphone-mockup">
+                    <div class="screen">
+                        <div class="status-bar">
+                            <span id="previewTime">14:30</span>
+                            <span>INDOSAT</span>
+                            <span id="previewBattery">85%</span>
+                        </div>
+                        <div class="message-container">
+                            <div class="message-bubble">
+                                <span id="previewMessage">Hello! This is a sample message from iPhone Message Generator</span>
+                                <div class="message-time" id="previewMessageTime">14:30</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Loading image...</p>
+                </div>
+                
+                <div class="result-container" id="resultContainer">
+                    <img id="resultImage" class="result-image" alt="iPhone message result">
+                    <div class="download-overlay">
+                        <div class="download-text">
+                            <i class="fas fa-download fa-2x"></i>
+                            <span>Click to Download</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="creator">
+            Crafted with <i class="fas fa-heart" style="color: var(--accent);"></i> by <a href="https://t.me/@Nonim404" target="_blank" title="Contact me on Telegram">ZrilXPloit</a>
+        </div>
+    </div>
 
-  <!-- Musik Autoplay -->
-  <audio src="https://d.top4top.io/m_3598oy6r01.mp3" autoplay loop></audio>
-
-  <!-- Hujan -->
-  <div class="rain" id="rain"></div>
-
-  <!-- GIF -->
-  <img src="https://media.tenor.com/km4Uar9tjtwAAAAi/rain-alone.gif" alt="Rain Pepe" class="gif">
-
-  <!-- Quote + timoty:v – SATU KALIMAT, SAMBUNG -->
-  <div class="quote">
-    jangan pacaran dulu karena wanita itu scam kata timoty:v
-  </div>
-
-  <!-- Info -->
-  <div class="info">RoniiXF • SoloTeam</div>
-  <div class="info">
-    <a href="https://t.me/" target="_blank">
-      <i class="fab fa-telegram"></i> t.me/
-    </a>
-  </div>
-
-  <!-- Greetz – PALING BAWAH -->
-  <div class="greetz">greetz: jokowi</div>
-
-  <script>
-    // Hujan halus
-    const rain = document.getElementById('rain');
-    for (let i = 0; i < 60; i++) {
-      const drop = document.createElement('div');
-      drop.className = 'drop';
-      drop.style.left = Math.random() * 100 + 'vw';
-      drop.style.animationDuration = (Math.random() * 3 + 2) + 's';
-      drop.style.animationDelay = Math.random() * 3 + 's';
-      drop.style.opacity = Math.random() * 0.5 + 0.2;
-      rain.appendChild(drop);
-    }
-
-    // Bypass autoplay
-    document.body.addEventListener('click', () => {
-      document.querySelector('audio').play();
-    }, { once: true });
-  </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const messageText = document.getElementById('messageText');
+            const battery = document.getElementById('battery');
+            const time = document.getElementById('time');
+            const generateBtn = document.getElementById('generateBtn');
+            const resultImage = document.getElementById('resultImage');
+            const resultContainer = document.getElementById('resultContainer');
+            const loading = document.querySelector('.loading');
+            const previewTime = document.getElementById('previewTime');
+            const previewBattery = document.getElementById('previewBattery');
+            const previewMessage = document.getElementById('previewMessage');
+            const previewMessageTime = document.getElementById('previewMessageTime');
+            
+            messageText.addEventListener('input', updatePreview);
+            battery.addEventListener('input', updatePreview);
+            time.addEventListener('input', updatePreview);
+            
+            function updatePreview() {
+                previewTime.textContent = time.value;
+                previewBattery.textContent = `${battery.value}%`;
+                previewMessage.textContent = messageText.value;
+                previewMessageTime.textContent = time.value;
+            }
+            
+            // Inisialisasi preview
+            updatePreview();
+            
+            function preloadImage(url) {
+                return new Promise((resolve, reject) => {
+                    const img = new Image();
+                    img.onload = () => resolve(img);
+                    img.onerror = reject;
+                    img.src = url;
+                });
+            }
+            
+            generateBtn.addEventListener('click', async function() {
+                if (!messageText.value.trim()) {
+                    showNotification('Please enter a message first!', 'error');
+                    return;
+                }
+                
+                if (battery.value < 0 || battery.value > 100 || !battery.value) {
+                    showNotification('Battery percentage must be between 0 and 100!', 'error');
+                    return;
+                }
+                
+                loading.style.display = 'flex';
+                resultContainer.style.display = 'none';
+                
+                const timeValue = time.value;
+                const [hours, minutes] = timeValue.split(':');
+                const formattedTime = `${hours}:${minutes}`;
+                
+                const apiUrl = `https://brat.siputzx.my.id/iphone-quoted?time=${encodeURIComponent(formattedTime)}&batteryPercentage=${battery.value}&carrierName=INDOSAT&messageText=${encodeURIComponent(messageText.value)}&emojiStyle=apple`;
+                
+                try {
+                    const cacheBuster = `&_=${new Date().getTime()}`;
+                    const finalUrl = apiUrl + cacheBuster;
+                    
+                    await preloadImage(finalUrl);
+                    
+                    resultImage.onload = function() {
+                        loading.style.display = 'none';
+                        resultContainer.style.display = 'block';
+                        showNotification('Image generated successfully! Click on image to download.', 'success');
+                    };
+                    
+                    resultImage.onerror = function() {
+                        loading.style.display = 'none';
+                        showNotification('Error generating image. Please try again.', 'error');
+                    };
+                    
+                    resultImage.src = finalUrl;
+                } catch (error) {
+                    loading.style.display = 'none';
+                    showNotification('Error generating image. Please try again.', 'error');
+                    console.error('Error:', error);
+                }
+            });
+            
+            resultContainer.addEventListener('click', function() {
+                if (!resultImage.src) return;
+                
+                const downloadLink = document.createElement('a');
+                downloadLink.href = resultImage.src;
+                downloadLink.download = 'iphone-message.png';
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                
+                showNotification('Image downloaded successfully!', 'success');
+                
+                resultContainer.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    resultContainer.style.transform = 'scale(1)';
+                }, 300);
+            });
+            
+            function showNotification(message, type) {
+                const existingNotification = document.querySelector('.notification');
+                if (existingNotification) {
+                    existingNotification.remove();
+                }
+                
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.textContent = message;
+                notification.style.cssText = `
+                    position: fixed;
+                    bottom: 30px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    padding: 15px 25px;
+                    border-radius: 12px;
+                    color: white;
+                    font-weight: 600;
+                    z-index: 1000;
+                    opacity: 0;
+                    transition: opacity 0.3s;
+                    background: ${type === 'success' ? 'var(--primary)' : '#FF5555'};
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                    font-family: var(--code-font);
+                    color: ${type === 'success' ? 'var(--dark)' : 'white'};
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.opacity = '1';
+                }, 10);
+                
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 3000);
+            }
+        });
+    </script>
 </body>
 </html>
