@@ -117,7 +117,6 @@
     flex-shrink: 0;
   }
 
-  /* FLOATING ICONS BALIK LAGI */
   .floating-icons {
     position: fixed;
     right: 20px;
@@ -130,10 +129,7 @@
   .floating-icons img {
     width: 50px;
     height: 50px;
-    cursor: pointer;
-    transition: 0.3s;
   }
-  .floating-icons img:hover { transform: scale(1.1); }
 </style>
 </head>
 <body>
@@ -191,7 +187,15 @@
     `;
   });
 
-  const reviews = ["Situs Gacor Parah! ⭐⭐⭐⭐⭐", "Fast Respon Admin ⭐⭐⭐⭐⭐", "Murah tapi Mewah ⭐⭐⭐⭐⭐", "Langsung Profit! ⭐⭐⭐⭐⭐"];
+  // TEKS REVIEW BAWAAN ASLI ANDA
+  const reviews = [
+    "Pelayanan sangat cepat",
+    "Admin ramah bangett",
+    "Situs paling murah se indonesia",
+    "Gacor parah",
+    "Terpercaya No 1"
+  ];
+
   const slider = document.getElementById('reviewSlider');
   [...reviews, ...reviews].forEach(text => {
     slider.innerHTML += `
