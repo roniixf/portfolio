@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>COBRASTORE | Platform Game Online</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
     margin: 0;
@@ -12,18 +12,17 @@
     font-family: "Poppins", sans-serif;
     background: #000;
     color: #fff;
-    text-align: center;
     overflow-x: hidden;
   }
 
-  /* CANVAS UTAMA UNTUK HUJAN SCATTER */
+  /* CANVAS UNTUK HUJAN SCATTER HITAM */
   #scatterCanvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1; /* Di atas background, di bawah konten */
+    z-index: 1; /* Di depan background, di belakang konten */
     pointer-events: none;
   }
 
@@ -31,25 +30,25 @@
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background: url('https://festahoki99.shop/images.jpeg') no-repeat center center/cover;
-    opacity: 0.3;
+    opacity: 0.35;
     z-index: 0;
   }
 
-  /* KONTEN HARUS DI ATAS CANVAS */
   .content-wrapper {
     position: relative;
     z-index: 10;
+    text-align: center;
   }
 
   .welcome {
-    background: rgba(0,0,0,0.85);
+    background: rgba(0,0,0,0.8);
     width: 90%;
-    max-width: 850px;
-    margin: 30px auto;
+    max-width: 800px;
+    margin: 40px auto;
     border-radius: 20px;
     padding: 25px;
-    border: 2px solid #ffcc00;
-    box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
+    border: 1px solid #ffcc00;
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
   }
 
   .games {
@@ -62,34 +61,34 @@
   }
 
   .game-box {
-    background: rgba(17, 17, 17, 0.9);
-    border-radius: 20px;
+    background: #0f0f0f;
+    border-radius: 15px;
     padding: 12px;
-    border: 1px solid rgba(255, 204, 0, 0.2);
+    border: 1px solid rgba(255, 204, 0, 0.1);
+    transition: 0.3s;
   }
 
   .game-box img {
     width: 100%;
-    height: auto;
-    border-radius: 15px;
+    border-radius: 12px;
     aspect-ratio: 9/16;
     object-fit: cover;
   }
 
   .order-btn {
-    background: linear-gradient(to bottom, #ffcc00, #ff9900);
+    background: #ffcc00;
     color: #000;
     border: none;
-    padding: 12px 0;
+    padding: 10px;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
     margin-top: 10px;
   }
 
-  .floating-icons { position: fixed; right: 15px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 999; }
-  .floating-icons img { width: 50px; }
+  .floating-icons { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 15px; z-index: 100; }
+  .floating-icons img { width: 50px; height: 50px; }
 </style>
 </head>
 <body>
@@ -98,17 +97,17 @@
 <canvas id="scatterCanvas"></canvas>
 
 <div class="content-wrapper">
-    <div class="welcome">
-      <h2 style="color:#ffcc00; margin:0; text-shadow: 0 0 10px #ffcc00;">COBRASTORE</h2>
-      <p>🔥 <b>SITUS TERINTEGRASI API - GACOR PARAH</b> 🔥</p>
-      <p>Hujan Scatter Hitam Menantimu!</p>
-    </div>
+  <div class="welcome">
+    <h1 style="color:#ffcc00; margin:0;">COBRASTORE</h1>
+    <p>🔥 <b>SITUS TERINTEGRASI API - GACOR TERUS</b> 🔥</p>
+    <p>Nikmati sensasi hujan scatter hitam premium.</p>
+  </div>
 
-    <div class="games" id="gamesContainer"></div>
+  <div class="games" id="gamesContainer"></div>
 
-    <div style="margin: 50px 0; padding: 20px; background: rgba(0,0,0,0.7);">
-        <h3>Copyright 2025 - COBRASTORE</h3>
-    </div>
+  <div style="margin: 60px 0 20px;">
+    <p>Copyright 2025 - COBRASTORE</p>
+  </div>
 </div>
 
 <div class="floating-icons">
@@ -125,68 +124,69 @@ const games = [
   {title:"Nexus", price:"Rp 2.000.000", img:"https://festahoki99.shop/nexus.png"}
 ];
 
-const gDiv = document.getElementById('gamesContainer');
+const gContainer = document.getElementById('gamesContainer');
 games.forEach(g => {
-  gDiv.innerHTML += `
+  gContainer.innerHTML += `
     <div class="game-box">
       <img src="${g.img}">
-      <h4>${g.title}</h4>
-      <p style="color:#ffcc00">${g.price}</p>
+      <h4 style="margin:10px 0 5px">${g.title}</h4>
+      <p style="color:#ffcc00; margin:0 0 10px">${g.price}</p>
       <button class="order-btn">ORDER SEGERA</button>
     </div>
   `;
 });
 
-/* SCRIPT HUJAN SCATTER HITAM (POWERFULL) */
+/* SISTEM HUJAN SCATTER HITAM PREMIUM */
 const canvas = document.getElementById('scatterCanvas');
 const ctx = canvas.getContext('2d');
 
-let width, height;
-function setCanvasSize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
+let w, h;
+function resize() {
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
 }
-setCanvasSize();
-window.addEventListener('resize', setCanvasSize);
+resize();
+window.onresize = resize;
 
-const scatters = [];
-const scatterCount = 30; // Jumlah scatter yang jatuh
+const particles = [];
+const particleCount = 40;
 
-// Menggunakan Text "SCATTER" atau "🔥" supaya pasti muncul tanpa gambar luar
-for (let i = 0; i < scatterCount; i++) {
-    scatters.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        size: Math.random() * 20 + 10,
-        speed: Math.random() * 2 + 1,
-        opacity: Math.random() * 0.5 + 0.3
-    });
+for (let i = 0; i < particleCount; i++) {
+  particles.push({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    size: Math.random() * 15 + 10,
+    speed: Math.random() * 2 + 0.5,
+    opacity: Math.random() * 0.4 + 0.1
+  });
 }
 
 function draw() {
-    ctx.clearRect(0, 0, width, height);
-    
-    scatters.forEach(s => {
-        ctx.fillStyle = `rgba(255, 204, 0, ${s.opacity})`; // Warna kuning khas scatter
-        ctx.font = `bold ${s.size}px Arial`;
-        ctx.fillText("SCATTER", s.x, s.y);
-        
-        // Tambahkan bulatan hitam di belakang teks biar sangar
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = "black";
+  ctx.clearRect(0, 0, w, h);
+  particles.forEach(p => {
+    // Membuat bentuk Scatter Hitam (Bulat Gelap dengan Aura Emas)
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(10, 10, 10, ${p.opacity})`; // Hitam pekat transparan
+    ctx.fill();
+    ctx.strokeStyle = `rgba(255, 204, 0, ${p.opacity})`; // Pinggiran emas tipis
+    ctx.lineWidth = 1;
+    ctx.stroke();
 
-        s.y += s.speed;
-        if (s.y > height) {
-            s.y = -20;
-            s.x = Math.random() * width;
-        }
-    });
-    
-    requestAnimationFrame(draw);
+    // Teks di tengah scatter (Opsional, biar makin jelas itu scatter)
+    ctx.fillStyle = `rgba(255, 204, 0, ${p.opacity})`;
+    ctx.font = `bold ${p.size * 0.6}px Arial`;
+    ctx.textAlign = "center";
+    ctx.fillText("S", p.x, p.y + (p.size * 0.2));
+
+    p.y += p.speed;
+    if (p.y > h) {
+      p.y = -20;
+      p.x = Math.random() * w;
+    }
+  });
+  requestAnimationFrame(draw);
 }
-
 draw();
 </script>
 
