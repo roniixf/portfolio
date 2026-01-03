@@ -1,0 +1,148 @@
+<!--
+--  Uploaded on : https://haxor.my.id/open/asek.html
+--  Official Web : https://prinsh.com
+--  script-deface-generator.prinsh.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:image" content="https://media.tenor.com/km4Uar9tjtwAAAAi/rain-alone.gif">
+  <meta name="description" content="jangan pacaran dulu karena wanita itu scam kata timoty:v">
+  <title>JOKOWI</title>
+
+  <!-- Font Hacker Clean -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0f1a;
+      background-image: 
+        radial-gradient(circle at top, #1a2a44 0%, #0a0f1a 70%),
+        linear-gradient(to bottom, rgba(10,15,26,0.8), #0a0f1a);
+      color: #ccc;
+      font-family: 'IBM Plex Mono', monospace;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
+      padding: 20px;
+    }
+
+    /* Hujan Halus */
+    .rain { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+    .drop { 
+      position: absolute; width: 1.5px; height: 40px; 
+      background: rgba(150, 200, 255, 0.4); 
+      animation: fall linear infinite;
+    }
+    @keyframes fall { to { transform: translateY(120vh); } }
+
+    /* GIF */
+    .gif { 
+      width: 240px; height: 240px; margin-bottom: 30px; 
+      border: 1px solid #334; border-radius: 16px; 
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6); z-index: 2;
+    }
+
+    /* Quote Utama – SATU PARAGRAF, SAMBUNG */
+    .quote {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      max-width: 720px;
+      color: #aabbcc;
+      margin: 0 auto 35px;
+      padding: 0 20px;
+      z-index: 2;
+    }
+
+    /* Hacked By – JELAS, BESAR, BOLD */
+    .hacked-by {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #ff6666;
+      margin: 15px 0;
+      letter-spacing: 1px;
+      z-index: 2;
+    }
+
+    /* Info Kecil */
+    .info {
+      font-size: 0.9rem;
+      color: #889;
+      margin: 8px 0;
+      z-index: 2;
+    }
+    .info a {
+      color: #99ccff;
+      text-decoration: none;
+    }
+    .info a:hover { text-decoration: underline; }
+
+    /* Greetz – PALING BAWAH */
+    .greetz {
+      margin-top: 50px;
+      color: #ff5555;
+      font-weight: bold;
+      font-size: 1rem;
+      z-index: 2;
+    }
+
+    /* Audio */
+    audio { position: absolute; opacity: 0; pointer-events: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Musik Autoplay -->
+  <audio src="https://d.top4top.io/m_3598oy6r01.mp3" autoplay loop></audio>
+
+  <!-- Hujan -->
+  <div class="rain" id="rain"></div>
+
+  <!-- GIF -->
+  <img src="https://media.tenor.com/km4Uar9tjtwAAAAi/rain-alone.gif" alt="Rain Pepe" class="gif">
+
+  <!-- Quote + timoty:v – SATU KALIMAT, SAMBUNG -->
+  <div class="quote">
+    jangan pacaran dulu karena wanita itu scam kata timoty:v
+  </div>
+
+  <!-- Info -->
+  <div class="info">RoniiXF • SoloTeam</div>
+  <div class="info">
+    <a href="https://t.me/" target="_blank">
+      <i class="fab fa-telegram"></i> t.me/
+    </a>
+  </div>
+
+  <!-- Greetz – PALING BAWAH -->
+  <div class="greetz">greetz: jokowi</div>
+
+  <script>
+    // Hujan halus
+    const rain = document.getElementById('rain');
+    for (let i = 0; i < 60; i++) {
+      const drop = document.createElement('div');
+      drop.className = 'drop';
+      drop.style.left = Math.random() * 100 + 'vw';
+      drop.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      drop.style.animationDelay = Math.random() * 3 + 's';
+      drop.style.opacity = Math.random() * 0.5 + 0.2;
+      rain.appendChild(drop);
+    }
+
+    // Bypass autoplay
+    document.body.addEventListener('click', () => {
+      document.querySelector('audio').play();
+    }, { once: true });
+  </script>
+</body>
+</html>
