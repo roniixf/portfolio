@@ -2,786 +2,367 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iPhone Message Generator | By RoniiXF</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Space Grotesk', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-        
-        :root {
-            --primary: #64FFDA;
-            --primary-dark: #47d6b6;
-            --secondary: #6272a4;
-            --accent: #FF79C6;
-            --dark: #282a36;
-            --darker: #1E2029;
-            --light: #F8F8F2;
-            --gray: #6272A4;
-            --gradient-start: #282a36;
-            --gradient-end: #44475a;
-            --card-bg: rgba(40, 42, 54, 0.95);
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            --code-font: 'JetBrains Mono', monospace;
-        }
-        
-        body {
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            color: var(--light);
-            overflow-x: hidden;
-        }
-        
-        .background-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .shape {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.05;
-        }
-        
-        .shape-1 {
-            width: 300px;
-            height: 300px;
-            background: var(--primary);
-            top: -100px;
-            left: -100px;
-        }
-        
-        .shape-2 {
-            width: 200px;
-            height: 200px;
-            background: var(--accent);
-            bottom: -50px;
-            right: -50px;
-        }
-        
-        .shape-3 {
-            width: 150px;
-            height: 150px;
-            background: var(--secondary);
-            top: 50%;
-            left: 70%;
-        }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 40px;
-            z-index: 1;
-        }
-        
-        .header {
-            text-align: center;
-            animation: fadeInDown 1s ease;
-        }
-        
-        h1 {
-            color: var(--primary);
-            font-size: 3.2rem;
-            margin-bottom: 15px;
-            text-shadow: 0 0 15px rgba(100, 255, 218, 0.4);
-            letter-spacing: -0.5px;
-            font-weight: 700;
-        }
-        
-        .subtitle {
-            color: var(--light);
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-            font-weight: 400;
-            opacity: 0.8;
-        }
-        
-        .main-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            width: 100%;
-            justify-content: center;
-        }
-        
-        .form-container {
-            flex: 1;
-            min-width: 350px;
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 35px;
-            box-shadow: var(--shadow);
-            backdrop-filter: blur(10px);
-            animation: slideInLeft 0.8s ease;
-            transition: var(--transition);
-            border: 1px solid var(--gray);
-        }
-        
-        .form-container:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-        }
-        
-        .preview-container {
-            flex: 1;
-            min-width: 350px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            animation: slideInRight 0.8s ease;
-        }
-        
-        .form-group {
-            margin-bottom: 25px;
-            position: relative;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-        
-        input, textarea {
-            width: 100%;
-            padding: 16px 20px;
-            border: 2px solid var(--secondary);
-            border-radius: 12px;
-            font-size: 16px;
-            transition: var(--transition);
-            background: rgba(40, 42, 54, 0.7);
-            color: var(--light);
-            font-family: var(--code-font);
-        }
-        
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        textarea {
-            min-height: 140px;
-            resize: vertical;
-        }
-        
-        .input-with-icon {
-            position: relative;
-        }
-        
-        .input-with-icon i {
-            position: absolute;
-            left: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray);
-        }
-        
-        .input-with-icon input {
-            padding-left: 50px;
-        }
-        
-        button {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--dark);
-            border: none;
-            padding: 18px 30px;
-            border-radius: 12px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition);
-            width: 100%;
-            box-shadow: 0 6px 12px rgba(100, 255, 218, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-family: var(--code-font);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        button:hover {
-            background: linear-gradient(135deg, var(--primary-dark), #3acbab);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(100, 255, 218, 0.4);
-        }
-        
-        button:active {
-            transform: translateY(0);
-        }
-        
-        .iphone-mockup {
-            width: 340px;
-            background: #000;
-            border-radius: 50px;
-            padding: 20px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-            position: relative;
-            transition: var(--transition);
-            animation: float 6s ease-in-out infinite;
-            border: 2px solid var(--primary);
-        }
-        
-        .iphone-mockup:hover {
-            transform: translateY(-10px);
-        }
-        
-        .screen {
-            background: linear-gradient(165deg, #8bb4f9, #f9c6d2);
-            border-radius: 40px;
-            overflow: hidden;
-            height: 660px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-        
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px 25px;
-            background: rgba(0, 0, 0, 0.9);
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-            font-family: var(--code-font);
-        }
-        
-        .message-container {
-            flex: 1;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 25px;
-        }
-        
-        .message-bubble {
-            background: var(--primary);
-            color: var(--dark);
-            padding: 18px 24px;
-            border-radius: 24px;
-            border-bottom-right-radius: 4px;
-            max-width: 80%;
-            align-self: flex-end;
-            box-shadow: 0 4px 12px rgba(100, 255, 218, 0.3);
-            transition: var(--transition);
-            animation: messagePulse 2s infinite;
-            font-weight: 500;
-        }
-        
-        .message-time {
-            font-size: 13px;
-            color: rgba(40, 42, 54, 0.7);
-            margin-top: 8px;
-            text-align: right;
-            font-family: var(--code-font);
-        }
-        
-        .result-container {
-            position: relative;
-            display: none;
-            margin-top: 20px;
-            transition: var(--transition);
-        }
-        
-        .result-image {
-            max-width: 100%;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            border: 2px solid var(--primary);
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        
-        .result-image:hover {
-            transform: scale(1.02);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-        }
-        
-        .download-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(40, 42, 54, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 20px;
-            opacity: 0;
-            transition: var(--transition);
-            pointer-events: none;
-        }
-        
-        .result-container:hover .download-overlay {
-            opacity: 1;
-        }
-        
-        .download-text {
-            color: var(--primary);
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .loading {
-            display: none;
-            text-align: center;
-            color: var(--light);
-            margin-top: 30px;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .spinner {
-            border: 4px solid rgba(100, 255, 218, 0.3);
-            border-radius: 50%;
-            border-top: 4px solid var(--primary);
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-        
-        .creator {
-            color: var(--light);
-            margin-top: 40px;
-            text-align: center;
-            font-size: 1.1rem;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease;
-            font-family: var(--code-font);
-        }
-        
-        .creator a {
-            font-weight: 700;
-            color: var(--primary);
-            text-shadow: 0 0 10px rgba(100, 255, 218, 0.5);
-            text-decoration: none;
-            transition: var(--transition);
-            position: relative;
-            padding: 0 5px;
-        }
-        
-        .creator a:hover {
-            color: var(--accent);
-            text-shadow: 0 0 15px rgba(255, 121, 198, 0.5);
-        }
-        
-        .creator a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--primary);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-            transform-origin: bottom right;
-        }
-        
-        .creator a:hover::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
-        }
-        
-        .terminal-header {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 15px 20px;
-            border-top-left-radius: 16px;
-            border-top-right-radius: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: var(--code-font);
-            border-bottom: 1px solid var(--gray);
-        }
-        
-        .terminal-button {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-        
-        .terminal-button.close {
-            background: #FF5F56;
-        }
-        
-        .terminal-button.minimize {
-            background: #FFBD2E;
-        }
-        
-        .terminal-button.maximize {
-            background: #27C93F;
-        }
-        
-        /* Animations */
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-15px);
-            }
-        }
-        
-        @keyframes messagePulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.03);
-            }
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 968px) {
-            .main-content {
-                flex-direction: column;
-            }
-            
-            .form-container, .preview-container {
-                width: 100%;
-            }
-            
-            h1 {
-                font-size: 2.5rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .iphone-mockup {
-                width: 300px;
-            }
-            
-            .screen {
-                height: 580px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .form-container {
-                padding: 25px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COBRASTORE | Platform Game Online</title>
+<style>
+  body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: url('https://festahoki99.shop/images.jpeg') no-repeat center center/cover;
+    color: #fff;
+    text-align: center;
+    overflow-x: hidden;
+  }
+
+  /* WELCOME */
+  .welcome {
+    background: rgba(0,0,0,0.65);
+    width: 87%;
+    max-width: 850px;
+    margin: 0 auto 25px;
+    border-radius: 25px;
+    padding: 15px;
+    line-height: 1.0em;
+  }
+
+  /* GAME GRID */
+  .games {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-width: 1100px;
+    margin: auto;
+  }
+  .game-box {
+    background: rgba(255,255,255,0.1);
+    border-radius: 15px;
+    padding: 15px;
+    transition: all 0.3s;
+  }
+  .game-box:hover {
+    transform: scale(1.05);
+    background: rgba(255,255,255,0.15);
+  }
+  .game-box img {
+    width: 100%;
+    border-radius: 12px;
+  }
+  .game-box h4 { margin: 10px 0 5px; }
+  .game-box p { margin: 5px 0; color: #ffcc00; }
+  .order-btn {
+    background: #ffcc00;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .order-btn:hover { background: #ffe066; }
+
+  /* POPUP */
+  .popup {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+  }
+  .popup-content {
+    background: #fff;
+    color: #000;
+    padding: 25px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    text-align: left;
+    position: relative;
+  }
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 22px;
+    color: #000;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .close-btn:hover { color: red; }
+  .popup-content select,
+  .popup-content input {
+    width: 100%;
+    margin: 8px 0;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+
+  /* SPINNER */
+  .spinner-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 500;
+  }
+  .spinner {
+    border: 10px solid #f3f3f3;
+    border-top: 10px solid #ffcc00;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* ALERT */
+  .alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: rgba(0,0,0,0.9);
+    color: white;
+    padding: 25px 35px;
+    border-radius: 15px;
+    display: none;
+    z-index: 600;
+    line-height: 1.5em;
+    cursor: pointer;
+  }
+
+  /* REVIEWS */
+  .reviews {
+    background: rgba(0,0,0,0.7);
+    padding: 25px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+  .review-slider {
+    display: flex;
+    animation: slideLeft 40s linear infinite;
+  }
+  @keyframes slideLeft {
+    from { transform: translateX(100%); }
+    to { transform: translateX(-100%); }
+  }
+  .review-box {
+    background: rgba(255,255,255,0.1);
+    padding: 15px;
+    margin: 0 10px;
+    border-radius: 10px;
+    width: 220px;
+    flex-shrink: 0;
+  }
+
+  /* INFO */
+  .info-section {
+    background: rgba(0,0,0,0.75);
+    padding: 30px;
+    margin-top: 25px;
+    line-height: 1.7em;
+  }
+
+  /* FLOATING ICONS */
+  .floating-icons {
+    position: fixed;
+    right: 20px;
+    bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 300;
+  }
+  .floating-icons img {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+  }
+</style>
 </head>
 <body>
-    <div class="background-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-    </div>
-    
-    <div class="container">
-        <div class="header">
-            <h1>iPhone Message Generator</h1>
-            <p class="subtitle">Buat kata kata keren dari tools ini jembut jangan lupa support developer RoniiXF</p>
-        </div>
-        
-        <div class="main-content">
-            <div class="form-container">
-                <div class="terminal-header">
-                    <div class="terminal-button close"></div>
-                    <div class="terminal-button minimize"></div>
-                    <div class="terminal-button maximize"></div>
-                    <span style="margin-left: 10px;">roniixf.py</span>
-                </div>
-                
-                <div class="form-group">
-                    <label for="messageText"><i class="fas fa-comment"></i> Your Message</label>
-                    <textarea id="messageText" placeholder="Type your message here...">Masukkan Teks! - RoniiXF!</textarea>
-                </div>
-                
-                <div class="form-group">
-                    <label for="battery"><i class="fas fa-battery-three-quarters"></i> Battery Percentage</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-battery-three-quarters"></i>
-                        <input type="number" id="battery" min="0" max="100" value="85" placeholder="Enter battery percentage">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="time"><i class="fas fa-clock"></i> Time</label>
-                    <div class="input-with-icon">
-                        <i class="fas fa-clock"></i>
-                        <input type="time" id="time" value="14:30">
-                    </div>
-                </div>
-                
-                <button id="generateBtn">
-                    <i class="fas fa-bolt"></i> Generate Message
-                </button>
-            </div>
-            
-            <div class="preview-container">
-                <div class="iphone-mockup">
-                    <div class="screen">
-                        <div class="status-bar">
-                            <span id="previewTime">14:30</span>
-                            <span>INDOSAT</span>
-                            <span id="previewBattery">85%</span>
-                        </div>
-                        <div class="message-container">
-                            <div class="message-bubble">
-                                <span id="previewMessage">Hello! This is a sample message from iPhone Message Generator</span>
-                                <div class="message-time" id="previewMessageTime">14:30</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="loading">
-                    <div class="spinner"></div>
-                    <p>Loading image...</p>
-                </div>
-                
-                <div class="result-container" id="resultContainer">
-                    <img id="resultImage" class="result-image" alt="iPhone message result">
-                    <div class="download-overlay">
-                        <div class="download-text">
-                            <i class="fas fa-download fa-2x"></i>
-                            <span>Click to Download</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="creator">
-            Crafted with <i class="fas fa-heart" style="color: var(--accent);"></i> by <a href="https://t.me/@Nonim404" target="_blank" title="Contact me on Telegram">ZrilXPloit</a>
-        </div>
-    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const messageText = document.getElementById('messageText');
-            const battery = document.getElementById('battery');
-            const time = document.getElementById('time');
-            const generateBtn = document.getElementById('generateBtn');
-            const resultImage = document.getElementById('resultImage');
-            const resultContainer = document.getElementById('resultContainer');
-            const loading = document.querySelector('.loading');
-            const previewTime = document.getElementById('previewTime');
-            const previewBattery = document.getElementById('previewBattery');
-            const previewMessage = document.getElementById('previewMessage');
-            const previewMessageTime = document.getElementById('previewMessageTime');
-            
-            messageText.addEventListener('input', updatePreview);
-            battery.addEventListener('input', updatePreview);
-            time.addEventListener('input', updatePreview);
-            
-            function updatePreview() {
-                previewTime.textContent = time.value;
-                previewBattery.textContent = `${battery.value}%`;
-                previewMessage.textContent = messageText.value;
-                previewMessageTime.textContent = time.value;
-            }
-            
-            // Inisialisasi preview
-            updatePreview();
-            
-            function preloadImage(url) {
-                return new Promise((resolve, reject) => {
-                    const img = new Image();
-                    img.onload = () => resolve(img);
-                    img.onerror = reject;
-                    img.src = url;
-                });
-            }
-            
-            generateBtn.addEventListener('click', async function() {
-                if (!messageText.value.trim()) {
-                    showNotification('Please enter a message first!', 'error');
-                    return;
-                }
-                
-                if (battery.value < 0 || battery.value > 100 || !battery.value) {
-                    showNotification('Battery percentage must be between 0 and 100!', 'error');
-                    return;
-                }
-                
-                loading.style.display = 'flex';
-                resultContainer.style.display = 'none';
-                
-                const timeValue = time.value;
-                const [hours, minutes] = timeValue.split(':');
-                const formattedTime = `${hours}:${minutes}`;
-                
-                const apiUrl = `https://brat.siputzx.my.id/iphone-quoted?time=${encodeURIComponent(formattedTime)}&batteryPercentage=${battery.value}&carrierName=INDOSAT&messageText=${encodeURIComponent(messageText.value)}&emojiStyle=apple`;
-                
-                try {
-                    const cacheBuster = `&_=${new Date().getTime()}`;
-                    const finalUrl = apiUrl + cacheBuster;
-                    
-                    await preloadImage(finalUrl);
-                    
-                    resultImage.onload = function() {
-                        loading.style.display = 'none';
-                        resultContainer.style.display = 'block';
-                        showNotification('Image generated successfully! Click on image to download.', 'success');
-                    };
-                    
-                    resultImage.onerror = function() {
-                        loading.style.display = 'none';
-                        showNotification('Error generating image. Please try again.', 'error');
-                    };
-                    
-                    resultImage.src = finalUrl;
-                } catch (error) {
-                    loading.style.display = 'none';
-                    showNotification('Error generating image. Please try again.', 'error');
-                    console.error('Error:', error);
-                }
-            });
-            
-            resultContainer.addEventListener('click', function() {
-                if (!resultImage.src) return;
-                
-                const downloadLink = document.createElement('a');
-                downloadLink.href = resultImage.src;
-                downloadLink.download = 'iphone-message.png';
-                document.body.appendChild(downloadLink);
-                downloadLink.click();
-                document.body.removeChild(downloadLink);
-                
-                showNotification('Image downloaded successfully!', 'success');
-                
-                resultContainer.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    resultContainer.style.transform = 'scale(1)';
-                }, 300);
-            });
-            
-            function showNotification(message, type) {
-                const existingNotification = document.querySelector('.notification');
-                if (existingNotification) {
-                    existingNotification.remove();
-                }
-                
-                const notification = document.createElement('div');
-                notification.className = `notification ${type}`;
-                notification.textContent = message;
-                notification.style.cssText = `
-                    position: fixed;
-                    bottom: 30px;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    padding: 15px 25px;
-                    border-radius: 12px;
-                    color: white;
-                    font-weight: 600;
-                    z-index: 1000;
-                    opacity: 0;
-                    transition: opacity 0.3s;
-                    background: ${type === 'success' ? 'var(--primary)' : '#FF5555'};
-                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-                    font-family: var(--code-font);
-                    color: ${type === 'success' ? 'var(--dark)' : 'white'};
-                `;
-                
-                document.body.appendChild(notification);
-                
-                setTimeout(() => {
-                    notification.style.opacity = '1';
-                }, 10);
-                
-                setTimeout(() => {
-                    notification.style.opacity = '0';
-                    setTimeout(() => {
-                        notification.remove();
-                    }, 300);
-                }, 3000);
-            }
-        });
-    </script>
+<!-- WELCOME -->
+<div class="welcome">
+  <h2>Selamat Datang Di Situs <p style="position: relative; top: 10px; color: yellow;">COBRASTORE</h2></p>
+  <p style="position: relative; top: 15px;">Kami sangat bangga menyambut Anda disini,strategi mencari cuan banyak sudah di depan mata. Di sini, Anda bukan menjadi pemain, tapi pahlawan sejati yang siap mengukir sejarah dalam kehidupan.</p>
+  <p style="position: relative; top: 10px;">Berikut ini tampilan situs<br>yang kami tawarkan ke anda,silahkan skrol kebawah untuk melihat.</p>
+  <p style="position: relative; top: 10px; color: orange;">Semua situs sudah TERINTEGRASI API</p>
+  <p>memudahkan anda untuk secepatnya mengelola situs gamenya</p>proses pengerjaan kami berbagai variasi. pengerjaan situs harga murah prosesnya hanya 1-10jam,tidak lebih tidak kurang. dan untuk pengerjaan situs all provider game prosesnya 5 hari selesai.<br><p style="color: red;">situs yang bisa di sewakan, hanya situs yang harga 2juta kebawah</p><p style="color: yellow">harga jual 8,5juta, kami memberikan fasilitas full provider game on.<br>sudah terintegrasi PGA,serta kami bantu tembuskan link situs ke  GOOGLE</p>
+  <p>Jangan lupa hubungi kontak whatsapp & telegaram kami, jika anda sudah mengorder</p>
+</div>
+
+<!-- GAME LIST -->
+<div class="games" id="games"></div>
+
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <span class="close-btn" onclick="closePopup()">✖</span>
+    <h3>Metode Pembayaran</h3>
+    <label>Nama Barang</label>
+    <input type="text" id="itemName" readonly>
+    <label>Pilih Rekening Pembayaran</label>
+    <select id="paymentMethod" onchange="showPaymentDetail()">
+      <option value="">-- Pilih --</option>
+      <option value="dana">DANA</option>
+      <option value="qris">QRIS</option>
+    </select>
+    <div id="paymentDetail" style="margin-top:10px;"></div>
+    <button class="order-btn" onclick="sendOrder()">Kirim Pesanan</button>
+  </div>
+</div>
+
+<!-- SPINNER OVERLAY -->
+<div class="spinner-overlay" id="spinnerOverlay">
+  <div class="spinner"></div>
+</div>
+
+<!-- ALERT -->
+<div class="alert" id="alertBox">✅ Selamat, pesanan anda berhasil terkirim.<br>Silakan konfirmasi ke admin.</div>
+
+<!-- REVIEWS -->
+<div class="reviews">
+  <div class="review-slider" id="reviews"></div>
+</div>
+
+<!-- INFO -->
+<div class="info-section">
+  <h3>Tentang COBRASTORE</h3>
+  <p>COBRASTORE adalah platform penjualan game online terbaik di Indonesia. Kami menyediakan berbagai game berkualitas bagus dan sempurna, dengan sistem pembelian cepat, aman, dan terpercaya.</p>
+</div>
+
+<!-- COPYRIGHT -->
+  <p style="position: relative; top: -40px;">copyright 2025</p>
+</div>
+
+<!-- FLOATING ICONS -->
+<div class="floating-icons">
+  <a href="https://wa.me/628385080976"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
+  <a href="https://t.me/axionwl1"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram"></a>
+</div>
+
+<script>
+/* ===== DATA GAMES ===== */
+const games = [
+  {title:"Pay4D",price:"Rp 200.000",img:"https://festahoki99.shop/pay4d.png?text=Pay4D"},
+  {title:"UG/Onix",price:"Rp 300.000",img:"https://festahoki99.shop/UG.png?text=UG/Onix"},
+  {title:"Nuke",price:"Rp 500.000",https://festahoki99.shop/nuke.png?text=Nuke"},
+  {title:"Nexus",price:"Rp 580.000",img:"https://festahoki99.shop/nexus.png?text=Nexus"}
+];
+
+/* ===== RENDER GAMES (SAFE EVENT HANDLERS) ===== */
+const gamesContainer = document.getElementById('games');
+gamesContainer.innerHTML = ''; // bersihkan dulu kalau perlu
+
+games.forEach(g => {
+  const box = document.createElement('div');
+  box.className = 'game-box';
+
+  // gambar
+  const img = document.createElement('img');
+  img.src = g.img;
+  img.alt = g.title;
+
+  // judul
+  const h4 = document.createElement('h4');
+  h4.textContent = g.title;
+
+  // harga
+  const p = document.createElement('p');
+  p.textContent = g.price;
+  p.style.color = '#ffcc00';
+
+  // tombol order (tanpa inline onclick)
+  const btn = document.createElement('button');
+  btn.className = 'order-btn';
+  btn.type = 'button';
+  btn.textContent = 'Order Segera';
+  btn.addEventListener('click', function (e) {
+    openPopup(g.title);
+  });
+
+  // susun elemen
+  box.appendChild(img);
+  box.appendChild(h4);
+  box.appendChild(p);
+  box.appendChild(btn);
+
+  gamesContainer.appendChild(box);
+});
+
+/* ===== POPUP & PAYMENT HANDLERS ===== */
+function openPopup(name) {
+  document.getElementById('popup').style.display = 'flex';
+  const itemInput = document.getElementById('itemName');
+  if (itemInput) itemInput.value = name;
+}
+
+function closePopup() {
+  document.getElementById('popup').style.display = 'none';
+}
+
+function showPaymentDetail() {
+  const val = document.getElementById('paymentMethod').value;
+  const detail = document.getElementById('paymentDetail');
+  if (val === 'qris') {
+    detail.innerHTML = '<img src="/qrisku.png?text=QRIS+ADMIN" style="width:100%;border-radius:8px;">';
+  } else if (val) {
+    detail.innerHTML = `<p>Nama Pemilik: SIxxxxx</p><p>No. Rekening: 085799478550(${val.toUpperCase()})</p>`;
+  } else {
+    detail.innerHTML = '';
+  }
+}
+
+function sendOrder() {
+  document.getElementById('popup').style.display = 'none';
+  const overlay = document.getElementById('spinnerOverlay');
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden'; // kunci scroll
+
+  setTimeout(() => {
+    overlay.style.display = 'none';
+    document.body.style.overflow = ''; // buka scroll lagi
+    const alertBox = document.getElementById('alertBox');
+    if (alertBox) alertBox.style.display = 'block';
+  }, 30000); // 30 detik
+}
+
+/* tutup notifikasi saat diklik */
+const alertBox = document.getElementById('alertBox');
+if (alertBox) {
+  alertBox.addEventListener('click', () => { alertBox.style.display = 'none'; });
+}
+
+/* ===== REVIEWS RENDER ===== */
+const reviews = [
+  "Pelayanan cepat dan terpercaya! ⭐⭐⭐⭐⭐",
+  "Transaksi aman, game langsung aktif! ⭐⭐⭐⭐⭐",
+  "Harga murah banget dibanding tempat lain! ⭐⭐⭐⭐⭐",
+  "Respon admin super cepat! ⭐⭐⭐⭐⭐",
+  "Sistemnya simpel dan mudah dipakai. ⭐⭐⭐⭐",
+  "Game lengkap dan update terus! ⭐⭐⭐⭐⭐",
+  "Top up instan, mantap! ⭐⭐⭐⭐⭐",
+  "Sudah order 5x, selalu puas! ⭐⭐⭐⭐⭐"
+];
+const reviewContainer = document.getElementById('reviews');
+reviewContainer.innerHTML = '';
+reviews.forEach(r => {
+  const box = document.createElement('div');
+  box.className = 'review-box';
+  box.innerHTML = `<div>⭐⭐⭐⭐⭐</div><p>${r}</p>`;
+  reviewContainer.appendChild(box);
+});
+</script>
+
 </body>
 </html>
