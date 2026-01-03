@@ -7,22 +7,19 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     font-family: "Poppins", sans-serif;
     background: #000;
     color: #fff;
     overflow-x: hidden;
   }
 
-  /* CANVAS UNTUK HUJAN SCATTER HITAM */
+  /* CANVAS HUJAN SCATTER */
   #scatterCanvas {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1; /* Di depan background, di belakang konten */
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1; /* Di bawah konten, di atas BG */
     pointer-events: none;
   }
 
@@ -30,7 +27,7 @@
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background: url('https://festahoki99.shop/images.jpeg') no-repeat center center/cover;
-    opacity: 0.35;
+    opacity: 0.3;
     z-index: 0;
   }
 
@@ -40,15 +37,15 @@
     text-align: center;
   }
 
+  /* STYLE KARTU GAME SEPERTI DI FOTO */
   .welcome {
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.85);
     width: 90%;
     max-width: 800px;
-    margin: 40px auto;
+    margin: 30px auto;
     border-radius: 20px;
-    padding: 25px;
+    padding: 20px;
     border: 1px solid #ffcc00;
-    box-shadow: 0 0 20px rgba(255, 204, 0, 0.3);
   }
 
   .games {
@@ -61,19 +58,23 @@
   }
 
   .game-box {
-    background: #0f0f0f;
+    background: #111;
     border-radius: 15px;
-    padding: 12px;
-    border: 1px solid rgba(255, 204, 0, 0.1);
-    transition: 0.3s;
+    padding: 10px;
+    border: 1px solid rgba(255, 204, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
   }
 
   .game-box img {
     width: 100%;
-    border-radius: 12px;
+    border-radius: 10px;
     aspect-ratio: 9/16;
     object-fit: cover;
+    display: block;
   }
+
+  .game-box h4 { margin: 10px 0 2px; font-size: 16px; }
+  .game-box p { margin: 0 0 10px; color: #ffcc00; font-weight: bold; }
 
   .order-btn {
     background: #ffcc00;
@@ -82,13 +83,12 @@
     padding: 10px;
     width: 100%;
     border-radius: 8px;
-    font-weight: bold;
+    font-weight: 800;
     cursor: pointer;
-    margin-top: 10px;
   }
 
-  .floating-icons { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 15px; z-index: 100; }
-  .floating-icons img { width: 50px; height: 50px; }
+  .floating-icons { position: fixed; right: 15px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 100; }
+  .floating-icons img { width: 45px; height: 45px; }
 </style>
 </head>
 <body>
@@ -98,16 +98,13 @@
 
 <div class="content-wrapper">
   <div class="welcome">
-    <h1 style="color:#ffcc00; margin:0;">COBRASTORE</h1>
-    <p>🔥 <b>SITUS TERINTEGRASI API - GACOR TERUS</b> 🔥</p>
-    <p>Nikmati sensasi hujan scatter hitam premium.</p>
+    <h2 style="color:#ffcc00; margin:0;">COBRASTORE</h2>
+    <p style="font-size: 12px; margin-top: 5px;">🔥 SITUS TERINTEGRASI API - BLACK SCATTER MODE 🔥</p>
   </div>
 
   <div class="games" id="gamesContainer"></div>
-
-  <div style="margin: 60px 0 20px;">
-    <p>Copyright 2025 - COBRASTORE</p>
-  </div>
+  
+  <p style="margin: 40px 0; font-size: 12px; opacity: 0.6;">Copyright 2025 - COBRASTORE</p>
 </div>
 
 <div class="floating-icons">
@@ -116,7 +113,7 @@
 </div>
 
 <script>
-/* DATA GAMES */
+/* DATA GAMES (FIXED RENDER) */
 const games = [
   {title:"Pay4D", price:"Rp 2.000.000", img:"https://festahoki99.shop/pay4d.png"},
   {title:"UG/Onix", price:"Rp 2.000.000", img:"https://festahoki99.shop/UG.png"},
@@ -124,65 +121,65 @@ const games = [
   {title:"Nexus", price:"Rp 2.000.000", img:"https://festahoki99.shop/nexus.png"}
 ];
 
-const gContainer = document.getElementById('gamesContainer');
+const container = document.getElementById('gamesContainer');
 games.forEach(g => {
-  gContainer.innerHTML += `
+  container.innerHTML += `
     <div class="game-box">
       <img src="${g.img}">
-      <h4 style="margin:10px 0 5px">${g.title}</h4>
-      <p style="color:#ffcc00; margin:0 0 10px">${g.price}</p>
-      <button class="order-btn">ORDER SEGERA</button>
+      <h4>${g.title}</h4>
+      <p>${g.price}</p>
+      <button class="order-btn">Order Segera</button>
     </div>
   `;
 });
 
-/* SISTEM HUJAN SCATTER HITAM PREMIUM */
+/* SCRIPT HUJAN SCATTER HITAM PERSIS FOTO */
 const canvas = document.getElementById('scatterCanvas');
 const ctx = canvas.getContext('2d');
 
 let w, h;
-function resize() {
+function init() {
   w = canvas.width = window.innerWidth;
   h = canvas.height = window.innerHeight;
 }
-resize();
-window.onresize = resize;
+init();
+window.onresize = init;
 
-const particles = [];
-const particleCount = 40;
-
-for (let i = 0; i < particleCount; i++) {
-  particles.push({
+const dots = [];
+for (let i = 0; i < 25; i++) {
+  dots.push({
     x: Math.random() * w,
     y: Math.random() * h,
-    size: Math.random() * 15 + 10,
-    speed: Math.random() * 2 + 0.5,
-    opacity: Math.random() * 0.4 + 0.1
+    r: Math.random() * 20 + 15, // Ukuran Scatter
+    s: Math.random() * 2 + 1,    // Kecepatan Jatuh
+    a: Math.random() * 0.5 + 0.2 // Transparansi
   });
 }
 
 function draw() {
   ctx.clearRect(0, 0, w, h);
-  particles.forEach(p => {
-    // Membuat bentuk Scatter Hitam (Bulat Gelap dengan Aura Emas)
+  dots.forEach(d => {
+    // 1. Gambar Lingkaran Hitam (Body Scatter)
     ctx.beginPath();
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(10, 10, 10, ${p.opacity})`; // Hitam pekat transparan
+    ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(0, 0, 0, ${d.a})`;
     ctx.fill();
-    ctx.strokeStyle = `rgba(255, 204, 0, ${p.opacity})`; // Pinggiran emas tipis
-    ctx.lineWidth = 1;
+    
+    // 2. Garis Pinggir (Glow Emas)
+    ctx.strokeStyle = `rgba(255, 204, 0, ${d.a})`;
+    ctx.lineWidth = 2;
     ctx.stroke();
 
-    // Teks di tengah scatter (Opsional, biar makin jelas itu scatter)
-    ctx.fillStyle = `rgba(255, 204, 0, ${p.opacity})`;
-    ctx.font = `bold ${p.size * 0.6}px Arial`;
+    // 3. Tulisan "SCATTER" Merah di Tengah
+    ctx.fillStyle = `rgba(255, 0, 0, ${d.a})`;
+    ctx.font = `bold ${d.r * 0.4}px Arial`;
     ctx.textAlign = "center";
-    ctx.fillText("S", p.x, p.y + (p.size * 0.2));
+    ctx.fillText("SCATTER", d.x, d.y + (d.r * 0.15));
 
-    p.y += p.speed;
-    if (p.y > h) {
-      p.y = -20;
-      p.x = Math.random() * w;
+    d.y += d.s;
+    if (d.y > h + 50) {
+      d.y = -50;
+      d.x = Math.random() * w;
     }
   });
   requestAnimationFrame(draw);
