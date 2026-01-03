@@ -60,6 +60,7 @@
     background: #ffcc00; border: none; padding: 12px;
     width: 100%; border-radius: 8px; font-weight: bold;
     cursor: pointer; margin-top: 10px; color: #000;
+    text-decoration: none; display: block;
   }
 
   .reviews {
@@ -74,18 +75,6 @@
     background: rgba(255,255,255,0.05);
     padding: 15px; margin: 0 10px; border-radius: 10px; width: 220px; flex-shrink: 0;
   }
-
-  /* --- SNACKBAR PAYMENT --- */
-  #snackbar { 
-    visibility: hidden; background: #2f1254; color: #fff; 
-    font-weight: bold; display: flex; flex-direction: column;
-    text-align: center; align-items: center; justify-content: center; 
-    min-width: 250px; position: fixed; left: 50%; bottom: 30px;
-    transform: translateX(-50%); z-index: 10001; border-radius: 15px; padding: 15px;
-  }   
-  #snackbar.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; } 
-  @keyframes fadein { from { bottom: 0; opacity: 0; } to { bottom: 30px; opacity: 1; } } 
-  @keyframes fadeout { from { bottom: 30px; opacity: 1; } to { bottom: 0; opacity: 0; } } 
 
   .floating-icons { position: fixed; right: 20px; bottom: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 10000; }
   .floating-icons img { width: 50px; height: 50px; }
@@ -120,22 +109,14 @@
   <p style="padding: 20px;">copyright 2025</p>
 </div>
 
-<div id="snackbar">
-  <div>METODE PEMBAYARAN:</div>
-  <div style="margin-top:5px; color:yellow;">DANA & QRIS ONLY</div>
-</div>
-
 <div class="floating-icons">
   <a href="https://wa.me/628385080976"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
   <a href="https://t.me/axionwl1"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram"></a>
 </div>
 
 <script>
-  function showPayment() {
-    var x = document.getElementById("snackbar");
-    x.className = "show";
-    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-  }
+  // LINK TELEGRAM ANDA
+  const teleLink = "https://t.me/axionwl1";
 
   const games = [
     {title:"Pay4D", price:"Rp 200.000", img:"https://festahoki99.shop/pay4d.png"},
@@ -151,7 +132,11 @@
         <img src="${g.img}">
         <h4>${g.title}</h4>
         <p style="color:yellow; margin:0;">${g.price}</p>
-        <button class="order-btn" onclick="showPayment()">Order Segera</button>
+        <div style="display:flex; justify-content:center; gap:5px; margin-top:5px; font-size:10px;">
+           <span style="background:#222; padding:2px 5px; border-radius:3px;">DANA</span>
+           <span style="background:#222; padding:2px 5px; border-radius:3px;">QRIS</span>
+        </div>
+        <a href="${teleLink}" class="order-btn">Order Segera</a>
       </div>
     `;
   });
