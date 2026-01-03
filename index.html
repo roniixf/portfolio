@@ -15,69 +15,73 @@
     overflow-x: hidden;
   }
 
-  /* --- ANIMASI HUJAN SCATTER HITAM --- */
+  /* --- ANIMASI HUJAN SCATTER --- */
   .snowflake {
     position: fixed; top: -10%; z-index: 9999;
     user-select: none; cursor: default;
     animation: snowflakes-fall 10s linear infinite, snowflakes-shake 3s ease-in-out infinite;
   }
-  .snowflake img { width: 50px; height: 50px; filter: drop-shadow(0 0 5px #ffcc00); }
+  .snowflake img { width: 45px; height: 45px; filter: drop-shadow(0 0 5px #ffcc00); }
   @keyframes snowflakes-fall { 0% { top: -10% } 100% { top: 100% } }
   @keyframes snowflakes-shake { 0%,100% { transform: translateX(0) } 50% { transform: translateX(80px) } }
 
   .snowflake:nth-of-type(1) { left: 10%; animation-delay: 1s, 1s; }
-  .snowflake:nth-of-type(2) { left: 25%; animation-delay: 6s, 0.5s; }
-  .snowflake:nth-of-type(3) { left: 40%; animation-delay: 4s, 2s; }
-  .snowflake:nth-of-type(4) { left: 60%; animation-delay: 2s, 2s; }
-  .snowflake:nth-of-type(5) { left: 80%; animation-delay: 8s, 3s; }
-  .snowflake:nth-of-type(6) { left: 15%; animation-delay: 3s, 1.5s; }
-  .snowflake:nth-of-type(7) { left: 50%; animation-delay: 5s, 1s; }
-  .snowflake:nth-of-type(8) { left: 75%; animation-delay: 0s, 2s; }
+  .snowflake:nth-of-type(2) { left: 30%; animation-delay: 6s, 0.5s; }
+  .snowflake:nth-of-type(3) { left: 50%; animation-delay: 4s, 2s; }
+  .snowflake:nth-of-type(4) { left: 70%; animation-delay: 2s, 2s; }
+  .snowflake:nth-of-type(5) { left: 90%; animation-delay: 8s, 3s; }
 
   /* --- STYLE CONTENT --- */
   .welcome {
-    background: rgba(0,0,0,0.75);
-    width: 87%; max-width: 850px;
-    margin: 30px auto; border-radius: 25px; padding: 20px;
+    background: rgba(0,0,0,0.8);
+    width: 85%; max-width: 800px;
+    margin: 25px auto; border-radius: 20px; padding: 15px;
+    border: 1px solid rgba(255, 204, 0, 0.3);
     position: relative; z-index: 10;
   }
 
   .games {
     display: grid; grid-template-columns: repeat(2, 1fr);
-    gap: 15px; padding: 15px; max-width: 1100px; margin: auto;
+    gap: 12px; padding: 10px; max-width: 1000px; margin: auto;
     position: relative; z-index: 10;
   }
 
   .game-box {
     background: rgba(0, 0, 0, 0.85);
-    border-radius: 15px; padding: 12px;
+    border-radius: 12px; padding: 10px;
     border: 1px solid rgba(255, 204, 0, 0.2);
+    display: flex; flex-direction: column; justify-content: space-between;
   }
 
-  .game-box img { width: 100%; border-radius: 12px; aspect-ratio: 9/16; object-fit: cover; }
+  .game-box img { width: 100%; border-radius: 10px; aspect-ratio: 9/16; object-fit: cover; }
+  .game-box h4 { margin: 10px 0 5px; font-size: 15px; }
+
+  .pay-method {
+    display: flex; justify-content: center; gap: 4px; margin-bottom: 8px;
+  }
+  .pay-tag {
+    background: #1a1a1a; color: #fff; font-size: 9px; 
+    padding: 2px 6px; border-radius: 4px; border: 1px solid #333;
+  }
 
   .order-btn {
-    background: #ffcc00; border: none; padding: 12px;
-    width: 100%; border-radius: 8px; font-weight: bold;
-    cursor: pointer; margin-top: 10px; color: #000;
-    text-decoration: none; display: block;
+    background: #ffcc00; color: #000; text-decoration: none;
+    padding: 10px; border-radius: 8px; font-weight: bold;
+    font-size: 13px; display: block; transition: 0.3s;
   }
+  .order-btn:active { transform: scale(0.95); }
 
-  .reviews {
-    background: rgba(0,0,0,0.8);
-    padding: 25px 0; margin-top: 20px; overflow: hidden;
-  }
-  .review-slider {
-    display: flex; animation: slideLeft 25s linear infinite;
-  }
+  /* --- REVIEWS --- */
+  .reviews { background: rgba(0,0,0,0.85); padding: 20px 0; margin-top: 25px; overflow: hidden; }
+  .review-slider { display: flex; animation: slideLeft 20s linear infinite; }
   @keyframes slideLeft { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
   .review-box {
-    background: rgba(255,255,255,0.05);
-    padding: 15px; margin: 0 10px; border-radius: 10px; width: 220px; flex-shrink: 0;
+    background: rgba(255,255,255,0.05); padding: 12px; margin: 0 10px;
+    border-radius: 10px; width: 200px; flex-shrink: 0;
   }
 
-  .floating-icons { position: fixed; right: 20px; bottom: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 10000; }
-  .floating-icons img { width: 50px; height: 50px; }
+  .floating-icons { position: fixed; right: 15px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 10000; }
+  .floating-icons img { width: 45px; height: 45px; }
 </style>
 </head>
 <body>
@@ -88,17 +92,13 @@
   <div class="snowflake"><img src="https://takenupload.com/695944008db1d"></div>
   <div class="snowflake"><img src="https://takenupload.com/695944008db1d"></div>
   <div class="snowflake"><img src="https://takenupload.com/695944008db1d"></div>
-  <div class="snowflake"><img src="https://takenupload.com/695944008db1d"></div>
-  <div class="snowflake"><img src="https://takenupload.com/695944008db1d"></div>
-  <div class="snowflake"><img src="https://takenupload.com/695944008db1d"></div>
 </div>
 
 <div class="content-wrapper">
   <div class="welcome">
-    <h2>Selamat Datang Di Situs <span style="color: yellow;">COBRASTORE</span></h2>
-    <p>Strategi mencari cuan banyak sudah di depan mata. Di sini, Anda bukan menjadi pemain, tapi pahlawan sejati.</p>
-    <p style="color: orange;">TERINTEGRASI API - Pengerjaan 1-10 Jam</p>
-    <p style="font-size: 13px;">Harga jual 1,2jt full provider game on.</p>
+    <h2 style="margin: 0; font-size: 1.3rem;">Situs <span style="color: yellow;">COBRASTORE</span></h2>
+    <p style="font-size: 12px; margin: 10px 0;">Terintegrasi API • Proses 1-10 Jam • Full Provider</p>
+    <p style="color: orange; font-weight: bold; margin: 0;">Harga Promo Rp 1.200.000</p>
   </div>
 
   <div class="games" id="gamesList"></div>
@@ -106,18 +106,15 @@
   <div class="reviews">
     <div class="review-slider" id="reviewSlider"></div>
   </div>
-  <p style="padding: 20px;">copyright 2025</p>
+  <p style="font-size: 11px; opacity: 0.6; padding: 15px;">© 2025 COBRASTORE Official</p>
 </div>
 
 <div class="floating-icons">
-  <a href="https://wa.me/628385080976"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
-  <a href="https://t.me/axionwl1"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram"></a>
+  <a href="https://wa.me/628385080976"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WA"></a>
+  <a href="https://t.me/axionwl1"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Tele"></a>
 </div>
 
 <script>
-  // LINK TELEGRAM ANDA
-  const teleLink = "https://t.me/axionwl1";
-
   const games = [
     {title:"Pay4D", price:"Rp 200.000", img:"https://festahoki99.shop/pay4d.png"},
     {title:"UG/Onix", price:"Rp 300.000", img:"https://festahoki99.shop/UG.png"},
@@ -131,12 +128,13 @@
       <div class="game-box">
         <img src="${g.img}">
         <h4>${g.title}</h4>
-        <p style="color:yellow; margin:0;">${g.price}</p>
-        <div style="display:flex; justify-content:center; gap:5px; margin-top:5px; font-size:10px;">
-           <span style="background:#222; padding:2px 5px; border-radius:3px;">DANA</span>
-           <span style="background:#222; padding:2px 5px; border-radius:3px;">QRIS</span>
+        <p style="color:yellow; font-weight:bold; margin-bottom:8px;">${g.price}</p>
+        <div class="pay-method">
+           <span class="pay-tag">DANA</span>
+           <span class="pay-tag">QRIS</span>
+           <span class="pay-tag">BANK</span>
         </div>
-        <a href="${teleLink}" class="order-btn">Order Segera</a>
+        <a href="https://t.me/axionwl1" class="order-btn">Order Segera</a>
       </div>
     `;
   });
@@ -146,8 +144,8 @@
   [...reviews, ...reviews].forEach(text => {
     slider.innerHTML += `
       <div class="review-box">
-        <div style="color:yellow">⭐⭐⭐⭐⭐</div>
-        <p style="font-size:12px">${text}</p>
+        <div style="color:yellow; font-size:10px;">⭐⭐⭐⭐⭐</div>
+        <p style="font-size:11px; margin:5px 0 0;">${text}</p>
       </div>
     `;
   });
