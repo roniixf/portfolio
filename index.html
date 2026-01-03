@@ -10,33 +10,37 @@
     margin: 0;
     padding: 0;
     font-family: "Poppins", sans-serif;
-    background: #000; /* Warna dasar hitam */
+    background: #000;
     color: #fff;
     text-align: center;
     overflow-x: hidden;
   }
 
-  /* CANVAS UNTUK EFEK HUJAN SCATTER */
+  /* CANVAS UTAMA UNTUK HUJAN SCATTER */
   #scatterCanvas {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Di belakang konten */
+    z-index: 1; /* Di atas background, di bawah konten */
     pointer-events: none;
   }
 
-  /* BACKGROUND IMAGE OVERLAY */
   .bg-overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background: url('https://festahoki99.shop/images.jpeg') no-repeat center center/cover;
-    opacity: 0.4; /* Transparan agar hujan scatter terlihat */
-    z-index: -2;
+    opacity: 0.3;
+    z-index: 0;
   }
 
-  /* WELCOME SECTION */
+  /* KONTEN HARUS DI ATAS CANVAS */
+  .content-wrapper {
+    position: relative;
+    z-index: 10;
+  }
+
   .welcome {
     background: rgba(0,0,0,0.85);
     width: 90%;
@@ -45,10 +49,9 @@
     border-radius: 20px;
     padding: 25px;
     border: 2px solid #ffcc00;
-    box-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.4);
   }
 
-  /* GAME GRID PORTRAIT */
   .games {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -58,18 +61,12 @@
     margin: auto;
   }
 
-  @media (min-width: 768px) {
-    .games { grid-template-columns: repeat(4, 1fr); }
-  }
-
   .game-box {
-    background: #111;
+    background: rgba(17, 17, 17, 0.9);
     border-radius: 20px;
     padding: 12px;
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: 0.3s;
+    border: 1px solid rgba(255, 204, 0, 0.2);
   }
-  .game-box:hover { transform: scale(1.03); border-color: #ffcc00; }
 
   .game-box img {
     width: 100%;
@@ -88,17 +85,8 @@
     border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
+    margin-top: 10px;
   }
-
-  .reviews-section {
-    background: rgba(0,0,0,0.9);
-    padding: 20px 0;
-    margin-top: 30px;
-    overflow: hidden;
-  }
-  .review-slider { display: flex; width: max-content; animation: slideLeft 20s linear infinite; }
-  @keyframes slideLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  .review-box { background: #222; padding: 15px; margin: 0 10px; border-radius: 10px; width: 200px; text-align: left; }
 
   .floating-icons { position: fixed; right: 15px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 999; }
   .floating-icons img { width: 50px; }
@@ -106,19 +94,21 @@
 </head>
 <body>
 
-<canvas id="scatterCanvas"></canvas>
 <div class="bg-overlay"></div>
+<canvas id="scatterCanvas"></canvas>
 
-<div class="welcome">
-  <h2 style="color:#ffcc00; margin:0;">COBRASTORE</h2>
-  <p>🔥 <b>PLATFORM GAME ONLINE TERPERCAYA</b> 🔥</p>
-  <p>Situs Terintegrasi API & Full Provider Game Online.</p>
-</div>
+<div class="content-wrapper">
+    <div class="welcome">
+      <h2 style="color:#ffcc00; margin:0; text-shadow: 0 0 10px #ffcc00;">COBRASTORE</h2>
+      <p>🔥 <b>SITUS TERINTEGRASI API - GACOR PARAH</b> 🔥</p>
+      <p>Hujan Scatter Hitam Menantimu!</p>
+    </div>
 
-<div class="games" id="gamesContainer"></div>
+    <div class="games" id="gamesContainer"></div>
 
-<div class="reviews-section">
-  <div class="review-slider" id="reviewsContainer"></div>
+    <div style="margin: 50px 0; padding: 20px; background: rgba(0,0,0,0.7);">
+        <h3>Copyright 2025 - COBRASTORE</h3>
+    </div>
 </div>
 
 <div class="floating-icons">
@@ -127,7 +117,7 @@
 </div>
 
 <script>
-/* 1. DATA GAMES */
+/* DATA GAMES */
 const games = [
   {title:"Pay4D", price:"Rp 2.000.000", img:"https://festahoki99.shop/pay4d.png"},
   {title:"UG/Onix", price:"Rp 2.000.000", img:"https://festahoki99.shop/UG.png"},
@@ -147,70 +137,57 @@ games.forEach(g => {
   `;
 });
 
-/* 2. RENDER REVIEWS */
-const reviews = ["Gacor parah! ⭐⭐⭐⭐⭐", "Admin fast respon ⭐⭐⭐⭐⭐", "Proses 5 menit ⭐⭐⭐⭐⭐", "Situs aman 100% ⭐⭐⭐⭐⭐"];
-const rDiv = document.getElementById('reviewsContainer');
-[...reviews, ...reviews].forEach(text => {
-  rDiv.innerHTML += `<div class="review-box"><small>⭐⭐⭐⭐⭐</small><br>${text}</div>`;
-});
-
-/* 3. SCRIPT HUJAN SCATTER HITAM */
+/* SCRIPT HUJAN SCATTER HITAM (POWERFULL) */
 const canvas = document.getElementById('scatterCanvas');
 const ctx = canvas.getContext('2d');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+let width, height;
+function setCanvasSize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+}
+setCanvasSize();
+window.addEventListener('resize', setCanvasSize);
 
 const scatters = [];
-const scatterImg = new Image();
-scatterImg.src = 'https://i.ibb.co/Lz9V8m6/scatter-black.png'; // Pastikan link ini aktif atau ganti ke logo scatter hitam Anda
+const scatterCount = 30; // Jumlah scatter yang jatuh
 
-function createScatter() {
-  return {
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height - canvas.height,
-    size: Math.random() * 30 + 20,
-    speed: Math.random() * 3 + 2,
-    rotation: Math.random() * 360
-  };
-}
-
-for (let i = 0; i < 20; i++) {
-  scatters.push(createScatter());
+// Menggunakan Text "SCATTER" atau "🔥" supaya pasti muncul tanpa gambar luar
+for (let i = 0; i < scatterCount; i++) {
+    scatters.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 20 + 10,
+        speed: Math.random() * 2 + 1,
+        opacity: Math.random() * 0.5 + 0.3
+    });
 }
 
 function draw() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  scatters.forEach(s => {
-    ctx.save();
-    ctx.translate(s.x, s.y);
-    ctx.rotate(s.rotation * Math.PI / 180);
-    // Jika gambar belum load, gambar kotak hitam sebagai cadangan
-    if(scatterImg.complete) {
-        ctx.drawImage(scatterImg, -s.size/2, -s.size/2, s.size, s.size);
-    } else {
-        ctx.fillStyle = "black";
-        ctx.fillRect(-s.size/2, -s.size/2, s.size, s.size);
-    }
-    ctx.restore();
+    ctx.clearRect(0, 0, width, height);
+    
+    scatters.forEach(s => {
+        ctx.fillStyle = `rgba(255, 204, 0, ${s.opacity})`; // Warna kuning khas scatter
+        ctx.font = `bold ${s.size}px Arial`;
+        ctx.fillText("SCATTER", s.x, s.y);
+        
+        // Tambahkan bulatan hitam di belakang teks biar sangar
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = "black";
 
-    s.y += s.speed;
-    s.rotation += 1;
-
-    if (s.y > canvas.height) {
-      s.y = -s.size;
-      s.x = Math.random() * canvas.width;
-    }
-  });
-  requestAnimationFrame(draw);
+        s.y += s.speed;
+        if (s.y > height) {
+            s.y = -20;
+            s.x = Math.random() * width;
+        }
+    });
+    
+    requestAnimationFrame(draw);
 }
 
-scatterImg.onload = draw;
-// Untuk handle jika layar di resize
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
+draw();
 </script>
 
 </body>
