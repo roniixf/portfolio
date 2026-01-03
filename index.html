@@ -4,311 +4,213 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>COBRASTORE | Platform Game Online</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
   body {
     margin: 0;
+    padding: 0;
     font-family: "Poppins", sans-serif;
-    background: url('https://festahoki99.shop/images.jpeg') no-repeat center center/cover;
-    background-attachment: fixed;
+    background: #000; /* Warna dasar hitam */
     color: #fff;
     text-align: center;
     overflow-x: hidden;
   }
 
-  /* WELCOME */
-  .welcome {
-    background: rgba(0,0,0,0.75);
-    width: 87%;
-    max-width: 850px;
-    margin: 40px auto 25px;
-    border-radius: 25px;
-    padding: 25px;
-    line-height: 1.6em;
+  /* CANVAS UNTUK EFEK HUJAN SCATTER */
+  #scatterCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Di belakang konten */
+    pointer-events: none;
   }
 
-  /* GAME GRID */
+  /* BACKGROUND IMAGE OVERLAY */
+  .bg-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://festahoki99.shop/images.jpeg') no-repeat center center/cover;
+    opacity: 0.4; /* Transparan agar hujan scatter terlihat */
+    z-index: -2;
+  }
+
+  /* WELCOME SECTION */
+  .welcome {
+    background: rgba(0,0,0,0.85);
+    width: 90%;
+    max-width: 850px;
+    margin: 30px auto;
+    border-radius: 20px;
+    padding: 25px;
+    border: 2px solid #ffcc00;
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
+  }
+
+  /* GAME GRID PORTRAIT */
   .games {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 15px;
     max-width: 1100px;
     margin: auto;
   }
+
+  @media (min-width: 768px) {
+    .games { grid-template-columns: repeat(4, 1fr); }
+  }
+
   .game-box {
-    background: rgba(0, 0, 0, 0.6);
+    background: #111;
+    border-radius: 20px;
+    padding: 12px;
     border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 15px;
-    padding: 15px;
-    transition: all 0.3s;
+    transition: 0.3s;
   }
-  .game-box:hover {
-    transform: scale(1.05);
-    background: rgba(0, 0, 0, 0.8);
-    border-color: #ffcc00;
-  }
+  .game-box:hover { transform: scale(1.03); border-color: #ffcc00; }
+
   .game-box img {
     width: 100%;
-    border-radius: 12px;
-    height: 150px;
+    height: auto;
+    border-radius: 15px;
+    aspect-ratio: 9/16;
     object-fit: cover;
   }
-  .game-box h4 { margin: 15px 0 5px; font-size: 1.2em; }
-  .game-box p { margin: 5px 0 15px; color: #ffcc00; font-weight: bold; }
 
   .order-btn {
-    background: #ffcc00;
+    background: linear-gradient(to bottom, #ffcc00, #ff9900);
+    color: #000;
     border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
+    padding: 12px 0;
+    width: 100%;
+    border-radius: 10px;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s;
-    width: 100%;
-  }
-  .order-btn:hover { background: #ffe066; }
-
-  /* POPUP */
-  .popup {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.8);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-  }
-  .popup-content {
-    background: #fff;
-    color: #000;
-    padding: 25px;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 400px;
-    text-align: left;
-    position: relative;
-  }
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 22px;
-    color: #000;
-    cursor: pointer;
   }
 
-  .popup-content select,
-  .popup-content input {
-    width: 100%;
-    margin: 8px 0;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-  }
-
-  /* REVIEWS */
-  .reviews-container {
-    background: rgba(0,0,0,0.7);
-    padding: 30px 0;
-    margin-top: 40px;
+  .reviews-section {
+    background: rgba(0,0,0,0.9);
+    padding: 20px 0;
+    margin-top: 30px;
     overflow: hidden;
-    width: 100%;
   }
-  .review-slider {
-    display: flex;
-    width: max-content;
-    animation: slideLeft 30s linear infinite;
-  }
-  @keyframes slideLeft {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-  .review-box {
-    background: rgba(255,255,255,0.1);
-    padding: 15px;
-    margin: 0 15px;
-    border-radius: 10px;
-    width: 250px;
-    flex-shrink: 0;
-    text-align: left;
-  }
+  .review-slider { display: flex; width: max-content; animation: slideLeft 20s linear infinite; }
+  @keyframes slideLeft { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .review-box { background: #222; padding: 15px; margin: 0 10px; border-radius: 10px; width: 200px; text-align: left; }
 
-  /* SPINNER & ALERT */
-  .spinner-overlay {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0,0,0,0.85);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 500;
-  }
-  .spinner {
-    border: 10px solid #f3f3f3;
-    border-top: 10px solid #ffcc00;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
-  }
-  @keyframes spin { 100% { transform: rotate(360deg); } }
-
-  .alert {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #28a745;
-    color: white;
-    padding: 15px 25px;
-    border-radius: 10px;
-    display: none;
-    z-index: 600;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  }
-
-  .floating-icons {
-    position: fixed;
-    right: 20px;
-    bottom: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    z-index: 300;
-  }
-  .floating-icons img { width: 50px; height: 50px; }
+  .floating-icons { position: fixed; right: 15px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 999; }
+  .floating-icons img { width: 50px; }
 </style>
 </head>
 <body>
 
+<canvas id="scatterCanvas"></canvas>
+<div class="bg-overlay"></div>
+
 <div class="welcome">
-  <h2 style="color: yellow; margin-bottom: 0;">COBRASTORE</h2>
-  <h3 style="margin-top: 5px;">Platform Game Online Terintegrasi API</h3>
-  <p>Selamat Datang! Kami bangga menyambut Anda. Strategi mencari cuan sudah di depan mata. Di sini, Anda bukan sekadar pemain, tapi pahlawan sejati yang siap mengukir sejarah.</p>
-  <p style="color: orange; font-weight: bold;">Semua situs sudah TERINTEGRASI API</p>
-  <p>Proses pengerjaan murah (1-10 jam) hingga paket All Provider (5 hari).<br>
-  <span style="color: #ff4444;">Situs sewa tersedia untuk paket di bawah 2 Juta.</span></p>
+  <h2 style="color:#ffcc00; margin:0;">COBRASTORE</h2>
+  <p>🔥 <b>PLATFORM GAME ONLINE TERPERCAYA</b> 🔥</p>
+  <p>Situs Terintegrasi API & Full Provider Game Online.</p>
 </div>
 
-<div class="games" id="games"></div>
+<div class="games" id="gamesContainer"></div>
 
-<div class="reviews-container">
-    <div class="review-slider" id="reviews">
-        </div>
+<div class="reviews-section">
+  <div class="review-slider" id="reviewsContainer"></div>
 </div>
-
-<div class="popup" id="popup">
-  <div class="popup-content">
-    <span class="close-btn" onclick="closePopup()">✖</span>
-    <h3>Metode Pembayaran</h3>
-    <label>Nama Barang</label>
-    <input type="text" id="itemName" readonly>
-    <label>Pilih Rekening</label>
-    <select id="paymentMethod" onchange="showPaymentDetail()">
-      <option value="">-- Pilih --</option>
-      <option value="dana">DANA</option>
-      <option value="qris">QRIS</option>
-    </select>
-    <div id="paymentDetail"></div>
-    <button class="order-btn" style="margin-top: 15px;" onclick="sendOrder()">Kirim Pesanan</button>
-  </div>
-</div>
-
-<div class="spinner-overlay" id="spinnerOverlay">
-  <div class="spinner"></div>
-</div>
-
-<div class="alert" id="alertBox">✅ Pesanan berhasil! Silakan konfirmasi ke admin via WA/Tele.</div>
 
 <div class="floating-icons">
-  <a href="https://wa.me/628385080976"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp"></a>
-  <a href="https://t.me/axionwl1"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram"></a>
+  <a href="https://wa.me/628385080976"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png"></a>
+  <a href="https://t.me/axionwl1"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png"></a>
 </div>
 
 <script>
-/* ===== DATA GAMES (FIXED SYNTAX) ===== */
-const gamesData = [
-  {title:"Pay4D", price:"Rp 200.000", img:"https://festahoki99.shop/pay4d.png"},
-  {title:"UG/Onix", price:"Rp 300.000", img:"https://festahoki99.shop/UG.png"},
-  {title:"Nuke", price:"Rp 500.000", img:"https://festahoki99.shop/nuke.png"}, // Tadi error di sini (kurang img:)
-  {title:"Nexus", price:"Rp 580.000", img:"https://festahoki99.shop/nexus.png"},
+/* 1. DATA GAMES */
+const games = [
+  {title:"Pay4D", price:"Rp 2.000.000", img:"https://festahoki99.shop/pay4d.png"},
+  {title:"UG/Onix", price:"Rp 2.000.000", img:"https://festahoki99.shop/UG.png"},
+  {title:"Nuke", price:"Rp 2.000.000", img:"https://festahoki99.shop/nuke.png"},
+  {title:"Nexus", price:"Rp 2.000.000", img:"https://festahoki99.shop/nexus.png"}
 ];
 
-/* ===== RENDER GAMES ===== */
-const gamesContainer = document.getElementById('games');
-gamesData.forEach(g => {
-  const box = document.createElement('div');
-  box.className = 'game-box';
-  box.innerHTML = `
-    <img src="${g.img}" alt="${g.title}" onerror="this.src='https://via.placeholder.com/200x150?text=Image+Error'">
-    <h4>${g.title}</h4>
-    <p>${g.price}</p>
-    <button class="order-btn" onclick="openPopup('${g.title}')">Order Segera</button>
+const gDiv = document.getElementById('gamesContainer');
+games.forEach(g => {
+  gDiv.innerHTML += `
+    <div class="game-box">
+      <img src="${g.img}">
+      <h4>${g.title}</h4>
+      <p style="color:#ffcc00">${g.price}</p>
+      <button class="order-btn">ORDER SEGERA</button>
+    </div>
   `;
-  gamesContainer.appendChild(box);
 });
 
-/* ===== RENDER REVIEWS (FIXED SLIDER) ===== */
-const reviewsData = [
-  "Pelayanan cepat dan terpercaya! ⭐⭐⭐⭐⭐",
-  "Transaksi aman, game langsung aktif! ⭐⭐⭐⭐⭐",
-  "Harga murah banget dibanding tempat lain! ⭐⭐⭐⭐⭐",
-  "Respon admin super cepat! ⭐⭐⭐⭐⭐",
-  "Sistemnya simpel dan mudah dipakai. ⭐⭐⭐⭐",
-  "Game lengkap dan update terus! ⭐⭐⭐⭐⭐",
-  "Top up instan, mantap! ⭐⭐⭐⭐⭐",
-  "Sudah order 5x, selalu puas! ⭐⭐⭐⭐⭐"
-];
-
-const reviewSlider = document.getElementById('reviews');
-// Duplikasi data agar animasi tidak putus (looping halus)
-const fullReviews = [...reviewsData, ...reviewsData]; 
-
-fullReviews.forEach(r => {
-  const box = document.createElement('div');
-  box.className = 'review-box';
-  box.innerHTML = `<strong>Customer</strong><p style="font-size: 0.9em; color: #ddd;">${r}</p>`;
-  reviewSlider.appendChild(box);
+/* 2. RENDER REVIEWS */
+const reviews = ["Gacor parah! ⭐⭐⭐⭐⭐", "Admin fast respon ⭐⭐⭐⭐⭐", "Proses 5 menit ⭐⭐⭐⭐⭐", "Situs aman 100% ⭐⭐⭐⭐⭐"];
+const rDiv = document.getElementById('reviewsContainer');
+[...reviews, ...reviews].forEach(text => {
+  rDiv.innerHTML += `<div class="review-box"><small>⭐⭐⭐⭐⭐</small><br>${text}</div>`;
 });
 
-/* ===== FUNCTIONS ===== */
-function openPopup(name) {
-  document.getElementById('popup').style.display = 'flex';
-  document.getElementById('itemName').value = name;
+/* 3. SCRIPT HUJAN SCATTER HITAM */
+const canvas = document.getElementById('scatterCanvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const scatters = [];
+const scatterImg = new Image();
+scatterImg.src = 'https://i.ibb.co/Lz9V8m6/scatter-black.png'; // Pastikan link ini aktif atau ganti ke logo scatter hitam Anda
+
+function createScatter() {
+  return {
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height - canvas.height,
+    size: Math.random() * 30 + 20,
+    speed: Math.random() * 3 + 2,
+    rotation: Math.random() * 360
+  };
 }
 
-function closePopup() {
-  document.getElementById('popup').style.display = 'none';
+for (let i = 0; i < 20; i++) {
+  scatters.push(createScatter());
 }
 
-function showPaymentDetail() {
-  const val = document.getElementById('paymentMethod').value;
-  const detail = document.getElementById('paymentDetail');
-  if (val === 'qris') {
-    detail.innerHTML = '<img src="https://via.placeholder.com/150?text=QRIS+ADMIN" style="width:100%; margin-top:10px; border-radius:8px;">';
-  } else if (val) {
-    detail.innerHTML = `<div style="background:#f0f0f0; padding:10px; border-radius:8px; margin-top:10px;">
-      <small>Transfer ke ${val.toUpperCase()}:</small><br>
-      <strong>085799478550</strong><br>
-      <small>A/N: SIxxxxx</small>
-    </div>`;
-  } else {
-    detail.innerHTML = '';
-  }
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  scatters.forEach(s => {
+    ctx.save();
+    ctx.translate(s.x, s.y);
+    ctx.rotate(s.rotation * Math.PI / 180);
+    // Jika gambar belum load, gambar kotak hitam sebagai cadangan
+    if(scatterImg.complete) {
+        ctx.drawImage(scatterImg, -s.size/2, -s.size/2, s.size, s.size);
+    } else {
+        ctx.fillStyle = "black";
+        ctx.fillRect(-s.size/2, -s.size/2, s.size, s.size);
+    }
+    ctx.restore();
+
+    s.y += s.speed;
+    s.rotation += 1;
+
+    if (s.y > canvas.height) {
+      s.y = -s.size;
+      s.x = Math.random() * canvas.width;
+    }
+  });
+  requestAnimationFrame(draw);
 }
 
-function sendOrder() {
-  document.getElementById('popup').style.display = 'none';
-  document.getElementById('spinnerOverlay').style.display = 'flex';
-
-  setTimeout(() => {
-    document.getElementById('spinnerOverlay').style.display = 'none';
-    const alertBox = document.getElementById('alertBox');
-    alertBox.style.display = 'block';
-    setTimeout(() => { alertBox.style.display = 'none'; }, 5000);
-  }, 2000); // Simulasi loading 2 detik
-}
+scatterImg.onload = draw;
+// Untuk handle jika layar di resize
+window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
 </script>
 
 </body>
