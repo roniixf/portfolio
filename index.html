@@ -8,212 +8,181 @@
   body {
     margin: 0;
     font-family: "Poppins", sans-serif;
-    background: #000;
+    background: url('https://festahoki99.shop/images.jpeg') no-repeat center center/cover;
+    background-attachment: fixed;
     color: #fff;
     text-align: center;
     overflow-x: hidden;
   }
 
-  /* CANVAS HUJAN SCATTER */
-  #scatterCanvas {
+  /* --- ANIMASI HUJAN SCATTER HITAM (CSS) --- */
+  .snowflake {
     position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 1;
-    pointer-events: none;
+    top: -10%;
+    z-index: 9999;
+    user-select: none;
+    cursor: default;
+    animation-name: snowflakes-fall, snowflakes-shake;
+    animation-duration: 10s, 3s;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite, infinite;
   }
 
-  .bg-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: url('https://festahoki99.shop/images.jpeg') no-repeat center center/cover;
-    opacity: 0.4;
-    z-index: 0;
+  /* Gambar Scatter Hitam Bulat */
+  .snowflake img {
+    width: 50px; 
+    height: 50px;
+    filter: drop-shadow(0 0 5px #ffcc00); /* Efek cahaya emas di pinggir */
   }
 
-  .content-wrapper {
+  @-webkit-keyframes snowflakes-fall { 0% { top: -10%; } 100% { top: 100%; } }
+  @keyframes snowflakes-fall { 0% { top: -10%; } 100% { top: 100%; } }
+  @-webkit-keyframes snowflakes-shake { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(80px); } }
+  @keyframes snowflakes-shake { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(80px); } }
+
+  /* Delay & Posisi Acak */
+  .snowflake:nth-of-type(1) { left: 10%; animation-delay: 1s, 1s; }
+  .snowflake:nth-of-type(2) { left: 25%; animation-delay: 6s, 0.5s; }
+  .snowflake:nth-of-type(3) { left: 40%; animation-delay: 4s, 2s; }
+  .snowflake:nth-of-type(4) { left: 60%; animation-delay: 2s, 2s; }
+  .snowflake:nth-of-type(5) { left: 80%; animation-delay: 8s, 3s; }
+  .snowflake:nth-of-type(6) { left: 15%; animation-delay: 3s, 1.5s; }
+  .snowflake:nth-of-type(7) { left: 50%; animation-delay: 5s, 1s; }
+  .snowflake:nth-of-type(8) { left: 75%; animation-delay: 0s, 2s; }
+
+  /* --- STYLE CONTENT --- */
+  .welcome {
+    background: rgba(0,0,0,0.75);
+    width: 87%;
+    max-width: 850px;
+    margin: 30px auto;
+    border-radius: 25px;
+    padding: 20px;
+    line-height: 1.5;
     position: relative;
     z-index: 10;
   }
 
-  /* WELCOME (TEKS ASLI ANDA) */
-  .welcome {
-    background: rgba(0,0,0,0.65);
-    width: 87%;
-    max-width: 850px;
-    margin: 20px auto;
-    border-radius: 25px;
-    padding: 15px;
-    line-height: 1.0em;
-  }
-
-  /* GAME GRID */
   .games {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    padding: 15px;
     max-width: 1100px;
     margin: auto;
+    position: relative;
+    z-index: 10;
   }
+
   .game-box {
-    background: rgba(255,255,255,0.1);
+    background: rgba(0, 0, 0, 0.8);
     border-radius: 15px;
-    padding: 15px;
-    transition: all 0.3s;
+    padding: 12px;
+    border: 1px solid rgba(255, 204, 0, 0.2);
   }
+
   .game-box img {
     width: 100%;
     border-radius: 12px;
-    aspect-ratio: 9/16; /* Portrait seperti foto */
+    aspect-ratio: 9/16;
     object-fit: cover;
   }
+
   .order-btn {
     background: #ffcc00;
     border: none;
-    padding: 10px 20px;
+    padding: 10px;
+    width: 100%;
     border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
-    width: 100%;
     margin-top: 10px;
   }
 
-  /* REVIEWS (BINTANG-BINTANG) */
   .reviews {
-    background: rgba(0,0,0,0.7);
-    padding: 25px;
-    overflow: hidden;
+    background: rgba(0,0,0,0.8);
+    padding: 25px 0;
     margin-top: 20px;
+    overflow: hidden;
   }
   .review-slider {
     display: flex;
-    animation: slideLeft 30s linear infinite;
+    animation: slideLeft 25s linear infinite;
   }
-  @keyframes slideLeft {
-    from { transform: translateX(100%); }
-    to { transform: translateX(-100%); }
-  }
+  @keyframes slideLeft { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
   .review-box {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.05);
     padding: 15px;
     margin: 0 10px;
     border-radius: 10px;
     width: 220px;
     flex-shrink: 0;
-    text-align: left;
   }
-
-  .floating-icons {
-    position: fixed;
-    right: 20px;
-    bottom: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    z-index: 300;
-  }
-  .floating-icons img { width: 50px; height: 50px; }
 </style>
 </head>
 <body>
 
-<div class="bg-overlay"></div>
-<canvas id="scatterCanvas"></canvas>
+<div class="snowflakes" aria-hidden="true">
+  <div class="snowflake"><img src="https://takenupload.com/695944008db1d"></div>
+  <div class="snowflake"><img src="https://takenupload.com/695944008db1d"></div>
+  <div class="snowflake"><img src="https://takenupload.com/695944008db1d"></div>
+  <div class="snowflake"><img src="https://takenupload.com/695944008db1d"></div>
+  <div class="snowflake"><img src="https://takenupload.com/695944008db1d"></div>
+  <div class="snowflake"><img src="https://takenupload.com/695944008db1d"></div>
+  <div class="snowflake"><img src="https://takenupload.com/695944008db1d"></div>
+  <div class="snowflake"><img src="https://takenupload.com/695944008db1d"></div>
+</div>
 
 <div class="content-wrapper">
   <div class="welcome">
-    <h2>Selamat Datang Di Situs <p style="position: relative; top: 10px; color: yellow;">COBRASTORE</h2></p>
-    <p style="position: relative; top: 15px;">Kami sangat bangga menyambut Anda disini,strategi mencari cuan banyak sudah di depan mata. Di sini, Anda bukan menjadi pemain, tapi pahlawan sejati yang siap mengukir sejarah dalam kehidupan.</p>
-    <p style="position: relative; top: 10px;">Berikut ini tampilan situs<br>yang kami tawarkan ke anda,silahkan skrol kebawah untuk melihat.</p>
-    <p style="position: relative; top: 10px; color: orange;">Semua situs sudah TERINTEGRASI API</p>
-    <p>memudahkan anda untuk secepatnya mengelola situs gamenya</p>proses pengerjaan kami berbagai variasi. pengerjaan situs harga murah prosesnya hanya 1-10jam,tidak lebih tidak kurang. dan untuk pengerjaan situs all provider game prosesnya 5 hari selesai.<br><p style="color: red;">situs yang bisa di sewakan, hanya situs yang harga 2juta kebawah</p><p style="color: yellow">harga jual 800/1jt, kami memberikan fasilitas full provider game on.<br>sudah terintegrasi PGA,serta kami bantu tembuskan link situs ke  GOOGLE</p>
-    <p>Jangan lupa hubungi kontak whatsapp & telegaram kami, jika anda sudah mengorder</p>
+    <h2>Selamat Datang Di Situs <span style="color: yellow;">COBRASTORE</span></h2>
+    <p>Kami sangat bangga menyambut Anda disini,strategi mencari cuan banyak sudah di depan mata. Di sini, Anda bukan menjadi pemain, tapi pahlawan sejati yang siap mengukir sejarah dalam kehidupan.</p>
+    <p style="color: orange;">Semua situs sudah TERINTEGRASI API</p>
+    <p style="font-size: 13px;">pengerjaan situs harga murah prosesnya hanya 1-10jam. Harga jual 8,5juta full provider game on.</p>
   </div>
 
-  <div class="games" id="games"></div>
+  <div class="games" id="gamesList"></div>
 
   <div class="reviews">
-    <div class="review-slider" id="reviewsContainer"></div>
+    <div class="review-slider" id="reviewSlider"></div>
   </div>
 
-  <div style="padding: 40px 0;">
-    <p>copyright 2025</p>
-  </div>
-</div>
-
-<div class="floating-icons">
-  <a href="https://wa.me/628385080976"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png"></a>
-  <a href="https://t.me/axionwl1"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png"></a>
+  <p style="padding: 20px;">copyright 2025</p>
 </div>
 
 <script>
-/* DATA GAMES */
-const games = [
-  {title:"Pay4D", price:"Rp 200.000", img:"https://festahoki99.shop/pay4d.png"},
-  {title:"UG/Onix", price:"Rp 300.000", img:"https://festahoki99.shop/UG.png"},
-  {title:"Nuke", price:"Rp 500.000", img:"https://festahoki99.shop/nuke.png"},
-  {title:"Nexus", price:"Rp 580.000", img:"https://festahoki99.shop/nexus.png"}
-];
+  // Data Games
+  const games = [
+    {title:"Pay4D", price:"Rp 200.000", img:"https://festahoki99.shop/pay4d.png"},
+    {title:"UG/Onix", price:"Rp 300.000", img:"https://festahoki99.shop/UG.png"},
+    {title:"Nuke", price:"Rp 500.000", img:"https://festahoki99.shop/nuke.png"},
+    {title:"Nexus", price:"Rp 580.000", img:"https://festahoki99.shop/nexus.png"}
+  ];
 
-const gDiv = document.getElementById('games');
-games.forEach(g => {
-  gDiv.innerHTML += `
-    <div class="game-box">
-      <img src="${g.img}">
-      <h4>${g.title}</h4>
-      <p style="color:#ffcc00">${g.price}</p>
-      <button class="order-btn">Order Segera</button>
-    </div>
-  `;
-});
-
-/* REVIEWS (DENGAN BINTANG) */
-const reviewsData = [
-  "Pelayanan cepat dan terpercaya! ⭐⭐⭐⭐⭐",
-  "Transaksi aman, game langsung aktif! ⭐⭐⭐⭐⭐",
-  "Harga murah banget dibanding tempat lain! ⭐⭐⭐⭐⭐",
-  "Respon admin super cepat! ⭐⭐⭐⭐⭐",
-  "Sistemnya simpel dan mudah dipakai. ⭐⭐⭐⭐"
-];
-const rDiv = document.getElementById('reviewsContainer');
-[...reviewsData, ...reviewsData].forEach(r => {
-  rDiv.innerHTML += `
-    <div class="review-box">
-      <div style="color:yellow">⭐⭐⭐⭐⭐</div>
-      <p style="font-size:13px">${r}</p>
-    </div>
-  `;
-});
-
-/* SCRIPT HUJAN SCATTER HITAM */
-const canvas = document.getElementById('scatterCanvas');
-const ctx = canvas.getContext('2d');
-let w, h;
-function init() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
-init();
-window.onresize = init;
-
-const particles = [];
-for (let i = 0; i < 25; i++) {
-  particles.push({ x: Math.random() * w, y: Math.random() * h, r: 18, s: Math.random() * 2 + 1 });
-}
-
-function draw() {
-  ctx.clearRect(0, 0, w, h);
-  particles.forEach(p => {
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = "black"; ctx.fill();
-    ctx.strokeStyle = "#ffcc00"; ctx.lineWidth = 2; ctx.stroke();
-    ctx.fillStyle = "red"; ctx.font = "bold 8px Arial"; ctx.textAlign = "center";
-    ctx.fillText("SCATTER", p.x, p.y + 3);
-    p.y += p.s;
-    if (p.y > h + 20) { p.y = -20; p.x = Math.random() * w; }
+  const gamesContainer = document.getElementById('gamesList');
+  games.forEach(g => {
+    gamesContainer.innerHTML += `
+      <div class="game-box">
+        <img src="${g.img}">
+        <h4>${g.title}</h4>
+        <p style="color:yellow">${g.price}</p>
+        <button class="order-btn">Order Segera</button>
+      </div>
+    `;
   });
-  requestAnimationFrame(draw);
-}
-draw();
+
+  // Review Slider Data
+  const reviews = ["Situs Gacor Parah! ⭐⭐⭐⭐⭐", "Fast Respon Admin ⭐⭐⭐⭐⭐", "Murah tapi Mewah ⭐⭐⭐⭐⭐", "Langsung Profit! ⭐⭐⭐⭐⭐"];
+  const slider = document.getElementById('reviewSlider');
+  [...reviews, ...reviews].forEach(text => {
+    slider.innerHTML += `
+      <div class="review-box">
+        <div style="color:yellow">⭐⭐⭐⭐⭐</div>
+        <p style="font-size:12px">${text}</p>
+      </div>
+    `;
+  });
 </script>
+
 </body>
 </html>
