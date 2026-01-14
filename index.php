@@ -1,23 +1,45 @@
+<?php
+// Konfigurasi Identitas
+$nama = "RONIXF";
+$role = "SYSTEM INFILTRATOR // ELITE OPERATIVE";
+$foto_profile = "https://via.placeholder.com/150"; // GANTI DENGAN LINK FOTO LO
+
+// Data Skill
+$skills = [
+    ["name" => "PYTHON_EXPLOIT", "level" => "98%"],
+    ["name" => "JS_GHOST_PROTOCOL", "level" => "92%"],
+    ["name" => "PHP_BACKDOOR", "level" => "85%"],
+    ["name" => "NET_RECON", "level" => "90%"]
+];
+
+// Kata-kata keren
+$quotes = [
+    "Keamanan hanyalah sebuah doa. Bagi saya, setiap enkripsi hanyalah sebuah teka-teki yang menunggu untuk dipecahkan.",
+    "Saya tidak mengetuk pintu, saya menciptakan pintu.",
+    "Di dunia digital, namamu adalah barisan kode. Pastikan kodemu tak bisa dihapus."
+];
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RONIXF // SHADOW_OPERATIVE</title>
+    <title><?php echo $nama; ?> // DATABASE_ACCESS</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=JetBrains+Mono&display=swap" rel="stylesheet">
-    
     <style>
-        /* CSS internal lo taruh di sini, jangan di luar tag style! */
         body {
-            background-color: #000;
-            color: #fff;
+            background: #050505;
+            color: #eeeeee;
             font-family: 'JetBrains Mono', monospace;
-            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
         }
         .cyber-font { font-family: 'Chakra Petch', sans-serif; }
         
-        .profile-frame {
+        /* Profile Section */
+        .profile-container {
             position: relative;
             width: 140px; height: 140px;
             margin: 0 auto;
@@ -28,55 +50,94 @@
             border: 2px solid #ff003c;
             position: absolute; top: 10px; left: 10px;
             z-index: 10; object-fit: cover;
-            filter: grayscale(1) brightness(0.8);
+            filter: grayscale(1) brightness(0.7) contrast(1.2);
         }
-        .radar {
+        .pulse-ring {
             position: absolute; width: 100%; height: 100%;
             border: 1px solid #ff003c;
             border-radius: 50%;
-            animation: pulse 2s infinite;
+            animation: pulse-effect 2s infinite;
         }
-        @keyframes pulse {
+        @keyframes pulse-effect {
             0% { transform: scale(1); opacity: 1; }
             100% { transform: scale(1.4); opacity: 0; }
         }
-        .stat-bar { height: 4px; background: #1a1a1a; width: 100%; margin-top: 8px; }
-        .stat-fill { height: 100%; background: #ff003c; box-shadow: 0 0 10px #ff003c; }
+
+        /* Skill Cards */
+        .skill-box {
+            background: #0f0f0f;
+            border: 1px solid #1a1a1a;
+            border-left: 3px solid #ff003c;
+            padding: 15px;
+            transition: 0.3s;
+        }
+        .skill-box:hover {
+            border-color: #ff003c;
+            background: #150505;
+        }
+        .bar-bg { height: 4px; background: #222; width: 100%; margin-top: 8px; }
+        .bar-fill { height: 100%; background: #ff003c; box-shadow: 0 0 8px #ff003c; }
+
+        /* Glitch Animation */
+        .glitch {
+            position: relative;
+            color: white;
+        }
+        .glitch:after {
+            content: '<?php echo $nama; ?>';
+            position: absolute; left: 2px; text-shadow: -1px 0 red;
+            top: 0; color: white; overflow: hidden;
+            clip: rect(0,900px,0,0); 
+            animation: noise-2 3s infinite linear alternate-reverse;
+        }
+        @keyframes noise-2 {
+            0% { clip: rect(10px, 9999px, 20px, 0); }
+            100% { clip: rect(80px, 9999px, 90px, 0); }
+        }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body class="p-4 md:p-12">
 
-    <nav class="max-w-4xl mx-auto flex justify-between items-center mb-12 border-b border-red-950 pb-4">
-        <div class="cyber-font text-lg font-bold text-red-600">RONIXF_CORE</div>
-        <div class="text-[10px] text-green-500 font-bold tracking-widest animate-pulse">SYSTEM_ACTIVE</div>
-    </nav>
+    <div class="max-w-4xl mx-auto flex justify-between items-center mb-16 opacity-50 text-[10px] tracking-[0.3em]">
+        <div>STATUS: <span class="text-red-600 font-bold">SHADOW_MODE</span></div>
+        <div class="hidden md:block">IP: MASKED_UPLINK</div>
+        <div>SEC_LEVEL: ALPHA</div>
+    </div>
 
-    <header class="text-center mb-16">
-        <div class="profile-frame mb-8">
-            <div class="radar"></div>
-            <img src="https://via.placeholder.com/150" alt="RONIXF" class="profile-img">
+    <div class="text-center mb-16">
+        <div class="profile-container mb-6">
+            <div class="pulse-ring"></div>
+            <img src="<?php echo $foto_profile; ?>" alt="OPERATIVE" class="profile-img">
         </div>
         
-        <h1 class="cyber-font text-5xl font-black mb-2 tracking-tighter">RONIXF</h1>
-        <p class="text-red-500 text-[10px] tracking-[0.5em] font-bold uppercase mb-8">Professional System Infiltrator</p>
+        <h1 class="cyber-font text-6xl font-black italic glitch"><?php echo $nama; ?></h1>
+        <p class="text-red-600 text-[10px] font-bold tracking-[0.6em] mt-2 mb-8 uppercase"><?php echo $role; ?></p>
         
-        <div class="max-w-lg mx-auto p-4 bg-red-950/10 border-l-4 border-red-600 text-xs italic text-gray-400">
-            "Keamanan hanyalah sebuah doa. Bagi saya, setiap enkripsi hanyalah sebuah teka-teki yang menunggu untuk dipecahkan. Saya tidak mengetuk pintu, saya menciptakan pintu."
+        <div class="max-w-lg mx-auto p-5 bg-zinc-950 border border-zinc-900 text-xs text-gray-400 leading-relaxed italic">
+            "<?php echo $quotes[array_rand($quotes)]; ?>"
         </div>
-    </header>
+    </div>
 
-    <section class="max-w-2xl mx-auto space-y-6">
-        <div class="bg-zinc-950 p-4 border border-zinc-900">
-            <div class="flex justify-between text-[10px] font-bold">
-                <span>// PYTHON_ENGINE</span>
-                <span class="text-red-600">98%</span>
+    <div class="max-w-2xl mx-auto space-y-4">
+        <?php foreach($skills as $skill): ?>
+        <div class="skill-box">
+            <div class="flex justify-between text-[10px] font-bold tracking-widest uppercase">
+                <span>// <?php echo $skill['name']; ?></span>
+                <span class="text-red-600"><?php echo $skill['level']; ?></span>
             </div>
-            <div class="stat-bar"><div class="stat-fill" style="width: 98%"></div></div>
+            <div class="bar-bg">
+                <div class="bar-fill" style="width: <?php echo $skill['level']; ?>"></div>
+            </div>
         </div>
+        <?php endforeach; ?>
+    </div>
 
-        <div class="bg-zinc-950 p-4 border border-zinc-900">
-            <div class="flex justify-between text-[10px] font-bold">
-                <span>// JAVASCRIPT_VOID</span>
+    <footer class="mt-24 text-center border-t border-zinc-900 pt-8 opacity-20">
+        <p class="text-[9px] tracking-[1em] uppercase">No Rights Reserved // Ronixf Systems 2026</p>
+    </footer>
+
+</body>
+</html>
                 <span class="text-red-600">92%</span>
             </div>
             <div class="stat-bar"><div class="stat-fill" style="width: 92%"></div></div>
