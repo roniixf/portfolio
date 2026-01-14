@@ -20,7 +20,7 @@
         }
         .pay-btn:hover { box-shadow: 0 0 30px #ff0000; background: #220000; }
 
-        /* BOX KONTEN DENGAN EFEK NEON */
+        /* BOX KONTEN PEMBAYARAN */
         .content { 
             display: none; width: 100%; max-width: 400px; margin: 20px auto; 
             padding: 20px; border: 2px solid #ff0000; border-radius: 15px; 
@@ -28,21 +28,19 @@
             box-sizing: border-box;
         }
 
-        /* LOGO NEON (ANTI PUTIH-PUTIH) */
         .logo-pay { 
             width: 160px; height: auto; margin-bottom: 15px; 
             display: block; margin-left: auto; margin-right: auto;
-            /* Memberikan efek neon pada logo transparan */
             filter: drop-shadow(0 0 8px #ff0000); 
         }
 
         .qris-img { width: 100%; border-radius: 10px; border: 2px solid #fff; filter: drop-shadow(0 0 10px #ff0000); }
         .acc-number { font-size: 28px; color: #ff0000; font-weight: 900; text-shadow: 0 0 15px #ff0000; margin: 10px 0; }
 
-        /* AREA UPLOAD */
+        /* AREA FORM UPLOAD (TEXT UPLOAD BUKTI DIHAPUS) */
         .upload-section {
             width: 100%; max-width: 400px; margin: 30px auto; 
-            padding: 20px; border: 2px dashed #ff0000; border-radius: 15px;
+            padding: 25px 20px; border: 2px dashed #ff0000; border-radius: 15px;
             background: #0a0a0a; box-sizing: border-box;
         }
         
@@ -61,12 +59,15 @@
             margin-top: 15px; text-transform: uppercase; box-shadow: 0 0 20px #ff0000;
         }
 
-        /* TOMBOL KEMBALI DI BAWAH */
-        .btn-back-bottom {
+        /* TOMBOL KEMBALI WARNA MERAH NEON */
+        .btn-back-red {
             display: block; width: 100%; max-width: 400px; margin: 20px auto;
-            padding: 15px; border-radius: 12px; border: 1px solid #444;
-            background: #111; color: #aaa; text-decoration: none; font-weight: bold;
+            padding: 16px; border-radius: 12px; border: 2px solid #ff0000;
+            background: #000; color: #fff; text-decoration: none; font-weight: 800;
+            text-transform: uppercase; box-shadow: 0 0 15px #ff0000;
+            transition: 0.3s;
         }
+        .btn-back-red:hover { box-shadow: 0 0 30px #ff0000; background: #220000; }
     </style>
 </head>
 <body>
@@ -96,14 +97,13 @@
     </div>
 
     <div class="upload-section">
-        <h3 style="color:#ff0000; text-shadow: 0 0 10px #ff0000;">UPLOAD BUKTI</h3>
         <input type="text" id="user-nama" placeholder="Masukan Nama Anda">
         <input type="text" id="user-wa" placeholder="Masukan Nomor WhatsApp">
         <input type="file" id="user-file">
         <button class="btn-submit" onclick="kirimKonfirmasi()">Kirim Bukti Pembayaran</button>
     </div>
 
-    <a href="index.html" class="btn-back-bottom">Kembali ke Produk</a>
+    <a href="index.html" class="btn-back-red">Kembali ke Produk</a>
 
     <script>
         const params = new URLSearchParams(window.location.search);
