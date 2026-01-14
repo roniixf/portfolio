@@ -3,37 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RONIIXF // SYSTEM_REAPER</title>
+    <title>RONIIXF // CYBERCRIME</title>
     <style>
-        /* CSS RESET TOTAL AGAR TIDAK BOCOR */
+        /* RESET TOTAL AGAR TIDAK BURIK */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             background-color: #000;
             color: #fff;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: 'Consolas', 'Courier New', monospace;
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* MATRIX BG MERAH CERAH */
+        /* BG MATRIX COLD RED */
         canvas {
             position: fixed;
             top: 0; left: 0;
             z-index: -1;
-            opacity: 0.25;
+            opacity: 0.2;
         }
 
-        /* TEXT NEON CERAH MAKSIMAL */
-        .neon-bright {
+        /* TEXT NEON CERAH TAPI DINGIN */
+        .neon-text {
             color: #ff0000;
-            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
+            text-shadow: 0 0 5px #ff0000, 0 0 15px #ff0000, 0 0 30px #ff0000;
             font-weight: 900;
+            letter-spacing: 3px;
             text-transform: uppercase;
         }
 
+        /* PROFILE HUD RADAR */
+        .hud-profile {
+            position: relative;
+            width: 220px; height: 220px;
+            margin: 50px 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .img-avatar {
+            width: 150px; height: 150px;
+            border-radius: 50%;
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.6);
+            z-index: 5;
+            filter: grayscale(0.5);
+        }
+
+        .radar-line {
+            position: absolute;
+            width: 100%; height: 100%;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 50%;
+        }
+
+        .radar-scanner {
+            position: absolute;
+            width: 100%; height: 100%;
+            border: 2px solid transparent;
+            border-top: 2px solid #ff0000;
+            border-radius: 50%;
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* BOX KATA-KATA DINGIN */
+        .cold-box {
+            width: 90%;
+            max-width: 480px;
+            background: rgba(10, 0, 0, 0.85);
+            border-left: 4px solid #ff0000;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,1);
+        }
+
+        .cold-box p {
+            font-size: 15px;
+            color: #ccc;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+        }
+
+        /* SKILL SECTION */
+        .skill-container { width: 90%; max-width: 480px; }
+        .skill-label { font-size: 10px; color: #ff0000; margin-bottom: 8px; font-weight: bold; letter-spacing: 2px; }
+        .bar-bg { height: 4px; background: #111; margin-bottom: 25px; position: relative; overflow: hidden; }
+        .bar-fill { height: 100%; background: #ff0000; box-shadow: 0 0 10px #ff0000; }
+
+        /* FOOTER */
+        .footer {
+            margin-top: 60px;
+            padding-bottom: 40px;
+            font-size: 9px;
+            color: #300;
+            letter-spacing: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix"></canvas>
+
+    <div class="hud-profile">
+        <div class="radar-line"></div>
+        <div class="radar-scanner"></div>
+        <img src="https://via.placeholder.com/150" alt="RONIIXF" class="img-avatar">
+    </div>
+
+    <h1 class="neon-text" style="font-size: 28px; margin-bottom: 40px;">RONIIXF // CYBERCRIME</h1>
+
+    <div class="cold-box">
+        <p>
+            "Gue gak butuh pengakuan, apalagi izin. Saat lo sadar sistem lo jebol, itu artinya gue udah dapet apa yang gue mau. Jangan repot-repot ganti password; lo cuma nunda waktu gue buat balik lagi."
+        </p>
+    </div>
+
+    <div class="skill-container">
+        <div class="skill-label">>> KERNEL_EXPLOIT</div>
+        <div class="bar-bg"><div class="bar-fill" style="width: 98%;"></div></div>
+
+        <div class="skill-label">>> SHADOW_INJECTION</div>
+        <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
+
+        <div class="skill-label">>> LOG_WIPER</div>
+        <div class="bar-bg"><div class="bar-fill" style="width: 99%;"></div></div>
+    </div>
+
+    <div class="footer">
+        SILENCE IS DEADLY // 2026
+    </div>
+
+    <script>
+        // SCRIPT MATRIX RED NEON
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const chars = "0101011001";
+        const drops = Array(Math.floor(canvas.width/16)).fill(1);
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#ff0000";
+            ctx.font = "16px monospace";
+            drops.forEach((y, i) => {
+                const text = chars[Math.floor(Math.random()*chars.length)];
+                ctx.fillText(text, i*16, y*16);
+                if(y*16 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+        setInterval(draw, 40);
+    </script>
+</body>
+</html>
         /* PROFILE HUD RADAR */
         .hud-wrapper {
             position: relative;
