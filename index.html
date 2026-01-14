@@ -5,78 +5,188 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RONIIXF // CYBERCRIME</title>
     <style>
-        /* CSS RESET SUPAYA RAPIH TOTAL */
+        /* RESET & BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background-color: #000;
             color: #fff;
-            font-family: 'Consolas', 'Courier New', monospace;
+            font-family: 'Consolas', monospace;
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-x: hidden;
-            min-height: 100vh;
         }
 
-        /* MATRIX BG MERAH CERAH */
-        #matrix {
-            position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.25;
-        }
+        /* MATRIX BG DARAH CERAH */
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
 
-        /* TITLE NEON GAK BURIK */
-        .neon-title {
+        /* NEON TEXT GILA (GAK BURIK) */
+        .neon-red {
             color: #ff0000;
-            text-shadow: 0 0 10px #f00, 0 0 20px #f00, 0 0 40px #f00;
-            font-size: 28px;
-            letter-spacing: 6px;
-            margin-top: 40px;
+            text-shadow: 0 0 10px #f00, 0 0 20px #f00, 0 0 40px #f00, 0 0 60px #f00;
             font-weight: 900;
             text-transform: uppercase;
+            letter-spacing: 5px;
         }
 
-        /* HUD PROFILE BERSIH */
+        /* PROFILE HUD RADAR (DENGAN FOTO LO) */
         .hud-profile {
             position: relative;
-            width: 180px; height: 180px;
+            width: 220px; height: 220px;
             margin: 40px 0;
             display: flex; align-items: center; justify-content: center;
         }
+
         .img-avatar {
-            width: 140px; height: 140px;
+            width: 160px; height: 160px;
             border-radius: 50%;
-            border: 3px solid #f00;
-            box-shadow: 0 0 30px #f00;
+            border: 4px solid #f00;
+            box-shadow: 0 0 40px #f00;
             z-index: 5;
             object-fit: cover;
-            filter: grayscale(0.8);
+            background: #111;
         }
-        .scanner {
+
+        .scanner-ring {
             position: absolute; width: 100%; height: 100%;
-            border: 2px solid transparent; border-top: 2px solid #f00;
-            border-radius: 50%; animation: scan 2s linear infinite;
+            border: 2px dashed #f00;
+            border-radius: 50%;
+            animation: spin 4s linear infinite;
         }
-        @keyframes scan { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* BOX KATA-KATA DINGIN */
-        .cold-card {
-            width: 90%; max-width: 450px;
-            background: rgba(15, 0, 0, 0.9);
-            border-left: 5px solid #ff0000;
+        .scanner-glow {
+            position: absolute; width: 115%; height: 115%;
+            border: 1px solid rgba(255,0,0,0.3);
+            border-top: 4px solid #f00;
+            border-radius: 50%;
+            animation: spin 2s linear infinite reverse;
+        }
+
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* CONTENT CARDS GAHAR */
+        .container { width: 90%; max-width: 500px; }
+
+        .card {
+            background: rgba(10, 0, 0, 0.9);
+            border: 1px solid #f00;
             padding: 25px;
-            margin-bottom: 35px;
-            box-shadow: 0 10px 40px rgba(0,0,0,1);
-        }
-        .cold-card p {
-            font-size: 15px; color: #ccc; line-height: 1.7; font-style: italic;
+            margin: 20px 0;
+            box-shadow: inset 0 0 20px rgba(255,0,0,0.3), 0 0 15px rgba(255,0,0,0.2);
+            position: relative;
         }
 
-        /* SKILL BAR NEON CERAH */
-        .skill-list { width: 90%; max-width: 450px; }
-        .skill-label { font-size: 11px; color: #f00; margin-bottom: 8px; font-weight: bold; letter-spacing: 2px; }
-        .bar-bg { width: 100%; height: 6px; background: #111; border: 1px solid #300; margin-bottom: 25px; }
-        .bar-fill { height: 100%; background: #f00; box-shadow: 0 0 15px #f00; }
+        .card::before {
+            content: ">> THREAT_DETECTED";
+            position: absolute; top: -10px; left: 15px;
+            background: #f00; color: #000;
+            font-size: 10px; font-weight: bold; padding: 2px 8px;
+        }
 
-        footer {
+        .cold-quote {
+            font-size: 15px;
+            line-height: 1.8;
+            font-style: italic;
+            color: #ffcccc;
+            text-shadow: 0 0 5px rgba(255,0,0,0.5);
+        }
+
+        /* SKILL BARS NEON */
+        .skill-item { margin-bottom: 25px; }
+        .skill-name { font-size: 11px; color: #f00; margin-bottom: 8px; font-weight: bold; display: flex; justify-content: space-between;}
+        .bar-bg { width: 100%; height: 8px; background: #111; border: 1px solid #300; position: relative;}
+        .bar-fill { height: 100%; background: #f00; box-shadow: 0 0 15px #f00; width: 0%; transition: width 2s;}
+
+        /* TERMINAL LOG */
+        #term {
+            font-size: 11px; color: #f00; height: 100px;
+            overflow: hidden; border-top: 1px solid #400;
+            padding-top: 10px; margin-top: 10px;
+        }
+
+        .btn-attack {
+            display: block; width: 100%; padding: 15px;
+            background: #f00; color: #000; text-align: center;
+            font-weight: 900; text-decoration: none; margin-top: 20px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            transition: 0.3s;
+        }
+
+        .btn-attack:hover { background: #fff; box-shadow: 0 0 20px #fff; }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix"></canvas>
+
+    <div class="hud-profile">
+        <div class="scanner-ring"></div>
+        <div class="scanner-glow"></div>
+        <img src="https://takenupload.com/69672d9dd452e" alt="RONIIXF" class="img-avatar">
+    </div>
+
+    <div class="container">
+        <h1 class="neon-red" style="font-size: 26px; text-align: center;">RONIIXF // CYBERCRIME</h1>
+        <p style="text-align: center; color: #500; font-size: 10px; letter-spacing: 6px; margin: 10px 0 30px;">[ SYSTEM_SABOTEUR_EST_2026 ]</p>
+
+        <div class="card">
+            <p class="cold-quote">
+                "Gue gak butuh pengakuan, apalagi izin. Saat lo sadar sistem lo jebol, itu artinya gue udah dapet apa yang gue mau. Jangan repot-repot ganti password; lo cuma nunda waktu gue buat balik lagi."
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="skill-item">
+                <div class="skill-name"><span>>> BYPASS_KERNEL</span><span>99%</span></div>
+                <div class="bar-bg"><div class="bar-fill" style="width: 99%;"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-name"><span>>> SQL_INJECTION</span><span>95%</span></div>
+                <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
+            </div>
+            <div id="term"></div>
+        </div>
+
+        <a href="#" class="btn-attack">INITIALIZE ATTACK</a>
+    </div>
+
+    <footer style="padding: 50px; color: #200; font-size: 8px; letter-spacing: 12px;">SILENCE_IS_DEADLY</footer>
+
+    <script>
+        // MATRIX EFFECT
+        const c = document.getElementById('matrix');
+        const ctx = c.getContext('2d');
+        c.width = window.innerWidth;
+        c.height = window.innerHeight;
+        const chars = "01";
+        const drops = Array(Math.floor(c.width/16)).fill(1);
+        function draw() {
+            ctx.fillStyle = "rgba(0,0,0,0.05)";
+            ctx.fillRect(0,0,c.width,c.height);
+            ctx.fillStyle = "#f00";
+            ctx.font = "16px monospace";
+            drops.forEach((y, i) => {
+                const txt = chars[Math.floor(Math.random()*chars.length)];
+                ctx.fillText(txt, i*16, y*16);
+                if(y*16 > c.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+        setInterval(draw, 40);
+
+        // LOG EFFECT
+        const term = document.getElementById('term');
+        const logs = ["> Scanning vulnerabilities...", "> Payload injected...", "> Bypassing firewall...", "> Accessing root...", "> Downloading database...", "> Logs wiped clean."];
+        let i = 0;
+        setInterval(() => {
+            term.innerHTML += logs[i % logs.length] + "<br>";
+            term.scrollTop = term.scrollHeight;
+            i++;
+            if(term.innerHTML.length > 250) term.innerHTML = "";
+        }, 1200);
+    </script>
+</body>
+</html>
             margin: 50px 0; padding-bottom: 30px;
             font-size: 9px; color: #300; letter-spacing: 10px; text-align: center;
         }
