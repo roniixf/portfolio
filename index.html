@@ -2,81 +2,160 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RONIXF // SYSTEM_BREAKER</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RONIXF // RED_NEON_OPERATIVE</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
-            --neon-red: #ff0000;
-            --neon-bg: #0d0000;
+            --neon: #ff003c;
+            --neon-glow: rgba(255, 0, 60, 0.6);
         }
 
         body {
-            background-color: #000;
-            color: #fff;
+            background-color: #030000;
+            color: #ffffff;
             font-family: 'JetBrains Mono', monospace;
             overflow-x: hidden;
-            background-image: linear-gradient(0deg, transparent 24%, rgba(255, 0, 0, 0.05) 25%, rgba(255, 0, 0, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 0, 0, 0.05) 75%, rgba(255, 0, 0, 0.05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 0, 0, 0.05) 25%, rgba(255, 0, 0, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 0, 0, 0.05) 75%, rgba(255, 0, 0, 0.05) 76%, transparent 77%, transparent);
-            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(rgba(255, 0, 60, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 60, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
 
-        /* Scanline Animation */
-        body::after {
-            content: " ";
-            position: fixed; top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 1000; background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
+        .header-font { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
+
+        /* Neon Glow Text */
+        .neon-text {
+            color: var(--neon);
+            text-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon);
         }
 
-        .header-glow {
-            font-family: 'Orbitron', sans-serif;
-            text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red);
-            letter-spacing: -2px;
-        }
-
-        /* Advanced Profile HUD */
-        .profile-container {
+        /* Profile HUD Bulat */
+        .profile-ring {
             position: relative;
-            width: 180px; height: 180px;
+            width: 170px; height: 170px;
             margin: 0 auto;
             display: flex; align-items: center; justify-content: center;
         }
+
         .profile-img {
-            width: 140px; height: 140px;
+            width: 130px; height: 130px;
             border-radius: 50%;
-            border: 2px solid var(--neon-red);
-            z-index: 10; object-fit: cover;
-            filter: grayscale(1) contrast(1.5) brightness(0.9);
-            box-shadow: inset 0 0 20px #ff0000;
-        }
-        .hud-spinner {
-            position: absolute; width: 100%; height: 100%;
-            border: 2px solid transparent;
-            border-top: 2px solid var(--neon-red);
-            border-bottom: 2px solid var(--neon-red);
-            border-radius: 50%;
-            animation: spin 3s linear infinite;
-        }
-        .hud-dots {
-            position: absolute; width: 160px; height: 160px;
-            border: 5px dotted rgba(255, 0, 0, 0.3);
-            border-radius: 50%;
-            animation: spin-reverse 10s linear infinite;
+            border: 2px solid var(--neon);
+            object-fit: cover;
+            z-index: 5;
+            box-shadow: 0 0 25px var(--neon-glow);
+            filter: grayscale(0.5) contrast(1.2);
         }
 
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes spin-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+        .circle-anim {
+            position: absolute;
+            width: 100%; height: 100%;
+            border: 2px dashed var(--neon);
+            border-radius: 50%;
+            animation: rotate 10s linear infinite;
+            opacity: 0.5;
+        }
 
-        /* Aggressive Glitch Card */
-        .cyber-card {
-            background: rgba(15, 0, 0, 0.8);
-            border: 1px solid var(--neon-red);
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* Skill Card High Contrast */
+        .skill-card {
+            background: #080000;
+            border: 1px solid #200000;
+            padding: 20px;
             position: relative;
-            overflow: hidden;
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%);
+            transition: 0.3s;
         }
+
+        .skill-card:hover {
+            border-color: var(--neon);
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.2);
+        }
+
+        .bar-container { height: 4px; background: #1a0000; width: 100%; margin-top: 10px; }
+        .bar-fill { 
+            height: 100%; background: var(--neon); 
+            box-shadow: 0 0 15px var(--neon); 
+        }
+
+        /* Scanline Effect */
+        .scanline {
+            width: 100%; height: 100px;
+            background: linear-gradient(0deg, transparent, rgba(255, 0, 60, 0.05), transparent);
+            position: fixed; top: -100px; left: 0;
+            animation: scan 4s linear infinite;
+            pointer-events: none; z-index: 100;
+        }
+        @keyframes scan { 0% { top: -100px; } 100% { top: 100vh; } }
+    </style>
+</head>
+<body class="p-6">
+    <div class="scanline"></div>
+
+    <nav class="max-w-5xl mx-auto flex justify-between items-center mb-16 border-b border-white/5 pb-4">
+        <div class="header-font text-xl font-bold neon-text italic">RONIXF_CORE</div>
+        <div class="text-[10px] tracking-widest opacity-50 uppercase">Secured_Uplink: Active</div>
+    </nav>
+
+    <header class="text-center mb-20">
+        <div class="profile-ring mb-8">
+            <div class="circle-anim"></div>
+            <img src="https://via.placeholder.com/150" alt="RONIXF" class="profile-img">
+        </div>
+        <h1 class="header-font text-6xl md:text-8xl font-black mb-4">RONIXF</h1>
+        <p class="text-red-600 font-bold tracking-[0.4em] text-xs uppercase mb-8 opacity-80 italic">Shadow Operative // System Architect</p>
+        
+        <div class="max-w-xl mx-auto p-5 border-l-4 border-red-600 bg-red-950/10 text-sm text-gray-300 italic">
+            "Keamanan hanyalah ilusi. Saya tidak mencari pintu terbuka, saya membangun jalan pintas saya sendiri."
+        </div>
+    </header>
+
+    <section class="max-w-4xl mx-auto mb-20">
+        <h2 class="header-font text-sm mb-10 border-b border-red-600 inline-block tracking-widest">>> Infiltration_Skills</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            
+            <div class="skill-card">
+                <div class="flex justify-between text-[10px] font-bold">
+                    <span>PYTHON_EXPLOIT</span>
+                    <span class="neon-text">98%</span>
+                </div>
+                <div class="bar-container"><div class="bar-fill" style="width: 98%"></div></div>
+            </div>
+
+            <div class="skill-card">
+                <div class="flex justify-between text-[10px] font-bold">
+                    <span>JS_GHOST_SCRIPT</span>
+                    <span class="neon-text">92%</span>
+                </div>
+                <div class="bar-container"><div class="bar-fill" style="width: 92%"></div></div>
+            </div>
+
+            <div class="skill-card">
+                <div class="flex justify-between text-[10px] font-bold">
+                    <span>PHP_OVERRIDE</span>
+                    <span class="neon-text">85%</span>
+                </div>
+                <div class="bar-container"><div class="bar-fill" style="width: 85%"></div></div>
+            </div>
+
+            <div class="skill-card">
+                <div class="flex justify-between text-[10px] font-bold">
+                    <span>NETWORK_RECON</span>
+                    <span class="neon-text">95%</span>
+                </div>
+                <div class="bar-container"><div class="bar-fill" style="width: 95%"></div></div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="text-center py-20 border-t border-white/5 text-[9px] opacity-30 tracking-[1em] uppercase">
+        Established 2026 // Ronixf Systems
+    </footer>
+</body>
+</html>
         .cyber-card::before {
             content: "SECURED";
             position: absolute; top: 5px; right: 10px;
