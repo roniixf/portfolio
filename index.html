@@ -3,157 +3,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RONIIXF // SYSTEM_OVERRIDE</title>
+<title>RONIIXF // 403_NOT_FOUND</title>
 <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Courier New', monospace; -webkit-tap-highlight-color:transparent; }
-    body { background:#000; color:#f00; overflow:hidden; }
-    canvas { position:fixed; top:0; left:0; z-index:1; opacity:0.3; pointer-events:none; }
+    :root { --red: #ff0000; --glow: #f00; }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Consolas', monospace; }
+    body { background: #000; color: var(--red); overflow: hidden; height: 100vh; }
 
-    /* HEADER & NAV */
-    header { position:fixed; top:0; width:100%; padding:20px; display:flex; justify-content:space-between; align-items:center; z-index:1000; background:linear-gradient(to bottom, rgba(20,0,0,0.8), transparent); }
-    .status-bar { font-size:10px; letter-spacing:2px; text-shadow:0 0 5px #f00; }
+    /* CRT SCANLINE EFFECT */
+    .crt::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05)); z-index: 9999; background-size: 100% 2px, 3px 100%; pointer-events: none; }
+
+    canvas { position: fixed; top: 0; left: 0; z-index: 1; opacity: 0.2; }
+
+    /* TOP HEADER */
+    header { position: fixed; top: 0; width: 100%; padding: 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: rgba(0,0,0,0.8); border-bottom: 1px solid #400; }
+    .status { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+
+    #menu-btn { cursor: pointer; border: 1px solid var(--red); padding: 5px 15px; font-weight: 900; z-index: 1001; transition: 0.3s; }
+    #menu-btn:hover { background: var(--red); color: #000; box-shadow: 0 0 20px var(--red); }
+
+    /* MENU PANEL */
+    nav { position: fixed; top: 0; right: -100%; width: 100%; height: 100%; background: rgba(5,0,0,0.98); z-index: 999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.5s; }
+    nav.active { right: 0; }
+    nav a { color: #fff; text-decoration: none; font-size: 24px; margin: 15px; letter-spacing: 8px; font-weight: 900; transition: 0.3s; }
+    nav a:hover { color: var(--red); text-shadow: 0 0 15px var(--red); }
+
+    /* CENTER BOX */
+    main { position: relative; z-index: 10; height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
     
-    #menu-btn { cursor:pointer; width:35px; height:25px; display:flex; flex-direction:column; justify-content:space-between; z-index:1001; }
-    #menu-btn span { display:block; width:100%; height:3px; background:#f00; box-shadow:0 0 10px #f00; transition:0.3s; }
+    .avatar { position: relative; width: 160px; height: 160px; margin-bottom: 25px; }
+    .avatar img { width: 100%; height: 100%; border-radius: 50%; border: 2px solid var(--red); box-shadow: 0 0 40px rgba(255,0,0,0.4); filter: grayscale(1) contrast(1.2); }
+    .scan { position: absolute; width: 180px; height: 180px; top: -10px; left: -10px; border: 1px solid transparent; border-top: 3px solid var(--red); border-radius: 50%; animation: spin 2s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    #nav-panel { position:fixed; top:0; right:-100%; width:100%; height:100%; background:rgba(5,0,0,0.95); z-index:999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition:0.5s cubic-bezier(0.7,0,0.3,1); border-left:2px solid #f00; }
-    #nav-panel.open { right:0; }
-    #nav-panel a { color:#fff; text-decoration:none; font-size:24px; margin:15px; letter-spacing:5px; transition:0.3s; padding:10px 20px; border:1px solid transparent; }
-    #nav-panel a:hover { color:#f00; border:1px solid #f00; box-shadow:0 0 20px rgba(255,0,0,0.3); text-shadow:0 0 10px #f00; }
+    /* NAMA GLITCH */
+    .glitch-name { font-size: 2.2rem; font-weight: 900; letter-spacing: 10px; color: #fff; text-shadow: 2px 2px var(--red); position: relative; margin-bottom: 5px; }
+    .glitch-name::before { content: "403 NOT FOUND"; position: absolute; top: 0; left: 0; width: 100%; height: 100%; color: var(--red); overflow: hidden; clip: rect(0, 900px, 0, 0); animation: glitch-anim 3s infinite linear alternate-reverse; }
+    @keyframes glitch-anim { 0% { clip: rect(44px, 9999px, 56px, 0); } 20% { clip: rect(12px, 9999px, 90px, 0); } 100% { clip: rect(67px, 9999px, 32px, 0); } }
 
-    /* MAIN DISPLAY */
-    #display-area { position:relative; z-index:10; width:100vw; height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; transition:0.5s; }
-    
-    .profile-hud { position:relative; width:180px; height:180px; margin-bottom:20px; }
-    .profile-hud img { width:100%; height:100%; border-radius:50%; border:2px solid #f00; box-shadow:0 0 30px #f00; }
-    .radar { position:absolute; top:-10px; left:-10px; width:200px; height:200px; border:2px solid transparent; border-top:2px solid #f00; border-radius:50%; animation:rot 2s linear infinite; }
-    @keyframes rot { to {transform:rotate(360deg);} }
+    .est { font-size: 14px; letter-spacing: 15px; color: var(--red); font-weight: bold; margin-bottom: 40px; }
 
-    .nick { font-size:24px; letter-spacing:5px; text-shadow:0 0 15px #f00; font-weight:900; }
-    .est { font-size:12px; letter-spacing:8px; color:#500; margin-bottom:30px; }
+    /* TEXT DINGIN */
+    .cold-box { width: 100%; max-width: 500px; padding: 25px; background: rgba(15,0,0,0.8); border-left: 5px solid var(--red); box-shadow: 20px 20px 50px rgba(0,0,0,0.5); text-align: left; }
+    .cold-box p { font-size: 14px; line-height: 1.8; color: #bbb; font-style: italic; }
 
-    /* TERMINAL CONTENT (YANG MUNCUL PAS DIKLIK) */
-    .terminal-box { width:100%; max-width:500px; background:rgba(15,0,0,0.9); border:1px solid #f00; padding:15px; box-shadow:inset 0 0 15px rgba(255,0,0,0.2); display:none; }
-    .term-head { font-size:10px; border-bottom:1px solid #300; padding-bottom:5px; margin-bottom:10px; color:#500; }
-    .term-line { font-size:11px; margin-bottom:5px; white-space:pre-wrap; }
-    .red { color:#f00; }
-    .white { color:#fff; }
+    /* BOTTOM LOG */
+    #log { position: fixed; bottom: 0; left: 0; width: 100%; height: 100px; background: rgba(0,0,0,0.9); padding: 10px; font-size: 10px; overflow: hidden; border-top: 1px solid #300; }
+    .log-entry { margin-bottom: 3px; color: #400; }
+    .log-err { color: var(--red); font-weight: bold; }
 
-    /* BUTTONS */
-    .btn-action { margin-top:20px; padding:10px 30px; background:#f00; color:#000; font-weight:900; border:none; cursor:pointer; clip-path:polygon(10% 0, 100% 0, 90% 100%, 0 100%); transition:0.3s; }
-    .btn-action:hover { background:#fff; box-shadow:0 0 20px #fff; }
-
-    footer { position:fixed; bottom:15px; font-size:8px; color:#300; letter-spacing:5px; z-index:10; }
+    footer { position: fixed; bottom: 110px; font-size: 9px; letter-spacing: 8px; color: #200; }
 </style>
 </head>
-<body>
+<body class="crt">
 
 <canvas id="matrix"></canvas>
 
 <header>
-    <div class="status-bar">SYSTEM_STATUS: <span style="color:#0f0">ACTIVE</span></div>
-    <div id="menu-btn" onclick="toggleNav()">
-        <span></span><span></span><span></span>
-    </div>
+    <div class="status">ID: <span style="color:#fff">RONIIXF_SABOTEUR</span></div>
+    <div id="menu-btn" onclick="toggleNav()">ACCESS_MENU</div>
 </header>
 
-<nav id="nav-panel">
-    <a href="#" onclick="showContent('main')">// HOME_BASE</a>
-    <a href="#" onclick="showContent('server')">// MAIN_SERVER</a>
-    <a href="#" onclick="showContent('leak')">// DATABASE_LEAK</a>
-    <a href="#" onclick="showContent('map')">// NETWORK_MAP</a>
-    <a href="#" onclick="toggleNav()">[ CLOSE ]</a>
+<nav id="nav">
+    <a href="#" onclick="toggleNav()">[ 01_ROOT ]</a>
+    <a href="#" onclick="toggleNav()">[ 02_EXPLOIT ]</a>
+    <a href="#" onclick="toggleNav()">[ 03_TERMINATE ]</a>
+    <a href="#" onclick="toggleNav()" style="color:#500">[ CLOSE ]</a>
 </nav>
 
-<div id="display-area">
-    <div id="home-content" class="content-sec" style="display:flex; flex-direction:column; align-items:center;">
-        <div class="profile-hud">
-            <div class="radar"></div>
-            <img src="https://takenupload.com/69672d9dd452e" alt="RONIIXF">
-        </div>
-        <h1 class="nick">RONIIXF // CYBERCRIME</h1>
-        <p class="est">EST 2026</p>
-        <button class="btn-action" onclick="toggleNav()">INITIALIZE HACK</button>
+<main>
+    <div class="avatar">
+        <div class="scan"></div>
+        <img src="https://takenupload.com/69672d9dd452e" alt="RONIIXF">
     </div>
 
-    <div id="terminal-content" class="terminal-box">
-        <div class="term-head" id="term-title">TERMINAL@RONIIXF:~#</div>
-        <div id="log-body"></div>
-    </div>
-</div>
+    <h1 class="glitch-name">RONIIXF</h1>
+    <p class="est">EST 2026</p>
 
-<footer>&copy; OPERATIVE_ID: 403_FORBIDDEN</footer>
+    <div class="cold-box">
+        <p>"Saat lo ngerasa aman, saat itu juga gue udah ngelewatin firewall lo tanpa suara. Jangan cari gue di log, karena gue adalah 403 NOT FOUND—ada tapi gak terdeteksi, nyisain kehancuran pas lo refresh halaman."</p>
+    </div>
+</main>
+
+<div id="log"></div>
+
+<footer>SYSTEM_STATUS: FORBIDDEN</footer>
 
 <script>
-    function toggleNav() {
-        document.getElementById('nav-panel').classList.toggle('open');
-    }
+    function toggleNav() { document.getElementById('nav').classList.toggle('active'); }
 
-    function showContent(type) {
-        toggleNav();
-        const home = document.getElementById('home-content');
-        const term = document.getElementById('terminal-content');
-        const log = document.getElementById('log-body');
-        
-        home.style.display = 'none';
-        term.style.display = 'block';
-        log.innerHTML = '';
+    // LOG GENERATOR 403
+    const logBox = document.getElementById('log');
+    const msgs = [
+        "ERR: 403_FORBIDDEN_ACCESS", "BYPASSING_AUTH_GATEWAY...", "TRACING_IP_192.168.1.103",
+        "INJECTING_LOGIC_BOMB...", "RONIIXF_PAYLOAD_DEPLOYED", "WIPING_SERVER_EVIDENCE...",
+        "ACCESS_DENIED_BY_OPERATIVE", "INITIALIZING_REVERSE_SHELL"
+    ];
 
-        let data = [];
-        if(type === 'server') {
-            document.getElementById('term-title').innerText = "CONNECTING_TO_MAIN_SERVER...";
-            data = [
-                "> Scanning ports...",
-                "> Port 80: OPEN",
-                "> Port 443: OPEN",
-                "> Attempting SSH bypass...",
-                "> Brute-forcing root password...",
-                "> [SUCCESS] Root access granted.",
-                "> Downloading kernel_config..."
-            ];
-        } else if(type === 'leak') {
-            document.getElementById('term-title').innerText = "ACCESSING_DATABASE_SENSITIVE...";
-            data = [
-                "> SQL Injection started...",
-                "> Dumping tables: users, passwords, logs",
-                "> user_admin: hash_8f92jka...",
-                "> user_manager: hash_p20slak...",
-                "> 4.2GB Data exfiltrated.",
-                "> Wiping logs... DONE."
-            ];
-        } else {
-            home.style.display = 'flex';
-            term.style.display = 'none';
-            return;
-        }
+    setInterval(() => {
+        const div = document.createElement('div');
+        div.className = 'log-entry';
+        if(Math.random() > 0.6) div.className += ' log-err';
+        div.innerText = `[${new Date().toLocaleTimeString()}] >> ${msgs[Math.floor(Math.random()*msgs.length)]}`;
+        logBox.prepend(div);
+        if(logBox.childNodes.length > 8) logBox.lastChild.remove();
+    }, 700);
 
-        let i = 0;
-        const interval = setInterval(() => {
-            if(i < data.length) {
-                log.innerHTML += `<div class="term-line ${i%2===0?'white':'red'}">${data[i]}</div>`;
-                i++;
-            } else {
-                clearInterval(interval);
-                log.innerHTML += `<br><button class="btn-action" style="font-size:10px" onclick="showContent('main')">BACK_TO_HOME</button>`;
-            }
-        }, 400);
-    }
-
-    // MATRIX BG
+    // MATRIX RAIN
     const c = document.getElementById('matrix');
     const ctx = c.getContext('2d');
     c.width = window.innerWidth; c.height = window.innerHeight;
-    const drops = Array(Math.floor(c.width/16)).fill(1);
+    const drops = Array(Math.floor(c.width/18)).fill(1);
     function draw() {
-        ctx.fillStyle = "rgba(0,0,0,0.05)"; ctx.fillRect(0,0,c.width,c.height);
-        ctx.fillStyle = "#f00"; ctx.font = "16px monospace";
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)"; ctx.fillRect(0, 0, c.width, c.height);
+        ctx.fillStyle = "#f00"; ctx.font = "15px monospace";
         drops.forEach((y, i) => {
-            ctx.fillText(Math.floor(Math.random()*2), i*16, y*16);
-            if(y*16 > c.height && Math.random() > 0.975) drops[i] = 0;
+            ctx.fillText(Math.floor(Math.random()*2), i*18, y*18);
+            if(y*18 > c.height && Math.random() > 0.975) drops[i] = 0;
             drops[i]++;
         });
     }
-    setInterval(draw, 40);
+    setInterval(draw, 50);
 </script>
+
 </body>
 </html>
