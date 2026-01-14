@@ -3,164 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RONIIXF CYBERCRIME // ACTIVE_THREAT</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <title>RONIIXF // CYBERCRIME_SQUAD</title>
     <style>
-        /* WARNA UTAMA: NEON BRIGHT RED */
-        :root {
-            --neon-bright-red: #FF3366; /* Merah pink terang */
-            --neon-glow-effect: rgba(255, 51, 102, 0.7);
-            --dark-background: #080000;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            background-color: var(--dark-background);
-            color: #E0E0E0;
-            font-family: 'Share Tech Mono', monospace;
-            margin: 0;
+            background-color: #000;
+            color: #ff0000;
+            font-family: 'Courier New', Courier, monospace;
             overflow-x: hidden;
-            /* Grid background yang lebih terang */
-            background-image: 
-                linear-gradient(rgba(255, 51, 102, 0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 51, 102, 0.08) 1px, transparent 1px);
-            background-size: 40px 40px;
+            background: radial-gradient(circle, #200000 0%, #000 100%);
         }
 
-        /* Teks Neon Menyilaukan */
-        .neon-text-light {
-            color: var(--neon-bright-red);
-            text-shadow: 0 0 8px var(--neon-bright-red), 0 0 20px var(--neon-glow-effect), 0 0 30px var(--neon-glow-effect);
-            font-family: 'Orbitron', sans-serif;
-            text-transform: uppercase;
+        /* MATRIX EFFECT BACKGROUND */
+        canvas {
+            position: fixed;
+            top: 0; left: 0;
+            z-index: -1;
+            opacity: 0.3;
         }
 
-        /* Profile HUD Ring */
-        .profile-wrap {
+        /* GLITCH ANIMATION */
+        .glitch-container {
             position: relative;
-            width: 170px; height: 170px;
-            margin: 0 auto;
-            display: flex; align-items: center; justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .glitch-title {
+            font-size: 40px;
+            font-weight: 900;
+            text-transform: uppercase;
+            position: relative;
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                         0.025em 0.04em 0 #fffc00;
+            animation: glitch 725ms infinite;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 #ff0000, -0.05em -0.025em 0 #00ff00; }
+            15% { text-shadow: -0.05em -0.025em 0 #ff0000, 0.025em 0.025em 0 #00ff00; }
+            50% { text-shadow: 0.025em 0.05em 0 #ff0000, 0.05em 0 0 #00ff00; }
+            100% { text-shadow: -0.025em 0 0 #ff0000, -0.025em -0.025em 0 #00ff00; }
+        }
+
+        /* PROFILE HUD COMPLEX */
+        .hud-box {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            margin: 20px auto;
         }
 
         .profile-img {
-            width: 130px; height: 130px;
+            width: 150px; height: 150px;
             border-radius: 50%;
-            border: 3px solid var(--neon-bright-red);
-            z-index: 10;
-            object-fit: cover;
-            box-shadow: 0 0 25px var(--neon-glow-effect);
-            filter: grayscale(0.2) contrast(1.2); /* Filter lebih ringan */
+            border: 2px solid #ff0000;
+            position: absolute; top: 35px; left: 35px;
+            box-shadow: 0 0 50px #ff0000;
+            z-index: 5;
+            filter: grayscale(1) contrast(1.5);
         }
 
-        .hud-circle {
+        .ring {
             position: absolute;
-            width: 100%; height: 100%;
-            border: 2px solid var(--neon-bright-red);
             border-radius: 50%;
-            animation: spin 8s linear infinite;
-            opacity: 0.7;
+            border: 2px solid transparent;
+            border-top-color: #ff0000;
+            animation: spin 3s linear infinite;
         }
+
+        .ring-1 { width: 100%; height: 100%; animation-duration: 2s; border-bottom-color: #ff0000; }
+        .ring-2 { width: 190px; height: 190px; top: 15px; left: 15px; animation-direction: reverse; border-right-color: #ff0000; }
 
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* Skill Card Neon */
-        .skill-card {
-            background: rgba(255, 51, 102, 0.08); /* Background transparan dari neon */
-            border: 1px solid var(--neon-bright-red);
-            padding: 18px;
-            box-shadow: 0 0 15px rgba(255, 51, 102, 0.2);
-            transition: transform 0.3s;
-        }
-        .skill-card:hover {
-            transform: translateY(-5px);
+        /* CONTENT CARDS */
+        .cyber-card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #ff0000;
+            margin: 15px;
+            padding: 15px;
+            box-shadow: 0 0 15px #ff0000;
+            position: relative;
         }
 
-        .bar-bg { height: 6px; background: #200000; border: 1px solid #400000; width: 100%; margin-top: 10px; }
-        .bar-fill { height: 100%; background: var(--neon-bright-red); box-shadow: 0 0 12px var(--neon-glow-effect); }
-
-        /* Quote Box */
-        .quote-box {
-            border-left: 4px solid var(--neon-bright-red);
-            background: rgba(255, 51, 102, 0.05);
-            padding: 20px;
+        .cyber-card::before {
+            content: "UNAUTHORIZED_ACCESS";
+            position: absolute; top: -10px; left: 10px;
+            background: #ff0000; color: #000;
+            font-size: 10px; padding: 2px 5px; font-weight: bold;
         }
 
-        /* Footer Terminal */
-        .terminal-output {
+        /* TERMINAL LOG */
+        .terminal {
             background: #000;
-            border: 1px solid var(--neon-bright-red);
+            color: #ff0000;
             padding: 10px;
-            white-space: pre-wrap;
-            overflow-x: auto;
-            animation: typing 6s steps(60, end) infinite;
+            font-size: 10px;
+            border: 1px solid #330000;
+            height: 100px;
+            overflow: hidden;
+            margin-top: 20px;
         }
-        @keyframes typing {
-            from { width: 0; }
-            to { width: 100%; }
+
+        /* SKILL BARS */
+        .bar { width: 100%; height: 8px; background: #200; border: 1px solid #ff0000; margin: 5px 0; }
+        .fill { height: 100%; background: #ff0000; box-shadow: 0 0 10px #ff0000; }
+
+        /* BUTTON */
+        .btn {
+            background: #ff0000; color: #000;
+            padding: 15px; width: 100%;
+            font-weight: 900; text-decoration: none;
+            display: block; text-align: center;
+            margin-top: 10px; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
         }
     </style>
 </head>
-<body class="p-6 md:p-12">
+<body>
+    <canvas id="canvas"></canvas>
 
-    <div class="max-w-4xl mx-auto">
-        <div class="flex justify-between text-[11px] font-bold text-gray-500 tracking-[0.3em] mb-16">
-            <span>// STATUS: <span class="text-green-400">ONLINE</span></span>
-            <span>// PROTOCOL: <span class="neon-text-light">ACTIVE</span></span>
+    <div class="glitch-container">
+        <div class="hud-box">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <img src="https://via.placeholder.com/150" alt="RONIIXF" class="profile-img">
         </div>
-
-        <header class="text-center mb-20">
-            <div class="profile-wrap mb-10">
-                <div class="hud-circle"></div>
-                <img src="https://via.placeholder.com/150" alt="RONIIXF" class="profile-img">
-            </div>
-
-            <h1 class="neon-text-light text-5xl md:text-7xl mb-4">RONIIXF CYBERCRIME</h1>
-            <p class="text-white text-xs tracking-[0.6em] font-bold uppercase opacity-80 underline decoration-red-600">Untraceable Entity // Threat Level: High</p>
-        </header>
-
-        <div class="max-w-2xl mx-auto quote-box mb-20 italic">
-            <p class="text-red-500 font-bold mb-3 uppercase tracking-widest">// DECRYPTED_MESSAGE:</p>
-            <span class="text-gray-300 text-sm leading-relaxed">
-                "Setiap baris kode adalah kesempatan, setiap sistem adalah target. Gue nggak butuh kunci, gue adalah kunci. Jangan coba sembunyi, karena gue selalu menemukan jalan."
-            </span>
-        </div>
-
-        <div class="max-w-2xl mx-auto space-y-8">
-            <div class="skill-card">
-                <div class="flex justify-between text-xs font-black">
-                    <span class="neon-text-light">// SYSTEM_INFILTRATION (PYTHON)</span>
-                    <span class="neon-text-light">98%</span>
-                </div>
-                <div class="bar-bg"><div class="bar-fill" style="width: 98%"></div></div>
-            </div>
-
-            <div class="skill-card">
-                <div class="flex justify-between text-xs font-black">
-                    <span class="neon-text-light">// BROWSER_HIJACK (JS)</span>
-                    <span class="neon-text-light">94%</span>
-                </div>
-                <div class="bar-bg"><div class="bar-fill" style="width: 94%"></div></div>
-            </div>
-
-            <div class="skill-card">
-                <div class="flex justify-between text-xs font-black">
-                    <span class="neon-text-light">// DATABASE_NUKE (PHP)</span>
-                    <span class="neon-text-light">88%</span>
-                </div>
-                <div class="bar-bg"><div class="bar-fill" style="width: 88%"></div></div>
-            </div>
-        </div>
-
-        <footer class="mt-32 text-center py-10 border-t border-gray-700/30">
-            <p class="text-[10px] tracking-[1em] text-red-600 font-bold mb-4">UPLINK_LOG:</p>
-            <div class="terminal-output text-[10px] text-green-400">
-                > Initializing connection to darknet...<br>
-                > Bypassing firewall protocol Delta-7...<br>
-                > Access granted. Initiating data extraction...
-            </div>
-        </footer>
+        
+        <h1 class="glitch-title">RONIIXF CYBERCRIME</h1>
+        <p style="letter-spacing: 5px; font-size: 12px; margin-top: 10px;">>> DATABASE_INFILTRATOR_LEVEL_99 <<</p>
     </div>
 
+    <div class="cyber-card">
+        <p style="font-size: 13px; font-style: italic;">
+            "Gue gak ngetuk pintu mainframe lo, gue bakar seluruh gedungnya lewat satu baris kode. Keamanan lo cuma pajangan buat gue hancurin."
+        </p>
+    </div>
+
+    <div class="cyber-card">
+        <p style="font-size: 10px; margin-bottom: 5px;">PY_EXPLOIT</p>
+        <div class="bar"><div class="fill" style="width: 98%;"></div></div>
+        <p style="font-size: 10px; margin-bottom: 5px;">JS_GHOST_DOM</p>
+        <div class="bar"><div class="fill" style="width: 95%;"></div></div>
+        <p style="font-size: 10px; margin-bottom: 5px;">PHP_SERVER_KILL</p>
+        <div class="bar"><div class="fill" style="width: 88%;"></div></div>
+    </div>
+
+    <div class="cyber-card">
+        <div class="terminal" id="terminal"></div>
+        <a href="#" class="btn">INITIALIZE ATTACK</a>
+    </div>
+
+    <footer style="padding: 20px; text-align: center; font-size: 8px; opacity: 0.5;">
+        © 2026 RONIIXF CRIMES // SHADOW NETWORK
+    </footer>
+
+    <script>
+        // Matrix Effect
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const letters = "0101010101ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#ff0000";
+            ctx.font = fontSize + "px monospace";
+            for (let i = 0; i < drops.length; i++) {
+                const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 33);
+
+        // Terminal Log Effect
+        const term = document.getElementById('terminal');
+        const logs = [
+            "> Bypassing Firewall...", "> Accessing Root...", "> Injecting Malware...",
+            "> Downloading Database...", "> Masking IP Location...", "> Connection Secured.",
+            "> Encrypting Files...", "> Deleting Logs...", "> System Compromised!"
+        ];
+        let i = 0;
+        setInterval(() => {
+            term.innerHTML += logs[i % logs.length] + "<br>";
+            term.scrollTop = term.scrollHeight;
+            i++;
+            if(term.innerHTML.length > 500) term.innerHTML = "";
+        }, 1000);
+    </script>
 </body>
 </html>
