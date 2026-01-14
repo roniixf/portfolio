@@ -1,131 +1,159 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RONIIXF // CYBERCRIME</title>
-    <style>
-        /* RESET TOTAL BIAR GAK BERANTAKAN */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Consolas', monospace; }
-        body { background: #000; color: #fff; overflow-x: hidden; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RONIIXF // SYSTEM_OVERRIDE</title>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Courier New', monospace; -webkit-tap-highlight-color:transparent; }
+    body { background:#000; color:#f00; overflow:hidden; }
+    canvas { position:fixed; top:0; left:0; z-index:1; opacity:0.3; pointer-events:none; }
 
-        /* MATRIX BG */
-        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.2; pointer-events: none; }
+    /* HEADER & NAV */
+    header { position:fixed; top:0; width:100%; padding:20px; display:flex; justify-content:space-between; align-items:center; z-index:1000; background:linear-gradient(to bottom, rgba(20,0,0,0.8), transparent); }
+    .status-bar { font-size:10px; letter-spacing:2px; text-shadow:0 0 5px #f00; }
+    
+    #menu-btn { cursor:pointer; width:35px; height:25px; display:flex; flex-direction:column; justify-content:space-between; z-index:1001; }
+    #menu-btn span { display:block; width:100%; height:3px; background:#f00; box-shadow:0 0 10px #f00; transition:0.3s; }
 
-        /* TOMBOL MENU (GARIS TIGA) - DIPAKSA PALING ATAS */
-        .btn-menu {
-            position: fixed; top: 20px; right: 20px;
-            z-index: 10000; cursor: pointer;
-            width: 40px; height: 30px;
-            display: flex; flex-direction: column; justify-content: space-between;
-            padding: 5px; background: rgba(255, 0, 0, 0.1); border: 1px solid #f00;
-        }
-        .btn-menu span { display: block; width: 100%; height: 3px; background: #f00; box-shadow: 0 0 10px #f00; }
+    #nav-panel { position:fixed; top:0; right:-100%; width:100%; height:100%; background:rgba(5,0,0,0.95); z-index:999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition:0.5s cubic-bezier(0.7,0,0.3,1); border-left:2px solid #f00; }
+    #nav-panel.open { right:0; }
+    #nav-panel a { color:#fff; text-decoration:none; font-size:24px; margin:15px; letter-spacing:5px; transition:0.3s; padding:10px 20px; border:1px solid transparent; }
+    #nav-panel a:hover { color:#f00; border:1px solid #f00; box-shadow:0 0 20px rgba(255,0,0,0.3); text-shadow:0 0 10px #f00; }
 
-        /* PANEL NAVIGASI (ISI MENU) */
-        #nav-side {
-            position: fixed; top: 0; right: -100%;
-            width: 280px; height: 100%;
-            background: rgba(10, 0, 0, 0.98);
-            border-left: 2px solid #f00; z-index: 9999;
-            transition: 0.5s ease;
-            display: flex; flex-direction: column; padding: 100px 25px;
-        }
-        #nav-side.active { right: 0; }
-        #nav-side a {
-            color: #fff; text-decoration: none; font-size: 18px;
-            margin: 15px 0; letter-spacing: 3px; border-bottom: 1px solid #300;
-            padding-bottom: 10px; transition: 0.3s;
-        }
-        #nav-side a:hover { color: #f00; text-shadow: 0 0 10px #f00; padding-left: 10px; }
+    /* MAIN DISPLAY */
+    #display-area { position:relative; z-index:10; width:100vw; height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px; transition:0.5s; }
+    
+    .profile-hud { position:relative; width:180px; height:180px; margin-bottom:20px; }
+    .profile-hud img { width:100%; height:100%; border-radius:50%; border:2px solid #f00; box-shadow:0 0 30px #f00; }
+    .radar { position:absolute; top:-10px; left:-10px; width:200px; height:200px; border:2px solid transparent; border-top:2px solid #f00; border-radius:50%; animation:rot 2s linear infinite; }
+    @keyframes rot { to {transform:rotate(360deg);} }
 
-        /* PROFILE HUD */
-        .profile-container {
-            display: flex; flex-direction: column; align-items: center;
-            margin-top: 80px; position: relative; z-index: 10;
-        }
-        .img-wrapper { position: relative; width: 180px; height: 180px; }
-        .img-wrapper img { width: 100%; height: 100%; border-radius: 50%; border: 3px solid #f00; box-shadow: 0 0 30px #f00; }
-        .radar-circle {
-            position: absolute; top: -10px; left: -10px; width: 200px; height: 200px;
-            border: 2px solid transparent; border-top: 3px solid #f00;
-            border-radius: 50%; animation: muter 2s linear infinite;
-        }
-        @keyframes muter { to { transform: rotate(360deg); } }
+    .nick { font-size:24px; letter-spacing:5px; text-shadow:0 0 15px #f00; font-weight:900; }
+    .est { font-size:12px; letter-spacing:8px; color:#500; margin-bottom:30px; }
 
-        /* TEXT STYLING */
-        .nick { font-size: 26px; color: #f00; text-shadow: 0 0 15px #f00; margin-top: 25px; letter-spacing: 5px; font-weight: 900; }
-        .est-text { font-size: 16px; color: #ff0000; font-weight: bold; letter-spacing: 10px; margin-top: 5px; text-shadow: 0 0 10px #f00; }
+    /* TERMINAL CONTENT (YANG MUNCUL PAS DIKLIK) */
+    .terminal-box { width:100%; max-width:500px; background:rgba(15,0,0,0.9); border:1px solid #f00; padding:15px; box-shadow:inset 0 0 15px rgba(255,0,0,0.2); display:none; }
+    .term-head { font-size:10px; border-bottom:1px solid #300; padding-bottom:5px; margin-bottom:10px; color:#500; }
+    .term-line { font-size:11px; margin-bottom:5px; white-space:pre-wrap; }
+    .red { color:#f00; }
+    .white { color:#fff; }
 
-        /* QUOTE CARD */
-        .card-msg {
-            width: 90%; max-width: 450px; margin: 40px auto;
-            background: rgba(15, 0, 0, 0.85); border: 1px solid #f00;
-            padding: 20px; border-left: 5px solid #f00;
-            box-shadow: inset 0 0 15px rgba(255, 0, 0, 0.1);
-        }
-        .card-msg p { font-size: 14px; font-style: italic; color: #ccc; line-height: 1.6; text-align: center; }
+    /* BUTTONS */
+    .btn-action { margin-top:20px; padding:10px 30px; background:#f00; color:#000; font-weight:900; border:none; cursor:pointer; clip-path:polygon(10% 0, 100% 0, 90% 100%, 0 100%); transition:0.3s; }
+    .btn-action:hover { background:#fff; box-shadow:0 0 20px #fff; }
 
-        footer { text-align: center; padding: 40px 0; color: #300; font-size: 10px; letter-spacing: 5px; }
-    </style>
+    footer { position:fixed; bottom:15px; font-size:8px; color:#300; letter-spacing:5px; z-index:10; }
+</style>
 </head>
 <body>
 
-    <canvas id="mtx"></canvas>
+<canvas id="matrix"></canvas>
 
-    <div class="btn-menu" onclick="aksiMenu()">
+<header>
+    <div class="status-bar">SYSTEM_STATUS: <span style="color:#0f0">ACTIVE</span></div>
+    <div id="menu-btn" onclick="toggleNav()">
         <span></span><span></span><span></span>
     </div>
+</header>
 
-    <div id="nav-side">
-        <p style="color: #f00; font-size: 10px; margin-bottom: 20px;">>> SELECT_TARGET</p>
-        <a href="#">// MAIN_SERVER</a>
-        <a href="#">// DATABASE_LEAK</a>
-        <a href="#">// NETWORK_MAP</a>
-        <a href="#">// BYPASS_GATE</a>
-        <a href="#" onclick="aksiMenu()" style="color: #500; border: none;">[ CLOSE_MENU ]</a>
-    </div>
+<nav id="nav-panel">
+    <a href="#" onclick="showContent('main')">// HOME_BASE</a>
+    <a href="#" onclick="showContent('server')">// MAIN_SERVER</a>
+    <a href="#" onclick="showContent('leak')">// DATABASE_LEAK</a>
+    <a href="#" onclick="showContent('map')">// NETWORK_MAP</a>
+    <a href="#" onclick="toggleNav()">[ CLOSE ]</a>
+</nav>
 
-    <div class="profile-container">
-        <div class="img-wrapper">
-            <div class="radar-circle"></div>
+<div id="display-area">
+    <div id="home-content" class="content-sec" style="display:flex; flex-direction:column; align-items:center;">
+        <div class="profile-hud">
+            <div class="radar"></div>
             <img src="https://takenupload.com/69672d9dd452e" alt="RONIIXF">
         </div>
         <h1 class="nick">RONIIXF // CYBERCRIME</h1>
-        <p class="est-text">EST 2026</p>
-
-        <div class="card-msg">
-            <p>"Keamanan lo itu cuma ilusi. Pas lo sadar sistem lo jebol, gue udah dapet apa yang gue mau. Gak usah ganti password, itu cuma nunda waktu gue buat balik lagi."</p>
-        </div>
+        <p class="est">EST 2026</p>
+        <button class="btn-action" onclick="toggleNav()">INITIALIZE HACK</button>
     </div>
 
-    <footer>STAY UNTRACEABLE // 2026</footer>
+    <div id="terminal-content" class="terminal-box">
+        <div class="term-head" id="term-title">TERMINAL@RONIIXF:~#</div>
+        <div id="log-body"></div>
+    </div>
+</div>
 
-    <script>
-        // LOGIC MENU BIAR JALAN
-        function aksiMenu() {
-            const menu = document.getElementById('nav-side');
-            menu.classList.toggle('active');
+<footer>&copy; OPERATIVE_ID: 403_FORBIDDEN</footer>
+
+<script>
+    function toggleNav() {
+        document.getElementById('nav-panel').classList.toggle('open');
+    }
+
+    function showContent(type) {
+        toggleNav();
+        const home = document.getElementById('home-content');
+        const term = document.getElementById('terminal-content');
+        const log = document.getElementById('log-body');
+        
+        home.style.display = 'none';
+        term.style.display = 'block';
+        log.innerHTML = '';
+
+        let data = [];
+        if(type === 'server') {
+            document.getElementById('term-title').innerText = "CONNECTING_TO_MAIN_SERVER...";
+            data = [
+                "> Scanning ports...",
+                "> Port 80: OPEN",
+                "> Port 443: OPEN",
+                "> Attempting SSH bypass...",
+                "> Brute-forcing root password...",
+                "> [SUCCESS] Root access granted.",
+                "> Downloading kernel_config..."
+            ];
+        } else if(type === 'leak') {
+            document.getElementById('term-title').innerText = "ACCESSING_DATABASE_SENSITIVE...";
+            data = [
+                "> SQL Injection started...",
+                "> Dumping tables: users, passwords, logs",
+                "> user_admin: hash_8f92jka...",
+                "> user_manager: hash_p20slak...",
+                "> 4.2GB Data exfiltrated.",
+                "> Wiping logs... DONE."
+            ];
+        } else {
+            home.style.display = 'flex';
+            term.style.display = 'none';
+            return;
         }
 
-        // MATRIX BACKGROUND
-        const c = document.getElementById('mtx');
-        const ctx = c.getContext('2d');
-        c.width = window.innerWidth;
-        c.height = window.innerHeight;
-        const drops = Array(Math.floor(c.width/16)).fill(1);
-        function draw() {
-            ctx.fillStyle = "rgba(0,0,0,0.05)";
-            ctx.fillRect(0,0,c.width,c.height);
-            ctx.fillStyle = "#f00";
-            ctx.font = "16px monospace";
-            drops.forEach((y, i) => {
-                ctx.fillText(Math.floor(Math.random()*2), i*16, y*16);
-                if(y*16 > c.height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
-            });
-        }
-        setInterval(draw, 40);
-    </script>
+        let i = 0;
+        const interval = setInterval(() => {
+            if(i < data.length) {
+                log.innerHTML += `<div class="term-line ${i%2===0?'white':'red'}">${data[i]}</div>`;
+                i++;
+            } else {
+                clearInterval(interval);
+                log.innerHTML += `<br><button class="btn-action" style="font-size:10px" onclick="showContent('main')">BACK_TO_HOME</button>`;
+            }
+        }, 400);
+    }
+
+    // MATRIX BG
+    const c = document.getElementById('matrix');
+    const ctx = c.getContext('2d');
+    c.width = window.innerWidth; c.height = window.innerHeight;
+    const drops = Array(Math.floor(c.width/16)).fill(1);
+    function draw() {
+        ctx.fillStyle = "rgba(0,0,0,0.05)"; ctx.fillRect(0,0,c.width,c.height);
+        ctx.fillStyle = "#f00"; ctx.font = "16px monospace";
+        drops.forEach((y, i) => {
+            ctx.fillText(Math.floor(Math.random()*2), i*16, y*16);
+            if(y*16 > c.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        });
+    }
+    setInterval(draw, 40);
+</script>
 </body>
 </html>
