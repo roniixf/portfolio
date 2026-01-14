@@ -3,80 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RONIIXF // CYBERCRIME</title>
+    <title>RONIIXF // SYSTEM_REAPER</title>
     <style>
-        /* RESET & BASE */
+        :root {
+            --glow: #ff0000;
+            --bg: #050000;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
-            background: #000;
+            background-color: var(--bg);
             color: #fff;
-            font-family: 'Courier New', monospace;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             overflow-x: hidden;
-            background-image: radial-gradient(circle, #200 0%, #000 100%);
+            background-image: linear-gradient(rgba(255, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 0, 0, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
-        /* MATRIX FALLING EFFECT */
-        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.2; }
+        /* Scanline Animation */
+        .scanlines {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 1000; background-size: 100% 2px, 3px 100%; pointer-events: none;
+        }
 
-        /* NEON TEXT GILA */
-        .neon-red {
-            color: #ff0000;
-            text-shadow: 0 0 5px #f00, 0 0 15px #f00, 0 0 30px #f00, 0 0 50px #f00;
-            text-transform: uppercase;
+        /* Header Neon */
+        .main-title {
+            font-size: 2.5rem;
+            text-align: center;
+            color: var(--glow);
+            text-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow);
+            margin: 20px 0;
             font-weight: 900;
-            letter-spacing: 2px;
+            letter-spacing: -1px;
         }
 
-        /* PROFILE HUD RADAR */
-        .hud-container {
+        /* Profile Glass Effect */
+        .profile-card {
+            width: 90%;
+            max-width: 400px;
+            margin: 0 auto;
+            background: rgba(20, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0,0,0,1);
+        }
+
+        .img-container {
             position: relative;
-            width: 200px; height: 200px;
-            margin: 40px auto;
-            display: flex; align-items: center; justify-content: center;
+            width: 150px; height: 150px;
+            margin: 0 auto 20px;
         }
-        .profile-img {
-            width: 140px; height: 140px;
-            border-radius: 50%;
-            border: 3px solid #f00;
-            box-shadow: 0 0 30px #f00;
-            z-index: 10;
-        }
-        .ring {
-            position: absolute;
+
+        .img-container img {
             width: 100%; height: 100%;
-            border: 2px dashed #f00;
             border-radius: 50%;
-            animation: rotate 4s linear infinite;
-        }
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* AGGRESSIVE CARDS */
-        .card {
-            width: 90%; max-width: 450px;
-            margin: 20px auto;
-            background: rgba(20, 0, 0, 0.9);
-            border: 2px solid #f00;
-            padding: 20px;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-            position: relative;
-        }
-        .card-header {
-            position: absolute; top: -12px; left: 15px;
-            background: #f00; color: #000;
-            padding: 2px 10px; font-size: 10px; font-weight: bold;
+            border: 2px solid var(--glow);
+            box-shadow: 0 0 20px var(--glow);
+            object-fit: cover;
         }
 
-        /* PROGRESS BAR */
-        .skill-box { margin-bottom: 15px; }
-        .bar-bg { width: 100%; height: 12px; background: #1a0000; border: 1px solid #400; margin-top: 5px; }
-        .bar-fill { 
-            height: 100%; background: #f00; 
-            box-shadow: 0 0 15px #f00;
-            position: relative;
+        /* Sarcastic Quotes Section */
+        .sarcastic-box {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(0,0,0,0.5);
+            border-left: 3px solid var(--glow);
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #ccc;
+            line-height: 1.6;
         }
 
-        /* TERMINAL LOG */
-        #log {
+        /* Aggressive Skill Bars */
+        .skill-container {
+            width: 90%; max-width: 400px;
+            margin: 30px auto;
+        }
+
+        .skill-label {
+            display: flex; justify-content: space-between;
+            font-size: 0.7rem; font-weight: bold; margin-bottom: 5px;
+            color: var(--glow);
+        }
+
+        .bar-outer {
+            width: 100%; height: 6px;
+            background: #1a0000; border-radius: 10px;
+            margin-bottom: 15px; overflow: hidden;
+        }
+
+        .bar-inner {
+            height: 100%; background: var(--glow);
+            box-shadow: 0 0 10px var(--glow);
+        }
+
+        .footer {
+            text-align: center; padding: 40px;
+            font-size: 0.6rem; letter-spacing: 5px; color: #400;
+        }
+    </style>
+</head>
+<body>
+    <div class="scanlines"></div>
+
+    <div class="main-title">RONIIXF CYBERCRIME</div>
+
+    <div class="profile-card">
+        <div class="img-container">
+            <img src="https://via.placeholder.com/150" alt="Avatar">
+        </div>
+        <p style="font-weight: bold; color: var(--glow); font-size: 0.8rem; letter-spacing: 2px;">STATUS: UNTRACEABLE</p>
+        
+        <div class="sarcastic-box">
+            "Katanya IT Expert? Kok firewall lo cuma butuh satu 'Halo' buat jebol? Keamanan lo itu kayak pintu rumah pake gembok plastik—kelihatan aman, tapi sekali gue tendang, bubar semua."
+        </div>
+    </div>
+
+    <div class="skill-container">
+        <div class="skill-label"><span>BRUTEFORCE_LOGIC</span><span>99%</span></div>
+        <div class="bar-outer"><div class="bar-inner" style="width: 99%"></div></div>
+
+        <div class="skill-label"><span>DATABASE_LEAK</span><span>95%</span></div>
+        <div class="bar-outer"><div class="bar-inner" style="width: 95%"></div></div>
+
+        <div class="skill-label"><span>SOCIAL_ENGINEERING</span><span>92%</span></div>
+        <div class="bar-outer"><div class="bar-inner" style="width: 92%"></div></div>
+    </div>
+
+    <div class="footer">
+        NO PERMISSION NEEDED // EST 2026
+    </div>
+</body>
+</html>
             font-size: 10px; color: #f00;
             height: 80px; overflow: hidden;
             border-top: 1px solid #400; padding-top: 10px;
