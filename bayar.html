@@ -2,119 +2,99 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>CHECKOUT - SEO DEV</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEMBAYARAN - SEO DEV</title>
 <style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #000;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    padding-top: 50px;
-  }
-  .pay-container {
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-  }
-  
-  /* HEADER JUDUL */
-  h2 { color: #ff0000; text-shadow: 0 0 15px #ff0000; font-size: 24px; text-transform: uppercase; margin-bottom: 30px; }
+    body { margin: 0; font-family: sans-serif; background: #000; color: #fff; text-align: center; padding: 20px; }
+    h2 { color: #ff0000; text-shadow: 0 0 10px #ff0000; margin-bottom: 5px; }
+    .price { color: #ff0000; font-weight: bold; font-size: 20px; margin-bottom: 20px; }
 
-  /* BOX DETAIL TRANSAKSI */
-  .detail-card {
-    background: #0a0a0a;
-    border: 2px solid #ff0000;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-    text-align: left;
-    margin-bottom: 25px;
-  }
-  .detail-card h3 { margin-top: 0; font-size: 16px; border-bottom: 1px solid #330000; padding-bottom: 10px; color: #ff0000; }
-  .detail-card p { margin: 10px 0; font-size: 14px; display: flex; justify-content: space-between; }
-  .detail-card b { color: #fff; }
-  .price-tag { font-size: 18px; color: #ff0000 !important; font-weight: 900; }
+    /* Gaya Tombol Menu */
+    .pay-btn {
+        display: block; width: 100%; max-width: 400px; margin: 10px auto;
+        padding: 15px; border-radius: 10px; border: none; font-weight: bold;
+        cursor: pointer; font-size: 16px; transition: 0.3s; color: #fff;
+    }
+    .qris { background: linear-gradient(to right, #ffcc00, #ffaa00); color: #000; }
+    .dana { background: linear-gradient(to right, #008cff, #005fcc); }
+    .ovo  { background: linear-gradient(to right, #9933ff, #6600cc); }
+    .back { background: linear-gradient(to right, #00cc66, #00994d); text-decoration: none; display: inline-block; width: 92%; }
 
-  /* QRIS AREA */
-  .qris-area {
-    background: #fff;
-    padding: 15px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-  }
-  .qris-area img { width: 100%; display: block; }
+    /* Area Konten yang Muncul (Hidden by Default) */
+    .content { display: none; width: 100%; max-width: 400px; margin: 20px auto; padding: 15px; border: 2px solid #ff0000; border-radius: 15px; box-shadow: 0 0 15px #ff0000; background: #0a0a0a; }
+    .content img { width: 100%; border-radius: 10px; margin-bottom: 10px; }
+    .content p { font-size: 18px; margin: 10px 0; font-weight: bold; }
 
-  /* TOMBOL KONFIRMASI MERAH NEON */
-  .btn-pay {
-    display: block;
-    background: linear-gradient(to right, #cc0000, #ff0000);
-    color: #fff;
-    padding: 16px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 900;
-    font-size: 16px;
-    text-transform: uppercase;
-    box-shadow: 0 0 15px #ff0000;
-    margin-top: 10px;
-  }
-  .btn-pay:active { transform: scale(0.95); box-shadow: 0 0 30px #ff0000; }
-
-  .timer-text { margin-top: 20px; font-size: 13px; color: #888; }
-  .timer-text span { color: #ff0000; font-weight: bold; }
+    /* Form Upload */
+    .input-group { margin-top: 15px; text-align: left; }
+    input { width: 95%; padding: 10px; margin: 5px 0; border-radius: 5px; border: 1px solid #ff0000; background: #111; color: #fff; }
+    .btn-upload { background: #ffcc00; color: #000; padding: 10px; border-radius: 5px; font-weight: bold; border: none; cursor: pointer; width: 100%; margin-top: 10px; }
 </style>
 </head>
 <body>
 
-<div class="pay-container">
-  <h2>Order Confirmation</h2>
-  
-  <div class="detail-card">
-    <h3>Detail Pesanan</h3>
-    <p>Nama Produk: <b id="p-name">Memuat...</b></p>
-    <p>ID Transaksi: <b id="p-id">#SDV-8821</b></p>
-    <p>Metode Bayar: <b>QRIS All Payment</b></p>
-    <p>Total Tagihan: <b id="p-price" class="price-tag">Rp 0</b></p>
-  </div>
+    <h2 id="prod-name">TAMPILAN ONIC NEW 6 WARNA</h2>
+    <div class="price" id="prod-price">Rp 650,000</div>
 
-  <div class="qris-area">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=SEODEV_PAYMENT" alt="QRIS">
-  </div>
-  <p style="font-size: 12px; color: #ccc;">Silahkan scan QRIS diatas dan upload bukti tf ke admin</p>
+    <button class="pay-btn qris" onclick="showPay('qris-box')">Bayar via QRIS</button>
+    <button class="pay-btn dana" onclick="showPay('dana-box')">Bayar via DANA</button>
+    <button class="pay-btn ovo"  onclick="showPay('ovo-box')">Bayar via OVO</button>
 
-  <a id="wa-link" href="#" class="btn-pay">Konfirmasi Pembayaran</a>
+    <div id="qris-box" class="content">
+        <h3 style="color:#ffcc00">INVOICE QRIS</h3>
+        <img src="https://takenupload.com/path-ke-qris-lu.jpg" alt="Scan QRIS">
+        <p>Silahkan scan QRIS di atas</p>
+    </div>
 
-  <p class="timer-text">Selesaikan pembayaran dalam <span>05:00</span></p>
-</div>
+    <div id="dana-box" class="content">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_danain.svg/1200px-Logo_danain.svg.png" style="width:100px; height:auto; margin:auto">
+        <p>Nomor DANA: 0881024597294</p>
+    </div>
 
-<script>
-  // Ambil data dari URL
-  const params = new URLSearchParams(window.location.search);
-  const id = params.get('id');
+    <div id="ovo-box" class="content">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Logo_ovo_purple.svg/1200px-Logo_ovo_purple.svg.png" style="width:100px; height:auto; margin:auto">
+        <p>Nomor OVO: 0881024597294</p>
+    </div>
 
-  // List Produk Biar Sesuai Depan
-  const list = {
-    '11': { n: 'TAMPILAN MPO NEW', h: 'Rp 650,000' },
-    '10': { n: 'TAMPILAN KINCAI PRO', h: 'Rp 650,000' },
-    '9': { n: 'TAMPILAN NEXUS', h: 'Rp 650,000' },
-    '8': { n: 'TAMPILAN IDN GREEN', h: 'Rp 300,000' },
-    '7': { n: 'TAMPILAN PAY4D', h: 'Rp 400,000' },
-    '6': { n: 'TAMPILAN NUKE', h: 'Rp 550,000' }
-  };
+    <div id="form-bukti" class="content" style="display:block;">
+        <div class="input-group">
+            <input type="text" placeholder="Nama Anda">
+            <input type="text" placeholder="Nomor WhatsApp">
+            <input type="file">
+            <button class="btn-upload" onclick="alert('Bukti Terkirim! Mohon tunggu konfirmasi admin.')">Upload Bukti Transfer</button>
+        </div>
+    </div>
 
-  if (list[id]) {
-    document.getElementById('p-name').innerText = list[id].n;
-    document.getElementById('p-price').innerText = list[id].h;
-    document.getElementById('p-id').innerText = "#SDV-" + Math.floor(1000 + Math.random() * 9000);
+    <a href="index.html" class="pay-btn back">Kembali ke Produk</a>
 
-    // Link WA otomatis
-    const txt = encodeURIComponent("Halo Admin,\nSaya ingin konfirmasi pembayaran produk:\n\nProduk: " + list[id].n + "\nHarga: " + list[id].h + "\n\nBukti transfer saya lampirkan.");
-    document.getElementById('wa-link').href = "https://wa.me/628385080976?text=" + txt;
-  }
-</script>
+    <script>
+        // Ambil Data Produk dari URL
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const data = {
+            '11': { n: 'TAMPILAN ONIC NEW 6 WARNA', h: 'Rp 650,000' },
+            '10': { n: 'TAMPILAN NEW IDN 100 WARNA', h: 'Rp 650,000' },
+            '9':  { n: 'TAMPILAN NEXUS', h: 'Rp 650,000' },
+            '8':  { n: 'TAMPILAN IDN GREEN', h: 'Rp 300,000' },
+            '7':  { n: 'TAMPILAN PAY4D', h: 'Rp 400,000' },
+            '6':  { n: 'TAMPILAN NUKE', h: 'Rp 550,000' }
+        };
 
+        if(data[id]) {
+            document.getElementById('prod-name').innerText = data[id].n;
+            document.getElementById('prod-price').innerText = data[id].h;
+        }
+
+        // Fungsi buat munculin/sembunyiin box pembayaran
+        function showPay(boxId) {
+            // Sembunyiin semua dulu
+            document.getElementById('qris-box').style.display = 'none';
+            document.getElementById('dana-box').style.display = 'none';
+            document.getElementById('ovo-box').style.display = 'none';
+            
+            // Munculin yang diklik
+            document.getElementById(boxId).style.display = 'block';
+        }
+    </script>
 </body>
 </html>
