@@ -3,80 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RONIXF // SHADOW_NETWORK_ACCESS</title>
+    <title>RONIXF // PORTFOLIO</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --accent-red: #ff3366; /* Deep Red / Magenta */
-            --accent-purple: #9900ff; /* Dark Purple */
-            --bg-dark: #000000;
-            --text-light: #e0e0e0;
-        }
-
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            font-family: 'Share Tech Mono', monospace;
-            overflow: hidden; /* Prevent scroll for 3D effect */
-            perspective: 1000px; /* Enable 3D perspective */
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
         }
 
-        .chakra-petch { font-family: 'Chakra Petch', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
 
-        /* Matrix Rain Background - More dynamic */
-        .matrix-rain {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none; z-index: -1;
-            overflow: hidden;
-            background: rgba(0,0,0,0.9);
-        }
-        .matrix-column {
-            position: absolute; width: 15px; /* Thinner columns */
-            left: var(--left); top: var(--top);
-            color: var(--accent-red); /* Red data stream */
-            font-size: 14px;
-            opacity: 0.6;
-            animation: matrix-drop var(--duration) linear infinite;
-        }
-        @keyframes matrix-drop {
-            0% { transform: translateY(-100%); opacity: 0; }
-            10% { opacity: 0.6; }
-            100% { transform: translateY(2000%); opacity: 0; }
-        }
+        /* Neon Glow Aksen */
+        .neon-text { color: #ff0055; text-shadow: 0 0 10px rgba(255, 0, 85, 0.5); }
+        .neon-border { border: 1px solid rgba(255, 0, 85, 0.3); }
 
-        /* 3D Container */
-        .perspective-container {
-            transform-style: preserve-3d;
-            transform: rotateX(20deg) rotateY(-10deg) translateZ(-200px); /* Initial 3D tilt */
-            transition: transform 0.5s ease-out;
-            max-width: 1200px;
-            margin: 50px auto;
+        /* Foto Profile Bulat & HUD Ring */
+        .profile-container {
             position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto;
+        }
+
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            border: 2px solid #ff0055;
             z-index: 10;
         }
 
-        /* Glitch Effect - More aggressive */
-        .glitch-heavy {
-            position: relative;
-            animation: glitch-pulse 2s steps(2, start) infinite;
-        }
-        .glitch-heavy::before, .glitch-heavy::after {
-            content: attr(data-text);
-            position: absolute; top: 0; left: 0;
+        .hud-ring {
+            position: absolute;
+            top: 0; left: 0;
             width: 100%; height: 100%;
+            border: 2px dashed #ff0055;
+            border-radius: 50%;
+            animation: spin 10s linear infinite;
+            opacity: 0.5;
         }
-        .glitch-heavy::before {
-            left: 2px; text-shadow: -2px 0 var(--accent-red);
-            clip-path: polygon(0 20%, 100% 20%, 100% 25%, 0 25%);
-            animation: glitch-anim-1 2s steps(2, start) infinite;
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
-        .glitch-heavy::after {
-            left: -2px; text-shadow: 2px 0 var(--accent-purple);
-            clip-path: polygon(0 60%, 100% 60%, 100% 65%, 0 65%);
-            animation: glitch-anim-2 2s steps(2, start) infinite;
+
+        /* Menu Styles */
+        .nav-link {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            padding: 5px 10px;
         }
-        @keyframes glitch-pulse {
+
+        .nav-link:hover {
+            background: #ff0055;
+            color: white;
+            box-shadow: 0 0 15px #ff0055;
+        }
+
+        /* Skill Card */
+        .skill-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid #ff0055;
+            padding: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .skill-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            transform: translateX(10px);
+        }
+
+        .progress-bg { height: 6px; background: rgba(255,255,255,0.1); width: 100%; border-radius: 10px; }
+        .progress-fill { height: 100%; background: #ff0055; box-shadow: 0 0 10px #ff0055; border-radius: 10px; }
+    </style>
+</head>
+<body class="p-6">
+
+    <nav class="max-w-5xl mx-auto flex justify-between items-center mb-16 py-4 border-b border-white/10">
+        <div class="font-bold tracking-tighter text-xl mono">RONIXF<span class="neon-text">_</span></div>
+        <div class="flex gap-6">
+            <a href="#about" class="nav-link">About</a>
+            <a href="#skills" class="nav-link">Skills</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <section class="max-w-3xl mx-auto text-center mb-24" id="about">
+        <div class="profile-container mb-8">
+            <div class="hud-ring"></div>
+            <img src="https://via.placeholder.com/150" alt="Ronixf" class="profile-pic">
+        </div>
+        
+        <h1 class="text-5xl font-bold mb-4 tracking-tight">RONIXF</h1>
+        <p class="mono text-pink-500 text-sm mb-6 uppercase tracking-[0.3em]">Cybersecurity & Full-Stack Developer</p>
+        <p class="text-gray-400 leading-relaxed">
+            Spesialis dalam pengembangan sistem aman dan arsitektur web modern. 
+            Fokus pada optimasi backend dan pertahanan sistem digital.
+        </p>
+    </section>
+
+    <section class="max-w-4xl mx-auto mb-24" id="skills">
+        <h2 class="mono text-xs uppercase tracking-[0.5em] mb-10 text-center text-gray-500">System_Capabilities</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="skill-card">
+                <div class="flex justify-between mb-4">
+                    <span class="mono font-bold">PYTHON</span>
+                    <span class="neon-text">98%</span>
+                </div>
+                <div class="progress-bg">
+                    <div class="progress-fill" style="width: 98%;"></div>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="flex justify-between mb-4">
+                    <span class="mono font-bold">JAVASCRIPT</span>
+                    <span class="neon-text">92%</span>
+                </div>
+                <div class="progress-bg">
+                    <div class="progress-fill" style="width: 92%;"></div>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="flex justify-between mb-4">
+                    <span class="mono font-bold">PHP</span>
+                    <span class="neon-text">85%</span>
+                </div>
+                <div class="progress-bg">
+                    <div class="progress-fill" style="width: 85%;"></div>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="flex justify-between mb-4">
+                    <span class="mono font-bold">PEN-TESTING</span>
+                    <span class="neon-text">80%</span>
+                </div>
+                <div class="progress-bg">
+                    <div class="progress-fill" style="width: 80%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="max-w-5xl mx-auto py-12 border-t border-white/10 text-center" id="contact">
+        <p class="mono text-[10px] text-gray-500 mb-6 uppercase tracking-widest italic">Ready for cooperation_</p>
+        <div class="flex justify-center gap-8 mb-8">
+            <a href="#" class="text-xs hover:text-pink-500 transition mono">GITHUB</a>
+            <a href="#" class="text-xs hover:text-pink-500 transition mono">INSTAGRAM</a>
+            <a href="#" class="text-xs hover:text-pink-500 transition mono">EMAIL</a>
+        </div>
+        <p class="text-[9px] opacity-30 tracking-widest">&copy; 2024 RONIXF. INTERNAL_USE_ONLY</p>
+    </footer>
+
+</body>
+</html>
             0%, 100% { opacity: 1; }
             10%, 30%, 50%, 70%, 90% { opacity: 0.8; }
             20%, 40%, 60%, 80% { opacity: 1; }
