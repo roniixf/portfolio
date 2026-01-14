@@ -6,91 +6,104 @@
     <title>PEMBAYARAN - SEO DEV</title>
     <style>
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; text-align: center; padding: 20px; }
-        h2 { color: #ff0000; text-shadow: 0 0 10px #ff0000; text-transform: uppercase; margin-bottom: 5px; }
-        .price { color: #ffcc00; font-weight: bold; font-size: 22px; margin-bottom: 25px; }
+        
+        /* HEADER */
+        h2 { color: #ff0000; text-shadow: 0 0 15px #ff0000; text-transform: uppercase; margin-top: 10px; }
+        .price { color: #fff; font-weight: bold; font-size: 24px; margin-bottom: 25px; border-bottom: 2px solid #ff0000; display: inline-block; padding-bottom: 5px; }
 
-        /* Tombol Pilihan Pembayaran */
+        /* TOMBOL MENU MERAH */
         .pay-btn {
             display: block; width: 100%; max-width: 400px; margin: 12px auto;
-            padding: 16px; border-radius: 12px; border: none; font-weight: 800;
-            cursor: pointer; font-size: 16px; transition: 0.3s; color: #fff;
-            text-transform: uppercase;
+            padding: 16px; border-radius: 12px; border: 2px solid #ff0000; 
+            font-weight: 800; cursor: pointer; font-size: 16px; transition: 0.3s; 
+            color: #fff; text-transform: uppercase;
+            background: linear-gradient(145deg, #330000, #b30000);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
         }
-        .qris { background: linear-gradient(to right, #ffcc00, #ffaa00); color: #000; }
-        .dana { background: linear-gradient(to right, #008cff, #005fcc); }
-        .ovo  { background: linear-gradient(to right, #9933ff, #6600cc); }
-        .back { background: linear-gradient(to right, #00cc66, #00994d); text-decoration: none; margin-top: 20px; }
+        .pay-btn:hover { box-shadow: 0 0 20px #ff0000; transform: scale(1.02); }
+        .back { background: #111; border-color: #444; margin-top: 20px; font-size: 14px; }
 
-        /* Box Konten Interaktif */
+        /* BOX KONTEN */
         .content { 
             display: none; width: 100%; max-width: 400px; margin: 20px auto; 
             padding: 20px; border: 2px solid #ff0000; border-radius: 15px; 
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); background: #0a0a0a; 
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6); background: #080808; 
             box-sizing: border-box;
+            animation: fadeIn 0.5s;
         }
-        .content img.logo-pay { width: 120px; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; }
-        .content img.qris-img { width: 100%; border-radius: 10px; border: 4px solid #fff; }
-        .content p { font-size: 16px; margin: 15px 0; font-weight: bold; color: #fff; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Form Input & Upload */
-        .form-group { margin-top: 20px; text-align: left; }
+        .logo-pay { width: 140px; height: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; }
+        .qris-img { width: 100%; border-radius: 10px; border: 3px solid #fff; box-shadow: 0 0 15px #ff0000; }
+        .acc-number { font-size: 20px; color: #ff0000; font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 5px #ff0000; }
+
+        /* FORM UPLOAD - DIBIKIN GAHAR */
+        .upload-section {
+            width: 100%; max-width: 400px; margin: 30px auto; 
+            padding: 20px; border: 1px dashed #ff0000; border-radius: 15px;
+            background: #0a0a0a; box-sizing: border-box;
+        }
+        .upload-section h3 { color: #ff0000; margin-top: 0; font-size: 18px; text-transform: uppercase; }
+        
         input[type="text"] { 
             width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; 
-            border: 1px solid #ff0000; background: #111; color: #fff; box-sizing: border-box;
+            border: 1px solid #333; background: #000; color: #fff; box-sizing: border-box;
         }
-        .file-input-wrapper {
-            background: #fff; color: #000; padding: 10px; border-radius: 5px;
-            margin: 10px 0; display: inline-block; width: 100%; box-sizing: border-box;
-            font-size: 14px; font-weight: bold; cursor: pointer;
+        input[type="text"]:focus { border-color: #ff0000; outline: none; box-shadow: 0 0 5px #ff0000; }
+
+        input[type="file"] {
+            width: 100%; background: #fff; color: #000; padding: 10px; border-radius: 8px;
+            margin: 10px 0; cursor: pointer; font-weight: bold;
         }
+
         .btn-submit { 
-            background: linear-gradient(to right, #ffcc00, #ffaa00); color: #000; 
-            padding: 15px; border-radius: 10px; font-weight: 900; border: none; 
-            cursor: pointer; width: 100%; margin-top: 15px; text-transform: uppercase;
+            background: #ff0000; color: #fff; padding: 16px; border-radius: 50px; 
+            font-weight: 900; border: none; cursor: pointer; width: 100%; 
+            margin-top: 15px; text-transform: uppercase; 
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+            transition: 0.3s;
         }
+        .btn-submit:hover { transform: scale(1.03); background: #ff3333; }
     </style>
 </head>
 <body>
 
-    <h2 id="prod-name">MEMUAT PRODUK...</h2>
+    <h2 id="prod-name">MEMUAT...</h2>
     <div class="price" id="prod-price">Rp 0</div>
 
-    <button class="pay-btn qris" onclick="showPay('qris-box')">Bayar via QRIS</button>
-    <button class="pay-btn dana" onclick="showPay('dana-box')">Bayar via DANA</button>
-    <button class="pay-btn ovo"  onclick="showPay('ovo-box')">Bayar via OVO</button>
-    <a href="index.html" class="pay-btn back">Kembali ke Produk</a>
+    <button class="pay-btn" onclick="showPay('qris-box')">Bayar via QRIS</button>
+    <button class="pay-btn" onclick="showPay('dana-box')">Bayar via DANA</button>
+    <button class="pay-btn" onclick="showPay('ovo-box')">Bayar via OVO</button>
 
     <div id="qris-box" class="content">
-        <h3 style="color:#ffcc00; margin-top:0;">INVOICE QRIS</h3>
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=SEODEV_QRIS" class="qris-img">
-        <p>Silahkan scan QRIS di atas</p>
-        <div class="form-area"></div>
+        <h3 style="color:#ff0000; margin-top:0;">SCAN QRIS</h3>
+        <img src="https://takenupload.com/696782a493356" class="qris-img">
+        <p>Silahkan scan kode QR di atas</p>
     </div>
 
     <div id="dana-box" class="content">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_danain.svg/1200px-Logo_danain.svg.png" class="logo-pay">
-        <p>Nomor DANA: <span style="color:#ffcc00">0881024597294</span></p>
-        <div class="form-area"></div>
+        <img src="https://i.ibb.co/S769z6r/DANA-Logo.png" class="logo-pay" alt="Logo DANA">
+        <p>NOMOR DANA:</p>
+        <div class="acc-number">0881024597294</div>
     </div>
 
     <div id="ovo-box" class="content">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Logo_ovo_purple.svg/1200px-Logo_ovo_purple.svg.png" class="logo-pay">
-        <p>Nomor OVO: <span style="color:#ffcc00">0881024597294</span></p>
-        <div class="form-area"></div>
+        <img src="https://i.ibb.co/3WqYq5V/OVO-Logo.png" class="logo-pay" alt="Logo OVO">
+        <p>NOMOR OVO:</p>
+        <div class="acc-number">0881024597294</div>
     </div>
 
-    <div id="master-form" style="display:none;">
-        <div class="form-group">
-            <input type="text" id="user-nama" placeholder="Nama Anda">
-            <input type="text" id="user-wa" placeholder="Nomor WhatsApp">
-            <div style="margin-top:10px; font-size:13px; color:#ccc;">Pilih File Bukti Transfer:</div>
-            <input type="file" id="user-file" class="file-input-wrapper">
-            <button class="btn-submit" onclick="kirimKonfirmasi()">Upload Bukti Transfer</button>
-        </div>
+    <div class="upload-section">
+        <h3>Upload Bukti Transfer</h3>
+        <input type="text" id="user-nama" placeholder="Nama Anda">
+        <input type="text" id="user-wa" placeholder="Nomor WhatsApp">
+        <input type="file" id="user-file">
+        <button class="btn-submit" onclick="kirimKonfirmasi()">Kirim Bukti Pembayaran</button>
     </div>
+
+    <a href="index.html" class="pay-btn back">Kembali ke Produk</a>
 
     <script>
-        // DATA ASLI SESUAI KODE AWAL LU
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
         const data = {
@@ -109,18 +122,18 @@
 
         function showPay(boxId) {
             document.querySelectorAll('.content').forEach(el => el.style.display = 'none');
-            const targetBox = document.getElementById(boxId);
-            targetBox.style.display = 'block';
-            const formHtml = document.getElementById('master-form').innerHTML;
-            targetBox.querySelector('.form-area').innerHTML = formHtml;
+            document.getElementById(boxId).style.display = 'block';
+            window.scrollTo({ top: document.getElementById(boxId).offsetTop - 20, behavior: 'smooth' });
         }
 
         function kirimKonfirmasi() {
             const nama = document.getElementById('user-nama').value;
+            const wa = document.getElementById('user-wa').value;
             const produk = document.getElementById('prod-name').innerText;
-            if(!nama) { alert('Isi nama dulu bos!'); return; }
+            if(!nama || !wa) { alert('Isi Nama & WA dulu bos!'); return; }
+            
             const waLink = "https://wa.me/628385080976?text=" + encodeURIComponent(
-                "Konfirmasi Pembayaran\nNama: " + nama + "\nProduk: " + produk
+                "KONFIRMASI PEMBAYARAN\nNama: " + nama + "\nWA: " + wa + "\nProduk: " + produk + "\n\nBukti transfer sudah disiapkan."
             );
             window.location.href = waLink;
         }
