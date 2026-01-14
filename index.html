@@ -2,188 +2,205 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>JASAWEBKU</title>
+<title>JASAWEBKU - SEO DEV</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
   body {
     margin: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #000; /* Hitam pekat biar neon merahnya nyala */
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #000;
     color: #fff;
     overflow-x: hidden;
   }
-  .container { max-width: 420px; margin: auto; padding: 20px; text-align: center; }
+  .container { max-width: 450px; margin: auto; padding: 15px; text-align: center; }
 
-  /* PROFILE - TETAP ORI TAPI NEON MERAH */
-  .profile { margin-top: 15px; margin-bottom: 25px; }
+  /* PROFILE - RED NEON GLOW */
+  .profile { margin-bottom: 30px; }
   .profile img {
     width: 140px; height: 140px; border-radius: 50%;
-    border: 4px solid #ff0000; 
-    box-shadow: 0 0 20px #ff0000, inset 0 0 10px #ff0000;
+    border: 3px solid #ff0000;
+    box-shadow: 0 0 20px #ff0000;
     object-fit: cover;
   }
   h1 { 
     color: #ff0000; 
-    margin: 15px 0 5px 0; 
-    text-transform: uppercase;
-    text-shadow: 0 0 10px #ff0000;
+    font-size: 28px; 
+    text-shadow: 0 0 15px #ff0000; 
+    margin: 15px 0 5px;
+    letter-spacing: 2px;
   }
-  .profile p { font-size: 13px; opacity: 0.8; margin-bottom: 20px; }
+  .profile p { font-size: 13px; color: #ccc; margin-bottom: 20px; }
 
-  /* BUTTON UTAMA NEON MERAH */
-  .btn {
+  /* BUTTON UTAMA NEON */
+  .btn-main {
     display: block;
-    background: #000;
-    color: #ff0000; 
-    padding: 14px; 
-    border-radius: 30px;
-    text-decoration: none; 
-    margin: 10px 0; 
+    background: transparent;
+    color: #ff0000;
+    padding: 15px;
+    border-radius: 50px;
+    text-decoration: none;
+    margin: 12px 0;
     font-weight: bold;
     border: 2px solid #ff0000;
     box-shadow: 0 0 10px #ff0000;
-    transition: 0.3s;
     text-transform: uppercase;
+    transition: 0.3s;
   }
-  .btn:active { transform: scale(0.95); box-shadow: 0 0 20px #ff0000; background: #ff0000; color: #000; }
+  .btn-main:active { background: #ff0000; color: #000; }
 
-  /* GRID PRODUK */
-  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+  /* GRID - GAMBAR GEDE */
+  .grid { 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 15px; 
+    margin-top: 25px; 
+  }
   
   .card {
-    border: 2px solid #ff0000; 
-    border-radius: 15px; 
-    background: #050505; 
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-    overflow: hidden; /* Biar gambar gak keluar dari lengkungan border */
+    background: #080808;
+    border: 1px solid #ff0000;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
   }
 
-  /* BAGIAN FOTO - DIBUAT FULL & GEDE */
+  /* FOTO PRODUK - FULL & LEBAR */
   .card img { 
     width: 100%; 
-    aspect-ratio: 1 / 1; /* Biar kotak sempurna dan gede */
-    object-fit: cover; /* Foto Full memenuhi kotak, gak bakal ada sisa hitam */
-    border-bottom: 2px solid #ff0000;
+    aspect-ratio: 4 / 5; /* Dibuat agak tinggi biar screenshot web kelihatan jelas */
+    object-fit: cover; /* INI BIAR GAK KECIL/GEPENG */
+    display: block;
   }
 
+  .card-info { padding: 10px; }
   .card h3 { 
-    margin: 10px 5px; 
-    font-size: 11px; 
-    height: 28px; 
-    overflow: hidden; 
-    color: #fff;
+    margin: 0; 
+    font-size: 12px; 
+    color: #fff; 
+    height: 35px; 
+    overflow: hidden;
+    text-transform: uppercase;
   }
-  .card p { color: #ff0000; margin-bottom: 10px; font-weight: bold; font-size: 15px; text-shadow: 0 0 5px #ff0000; }
+  .card p { 
+    color: #ff0000; 
+    font-weight: bold; 
+    font-size: 16px; 
+    margin: 8px 0;
+    text-shadow: 0 0 5px #ff0000;
+  }
 
-  /* BUTTON BELI DI CARD - MERAH NEON */
-  .btn-beli {
+  /* TOMBOL BELI MERAH SOLID */
+  .btn-buy {
+    display: block;
     background: #ff0000;
-    color: #000;
-    padding: 10px;
+    color: #fff;
     text-decoration: none;
+    padding: 12px 0;
     font-weight: bold;
     font-size: 13px;
-    border-top: 2px solid #ff0000;
-    transition: 0.3s;
+    border-top: 1px solid #ff0000;
   }
-  .btn-beli:hover { background: #000; color: #ff0000; }
 
-  /* POPUP NOTIFIKASI NEON */
-  .notif, .review {
-    position: fixed; left: 50%; transform: translateX(-50%) translateY(100px);
-    background: rgba(0, 0, 0, 0.9); 
-    border: 2px solid #ff0000;
-    padding: 10px 20px; 
-    border-radius: 10px;
-    box-shadow: 0 0 15px #ff0000;
-    font-size: 12px; z-index: 999; width: 85%;
-    transition: 0.5s; opacity: 0; visibility: hidden;
+  /* NOTIFIKASI */
+  .notif-box {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: rgba(0, 0, 0, 0.9); border: 1px solid #ff0000;
+    padding: 12px 20px; border-radius: 8px; width: 85%;
+    box-shadow: 0 0 20px #ff0000; z-index: 1000;
+    transition: 0.5s; opacity: 0;
   }
-  .popup-show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
-  .notif { bottom: 20px; }
-  .review { bottom: 80px; }
+  .show-notif { transform: translateX(-50%) translateY(0); opacity: 1; }
 </style>
 </head>
 <body>
 
 <div class="container">
   <div class="profile">
-    <img src="https://takenupload.com/69672d9dd452e" alt="Profile">
+    <img src="https://takenupload.com/69672d9dd452e">
     <h1>SEO DEV</h1>
-    <p>Solusi Tampilan Website Neon Premium</p>
-    <a class="btn" href="https://wa.me/628385080976">WhatsApp Admin</a>
-    <a class="btn" href="https://t.me/axionwl1">Telegram Channel</a>
+    <p>Solusi Tampilan Website Premium & SEO Friendly</p>
+    <a href="https://wa.me/628385080976" class="btn-main">WhatsApp Admin</a>
+    <a href="https://t.me/axionwl1" class="btn-main">Telegram Channel</a>
   </div>
 
   <div class="grid">
     <div class="card">
       <img src="https://takenupload.com/6967768c233e8">
-      <h3>TAMPILAN MPO NEW</h3>
-      <p>Rp 650.000</p>
-      <a class="btn-beli" href="bayar.php?id=11">BELI SEKARANG</a>
+      <div class="card-info">
+        <h3>TAMPILAN MPO NEW</h3>
+        <p>Rp 650.000</p>
+      </div>
+      <a href="bayar.php?id=11" class="btn-buy">BELI SEKARANG</a>
     </div>
 
     <div class="card">
       <img src="https://takenupload.com/69677682c8d65">
-      <h3>TAMPILAN KINCAI PRO</h3>
-      <p>Rp 650.000</p>
-      <a class="btn-beli" href="bayar.php?id=10">BELI SEKARANG</a>
+      <div class="card-info">
+        <h3>TAMPILAN KINCAI PRO</h3>
+        <p>Rp 650.000</p>
+      </div>
+      <a href="bayar.php?id=10" class="btn-buy">BELI SEKARANG</a>
     </div>
 
     <div class="card">
       <img src="https://takenupload.com/6967767c8dd61">
-      <h3>TAMPILAN NEXUS</h3>
-      <p>Rp 650.000</p>
-      <a class="btn-beli" href="bayar.php?id=9">BELI SEKARANG</a>
+      <div class="card-info">
+        <h3>TAMPILAN NEXUS</h3>
+        <p>Rp 650.000</p>
+      </div>
+      <a href="bayar.php?id=9" class="btn-buy">BELI SEKARANG</a>
     </div>
 
     <div class="card">
       <img src="https://takenupload.com/696776763bce2">
-      <h3>TAMPILAN IDN GREEN</h3>
-      <p>Rp 300.000</p>
-      <a class="btn-beli" href="bayar.php?id=8">BELI SEKARANG</a>
+      <div class="card-info">
+        <h3>TAMPILAN IDN GREEN</h3>
+        <p>Rp 300.000</p>
+      </div>
+      <a href="bayar.php?id=8" class="btn-buy">BELI SEKARANG</a>
     </div>
 
     <div class="card">
       <img src="https://takenupload.com/696776710061f">
-      <h3>TAMPILAN PAY4D</h3>
-      <p>Rp 400.000</p>
-      <a class="btn-beli" href="bayar.php?id=7">BELI SEKARANG</a>
+      <div class="card-info">
+        <h3>TAMPILAN PAY4D</h3>
+        <p>Rp 400.000</p>
+      </div>
+      <a href="bayar.php?id=7" class="btn-buy">BELI SEKARANG</a>
     </div>
 
     <div class="card">
       <img src="https://takenupload.com/696776659112a">
-      <h3>TAMPILAN NUKE</h3>
-      <p>Rp 550.000</p>
-      <a class="btn-beli" href="bayar.php?id=6">BELI SEKARANG</a>
+      <div class="card-info">
+        <h3>TAMPILAN NUKE</h3>
+        <p>Rp 550.000</p>
+      </div>
+      <a href="bayar.php?id=6" class="btn-buy">BELI SEKARANG</a>
     </div>
   </div>
 </div>
 
-<div class="notif" id="notif"></div>
-<div class="review" id="review"></div>
+<div id="notif" class="notif-box"></div>
 
 <script>
-  // Script Notifikasi Otomatis
   const users = ["Ra*** Ad***", "Di*** Se***", "Fa*** Ri***", "An*** Wi***", "Ri*** Su***", "De*** Ka***"];
-  const produk = ["MPO NEW", "KINCAI PRO", "NEXUS", "IDN GREEN", "PAY4D", "NUKE"];
+  const prod = ["MPO NEW", "KINCAI PRO", "NEXUS", "IDN GREEN", "PAY4D", "NUKE"];
   
-  function showPopups() {
+  function showPop() {
     const u = users[Math.floor(Math.random() * users.length)];
-    const p = produk[Math.floor(Math.random() * produk.length)];
-    
+    const p = prod[Math.floor(Math.random() * prod.length)];
     const box = document.getElementById("notif");
-    box.innerHTML = `🔔 <b>${u}</b> baru saja membeli <b>${p}</b>`;
-    box.classList.add("popup-show");
-
-    setTimeout(() => { box.classList.remove("popup-show"); }, 4000);
+    
+    box.innerHTML = `🔔 <b>${u}</b> baru saja membeli <b>TAMPILAN ${p}</b>`;
+    box.classList.add("show-notif");
+    
+    setTimeout(() => { box.classList.remove("show-notif"); }, 4000);
   }
-
-  setInterval(showPopups, 8000);
-  setTimeout(showPopups, 2000);
+  setInterval(showPop, 8000);
+  setTimeout(showPop, 2000);
 </script>
 
 </body>
