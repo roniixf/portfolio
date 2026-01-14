@@ -11,17 +11,17 @@
         h2 { color: #ff0000; text-shadow: 0 0 15px #ff0000; text-transform: uppercase; margin-top: 10px; }
         .price { color: #fff; font-weight: bold; font-size: 24px; margin-bottom: 25px; border-bottom: 2px solid #ff0000; display: inline-block; padding-bottom: 5px; }
 
-        /* TOMBOL MENU MERAH */
+        /* TOMBOL MENU MERAH NEON */
         .pay-btn {
             display: block; width: 100%; max-width: 400px; margin: 12px auto;
             padding: 16px; border-radius: 12px; border: 2px solid #ff0000; 
             font-weight: 800; cursor: pointer; font-size: 16px; transition: 0.3s; 
             color: #fff; text-transform: uppercase;
-            background: linear-gradient(145deg, #330000, #b30000);
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+            background: #000;
+            box-shadow: 0 0 10px #ff0000;
         }
-        .pay-btn:hover { box-shadow: 0 0 20px #ff0000; transform: scale(1.02); }
-        .back { background: #111; border-color: #444; margin-top: 20px; font-size: 14px; text-decoration: none; }
+        .pay-btn:hover { box-shadow: 0 0 20px #ff0000; background: #330000; }
+        .back { background: #111; border: 1px solid #444; margin-top: 20px; font-size: 14px; text-decoration: none; box-shadow: none; }
 
         /* BOX KONTEN */
         .content { 
@@ -34,9 +34,9 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* LOGO FIX */
-        .logo-pay { width: 160px; height: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; filter: drop-shadow(0 0 5px #fff); }
+        .logo-pay { width: 150px; height: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; filter: drop-shadow(0 0 2px #fff); }
         .qris-img { width: 100%; border-radius: 10px; border: 3px solid #fff; box-shadow: 0 0 15px #ff0000; }
-        .acc-number { font-size: 24px; color: #ff0000; font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 5px #ff0000; margin: 10px 0; }
+        .acc-number { font-size: 26px; color: #ff0000; font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 8px #ff0000; margin: 10px 0; }
 
         /* AREA UPLOAD */
         .upload-section {
@@ -79,21 +79,21 @@
     </div>
 
     <div id="dana-box" class="content">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_danain.svg/1200px-Logo_danain.svg.png" class="logo-pay" alt="DANA">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_danain.svg/512px-Logo_danain.svg.png" class="logo-pay" alt="DANA">
         <p>TRANSFER DANA KE:</p>
         <div class="acc-number">082245390572</div>
         <p style="font-size: 12px; color: #aaa;">Pastikan nomor sudah benar sebelum transfer</p>
     </div>
 
     <div id="ovo-box" class="content">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Logo_ovo_purple.svg/1200px-Logo_ovo_purple.svg.png" class="logo-pay" alt="OVO">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Logo_ovo_purple.svg/512px-Logo_ovo_purple.svg.png" class="logo-pay" alt="OVO">
         <p>TRANSFER OVO KE:</p>
         <div class="acc-number">08385080976</div>
         <p style="font-size: 12px; color: #aaa;">Pastikan nomor sudah benar sebelum transfer</p>
     </div>
 
     <div class="upload-section">
-        <h3>Upload Bukti Transfer</h3>
+        <h3>UPLOAD BUKTI TRANSFER</h3>
         <input type="text" id="user-nama" placeholder="Nama Anda">
         <input type="text" id="user-wa" placeholder="Nomor WhatsApp">
         <input type="file" id="user-file">
@@ -129,10 +129,10 @@
             const nama = document.getElementById('user-nama').value;
             const wa = document.getElementById('user-wa').value;
             const produk = document.getElementById('prod-name').innerText;
-            if(!nama || !wa) { alert('Nama & Nomor WA wajib diisi!'); return; }
+            if(!nama || !wa) { alert('Nama & WA wajib diisi bos!'); return; }
             
             const waLink = "https://wa.me/628385080976?text=" + encodeURIComponent(
-                "KONFIRMASI PEMBAYARAN\nNama: " + nama + "\nWA: " + wa + "\nProduk: " + produk + "\n\nMohon dicek bukti transfer saya."
+                "KONFIRMASI PEMBAYARAN\nNama: " + nama + "\nWA: " + wa + "\nProduk: " + produk
             );
             window.location.href = waLink;
         }
