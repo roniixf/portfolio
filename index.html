@@ -3,200 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RONIIXF // CYBERCRIME_SQUAD</title>
+    <title>RONIIXF // CYBERCRIME</title>
     <style>
+        /* RESET & BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body {
-            background-color: #000;
-            color: #ff0000;
-            font-family: 'Courier New', Courier, monospace;
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', monospace;
             overflow-x: hidden;
-            background: radial-gradient(circle, #200000 0%, #000 100%);
+            background-image: radial-gradient(circle, #200 0%, #000 100%);
         }
 
-        /* MATRIX EFFECT BACKGROUND */
-        canvas {
-            position: fixed;
-            top: 0; left: 0;
-            z-index: -1;
-            opacity: 0.3;
-        }
+        /* MATRIX FALLING EFFECT */
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.2; }
 
-        /* GLITCH ANIMATION */
-        .glitch-container {
-            position: relative;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .glitch-title {
-            font-size: 40px;
-            font-weight: 900;
+        /* NEON TEXT GILA */
+        .neon-red {
+            color: #ff0000;
+            text-shadow: 0 0 5px #f00, 0 0 15px #f00, 0 0 30px #f00, 0 0 50px #f00;
             text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        /* PROFILE HUD RADAR */
+        .hud-container {
             position: relative;
-            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
-                         0.025em 0.04em 0 #fffc00;
-            animation: glitch 725ms infinite;
+            width: 200px; height: 200px;
+            margin: 40px auto;
+            display: flex; align-items: center; justify-content: center;
         }
-
-        @keyframes glitch {
-            0% { text-shadow: 0.05em 0 0 #ff0000, -0.05em -0.025em 0 #00ff00; }
-            15% { text-shadow: -0.05em -0.025em 0 #ff0000, 0.025em 0.025em 0 #00ff00; }
-            50% { text-shadow: 0.025em 0.05em 0 #ff0000, 0.05em 0 0 #00ff00; }
-            100% { text-shadow: -0.025em 0 0 #ff0000, -0.025em -0.025em 0 #00ff00; }
-        }
-
-        /* PROFILE HUD COMPLEX */
-        .hud-box {
-            position: relative;
-            width: 220px;
-            height: 220px;
-            margin: 20px auto;
-        }
-
         .profile-img {
-            width: 150px; height: 150px;
+            width: 140px; height: 140px;
             border-radius: 50%;
-            border: 2px solid #ff0000;
-            position: absolute; top: 35px; left: 35px;
-            box-shadow: 0 0 50px #ff0000;
-            z-index: 5;
-            filter: grayscale(1) contrast(1.5);
+            border: 3px solid #f00;
+            box-shadow: 0 0 30px #f00;
+            z-index: 10;
         }
-
         .ring {
             position: absolute;
+            width: 100%; height: 100%;
+            border: 2px dashed #f00;
             border-radius: 50%;
-            border: 2px solid transparent;
-            border-top-color: #ff0000;
-            animation: spin 3s linear infinite;
+            animation: rotate 4s linear infinite;
         }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        .ring-1 { width: 100%; height: 100%; animation-duration: 2s; border-bottom-color: #ff0000; }
-        .ring-2 { width: 190px; height: 190px; top: 15px; left: 15px; animation-direction: reverse; border-right-color: #ff0000; }
-
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* CONTENT CARDS */
-        .cyber-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #ff0000;
-            margin: 15px;
-            padding: 15px;
-            box-shadow: 0 0 15px #ff0000;
+        /* AGGRESSIVE CARDS */
+        .card {
+            width: 90%; max-width: 450px;
+            margin: 20px auto;
+            background: rgba(20, 0, 0, 0.9);
+            border: 2px solid #f00;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
             position: relative;
         }
+        .card-header {
+            position: absolute; top: -12px; left: 15px;
+            background: #f00; color: #000;
+            padding: 2px 10px; font-size: 10px; font-weight: bold;
+        }
 
-        .cyber-card::before {
-            content: "UNAUTHORIZED_ACCESS";
-            position: absolute; top: -10px; left: 10px;
-            background: #ff0000; color: #000;
-            font-size: 10px; padding: 2px 5px; font-weight: bold;
+        /* PROGRESS BAR */
+        .skill-box { margin-bottom: 15px; }
+        .bar-bg { width: 100%; height: 12px; background: #1a0000; border: 1px solid #400; margin-top: 5px; }
+        .bar-fill { 
+            height: 100%; background: #f00; 
+            box-shadow: 0 0 15px #f00;
+            position: relative;
         }
 
         /* TERMINAL LOG */
-        .terminal {
-            background: #000;
-            color: #ff0000;
-            padding: 10px;
-            font-size: 10px;
-            border: 1px solid #330000;
-            height: 100px;
-            overflow: hidden;
-            margin-top: 20px;
+        #log {
+            font-size: 10px; color: #f00;
+            height: 80px; overflow: hidden;
+            border-top: 1px solid #400; padding-top: 10px;
         }
 
-        /* SKILL BARS */
-        .bar { width: 100%; height: 8px; background: #200; border: 1px solid #ff0000; margin: 5px 0; }
-        .fill { height: 100%; background: #ff0000; box-shadow: 0 0 10px #ff0000; }
-
-        /* BUTTON */
+        /* BUTTON ACTION */
         .btn {
-            background: #ff0000; color: #000;
-            padding: 15px; width: 100%;
+            display: block; width: 100%;
+            background: #f00; color: #000;
+            padding: 15px; text-align: center;
             font-weight: 900; text-decoration: none;
-            display: block; text-align: center;
-            margin-top: 10px; clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+            margin-top: 15px;
+            clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
         }
     </style>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
 
-    <div class="glitch-container">
-        <div class="hud-box">
-            <div class="ring ring-1"></div>
-            <div class="ring ring-2"></div>
-            <img src="https://via.placeholder.com/150" alt="RONIIXF" class="profile-img">
-        </div>
-        
-        <h1 class="glitch-title">RONIIXF CYBERCRIME</h1>
-        <p style="letter-spacing: 5px; font-size: 12px; margin-top: 10px;">>> DATABASE_INFILTRATOR_LEVEL_99 <<</p>
+    <canvas id="matrix"></canvas>
+
+    <div class="hud-container">
+        <div class="ring"></div>
+        <img src="https://via.placeholder.com/150" alt="RONIIXF" class="profile-img">
     </div>
 
-    <div class="cyber-card">
-        <p style="font-size: 13px; font-style: italic;">
+    <div style="text-align: center; margin-bottom: 30px;">
+        <h1 class="neon-red" style="font-size: 32px;">RONIIXF CYBERCRIME</h1>
+        <p style="color: #f00; font-size: 10px; letter-spacing: 5px; margin-top: 5px;">>> DATABASE_INFILTRATOR_LEVEL_99 <<</p>
+    </div>
+
+    <div class="card">
+        <div class="card-header">UNAUTHORIZED_ACCESS</div>
+        <p style="font-size: 13px; font-style: italic; line-height: 1.6;">
             "Gue gak ngetuk pintu mainframe lo, gue bakar seluruh gedungnya lewat satu baris kode. Keamanan lo cuma pajangan buat gue hancurin."
         </p>
     </div>
 
-    <div class="cyber-card">
-        <p style="font-size: 10px; margin-bottom: 5px;">PY_EXPLOIT</p>
-        <div class="bar"><div class="fill" style="width: 98%;"></div></div>
-        <p style="font-size: 10px; margin-bottom: 5px;">JS_GHOST_DOM</p>
-        <div class="bar"><div class="fill" style="width: 95%;"></div></div>
-        <p style="font-size: 10px; margin-bottom: 5px;">PHP_SERVER_KILL</p>
-        <div class="bar"><div class="fill" style="width: 88%;"></div></div>
+    <div class="card">
+        <div class="card-header">CAPABILITIES</div>
+        <div class="skill-box">
+            <span style="font-size: 10px;">PY_EXPLOIT_V3</span>
+            <div class="bar-bg"><div class="bar-fill" style="width: 98%;"></div></div>
+        </div>
+        <div class="skill-box">
+            <span style="font-size: 10px;">JS_GHOST_DOM</span>
+            <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
+        </div>
+        <div class="skill-box">
+            <span style="font-size: 10px;">SERVER_HIJACK</span>
+            <div class="bar-bg"><div class="bar-fill" style="width: 90%;"></div></div>
+        </div>
     </div>
 
-    <div class="cyber-card">
-        <div class="terminal" id="terminal"></div>
+    <div class="card">
+        <div class="card-header">SYSTEM_LOGS</div>
+        <div id="log"></div>
         <a href="#" class="btn">INITIALIZE ATTACK</a>
     </div>
 
-    <footer style="padding: 20px; text-align: center; font-size: 8px; opacity: 0.5;">
-        © 2026 RONIIXF CRIMES // SHADOW NETWORK
+    <footer style="padding: 40px; text-align: center; font-size: 8px; color: #400; letter-spacing: 5px;">
+        © 2026 RONIIXF CRIMES // SHADOW_NETWORK
     </footer>
 
     <script>
         // Matrix Effect
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const letters = "0101010101ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        const fontSize = 16;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
+        const c = document.getElementById('matrix');
+        const ctx = c.getContext('2d');
+        c.width = window.innerWidth;
+        c.height = window.innerHeight;
+        const txts = "010101010101";
+        const drops = Array(Math.floor(c.width/16)).fill(1);
         function draw() {
-            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#ff0000";
-            ctx.font = fontSize + "px monospace";
-            for (let i = 0; i < drops.length; i++) {
-                const text = letters.charAt(Math.floor(Math.random() * letters.length));
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            ctx.fillStyle = "rgba(0,0,0,0.05)";
+            ctx.fillRect(0,0,c.width,c.height);
+            ctx.fillStyle = "#f00";
+            ctx.font = "16px monospace";
+            drops.forEach((y, i) => {
+                const t = txts[Math.floor(Math.random()*txts.length)];
+                ctx.fillText(t, i*16, y*16);
+                if(y*16 > c.height && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
-            }
+            });
         }
         setInterval(draw, 33);
 
-        // Terminal Log Effect
-        const term = document.getElementById('terminal');
-        const logs = [
-            "> Bypassing Firewall...", "> Accessing Root...", "> Injecting Malware...",
-            "> Downloading Database...", "> Masking IP Location...", "> Connection Secured.",
-            "> Encrypting Files...", "> Deleting Logs...", "> System Compromised!"
-        ];
-        let i = 0;
+        // Terminal Log
+        const logBox = document.getElementById('log');
+        const msgs = ["> Bypassing Firewall...", "> Root Access Granted", "> Downloading Database...", "> Masking IP Location...", "> Connection Secure"];
+        let idx = 0;
         setInterval(() => {
-            term.innerHTML += logs[i % logs.length] + "<br>";
-            term.scrollTop = term.scrollHeight;
-            i++;
-            if(term.innerHTML.length > 500) term.innerHTML = "";
-        }, 1000);
+            logBox.innerHTML += msgs[idx % msgs.length] + "<br>";
+            logBox.scrollTop = logBox.scrollHeight;
+            idx++;
+            if(logBox.innerHTML.length > 300) logBox.innerHTML = "";
+        }, 1200);
     </script>
 </body>
 </html>
