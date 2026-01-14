@@ -5,78 +5,113 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RONIIXF // CYBERCRIME</title>
     <style>
-        /* CSS RESET - BIAR GAK BOCOR */
+        /* CSS FIX - BIAR GAK MUNCUL TEKS KODE */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            background-color: #000;
-            color: #fff;
-            font-family: 'Consolas', monospace;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+        html, body { background: #000; color: #fff; height: 100%; overflow-x: hidden; font-family: 'Courier New', monospace; }
 
-        /* MATRIX BG MERAH DARAH */
-        canvas {
-            position: fixed;
-            top: 0; left: 0;
-            z-index: -1;
-            opacity: 0.2;
-        }
+        /* BG MATRIX RED */
+        #matrix { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
 
-        /* TEXT NEON CERAH MAKSIMAL */
-        .neon-red {
+        /* NEON MERAH CERAH */
+        .neon-title {
             color: #ff0000;
             text-shadow: 0 0 10px #f00, 0 0 20px #f00, 0 0 40px #f00;
-            text-transform: uppercase;
-            font-weight: 900;
-            letter-spacing: 4px;
-        }
-
-        /* HUD PROFILE RADAR */
-        .hud-profile {
-            position: relative;
-            width: 200px; height: 200px;
-            margin: 50px 0;
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        .img-avatar {
-            width: 140px; height: 140px;
-            border-radius: 50%;
-            border: 2px solid #ff0000;
-            box-shadow: 0 0 30px #ff0000;
-            z-index: 5;
-            object-fit: cover;
-        }
-
-        .scanner {
-            position: absolute;
-            width: 100%; height: 100%;
-            border: 2px solid transparent;
-            border-top: 2px solid #ff0000;
-            border-radius: 50%;
-            animation: scan 3s linear infinite;
-        }
-
-        @keyframes scan { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* CONTENT CARD */
-        .container {
-            width: 90%;
-            max-width: 500px;
             text-align: center;
+            font-size: 24px;
+            letter-spacing: 5px;
+            margin: 20px 0;
+            font-weight: 900;
         }
 
-        .quote-card {
-            background: rgba(15, 0, 0, 0.9);
-            border-left: 4px solid #ff0000;
-            padding: 25px;
-            margin: 30px 0;
-            text-align: left;
-            box-shadow: 0 10px 30px rgba(0,0,0,1);
+        /* PROFILE HUD */
+        .hud-wrap {
+            width: 180px; height: 180px;
+            margin: 40px auto;
+            border: 2px solid #f00;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+            position: relative;
+        }
+        .hud-wrap img { width: 140px; height: 140px; border-radius: 50%; border: 1px solid #f00; }
+        .scanner {
+            position: absolute; width: 100%; height: 100%;
+            border: 2px solid transparent; border-top: 2px solid #f00;
+            border-radius: 50%; animation: spin 2s linear infinite;
+        }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* KATA-KATA DINGIN */
+        .quote-box {
+            width: 90%; max-width: 450px;
+            margin: 0 auto 30px;
+            background: rgba(20, 0, 0, 0.8);
+            border-left: 5px solid #ff0000;
+            padding: 20px;
+            font-style: italic;
+            color: #ddd;
+            line-height: 1.6;
+        }
+
+        /* BAR SKILL NEON */
+        .skills { width: 90%; max-width: 450px; margin: 0 auto; }
+        .skill-name { font-size: 10px; color: #f00; margin-bottom: 5px; font-weight: bold; }
+        .bar-bg { width: 100%; height: 8px; background: #111; border: 1px solid #300; margin-bottom: 20px; }
+        .bar-fill { height: 100%; background: #f00; box-shadow: 0 0 15px #f00; }
+
+        footer { text-align: center; padding: 40px; color: #400; font-size: 10px; letter-spacing: 5px; }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+
+    <div class="hud-wrap">
+        <div class="scanner"></div>
+        <img src="https://via.placeholder.com/150" alt="RONIIXF">
+    </div>
+
+    <h1 class="neon-title">RONIIXF // CYBERCRIME</h1>
+
+    <div class="quote-box">
+        "Gue gak butuh pengakuan, apalagi izin. Saat lo sadar sistem lo jebol, itu artinya gue udah dapet apa yang gue mau. Keamanan lo cuma nunda waktu gue buat balik lagi."
+    </div>
+
+    <div class="skills">
+        <p class="skill-name">>> KERNEL_EXPLOIT</p>
+        <div class="bar-bg"><div class="bar-fill" style="width: 98%;"></div></div>
+
+        <p class="skill-name">>> SHADOW_INJECTION</p>
+        <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
+
+        <p class="skill-name">>> LOG_WIPER</p>
+        <div class="bar-bg"><div class="bar-fill" style="width: 99%;"></div></div>
+    </div>
+
+    <footer>SILENCE IS DEADLY // 2026</footer>
+
+    <script>
+        const c = document.getElementById('matrix');
+        const ctx = c.getContext('2d');
+        c.width = window.innerWidth;
+        c.height = window.innerHeight;
+        const txt = "0101";
+        const drops = Array(Math.floor(c.width/16)).fill(1);
+        function draw() {
+            ctx.fillStyle = "rgba(0,0,0,0.05)";
+            ctx.fillRect(0,0,c.width,c.height);
+            ctx.fillStyle = "#f00";
+            ctx.font = "16px monospace";
+            drops.forEach((y, i) => {
+                const char = txt[Math.floor(Math.random()*txt.length)];
+                ctx.fillText(char, i*16, y*16);
+                if(y*16 > c.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+        setInterval(draw, 40);
+    </script>
+</body>
+</html>
         }
 
         .quote-card p {
