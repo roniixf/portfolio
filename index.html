@@ -5,154 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RONIIXF // SYSTEM_REAPER</title>
     <style>
-        :root {
-            --glow: #ff0000;
-            --bg: #050000;
-        }
-
+        /* CSS RESET TOTAL AGAR TIDAK BOCOR */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            background-color: var(--bg);
+            background-color: #000;
             color: #fff;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Courier New', Courier, monospace;
             overflow-x: hidden;
-            background-image: linear-gradient(rgba(255, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 0, 0, 0.05) 1px, transparent 1px);
-            background-size: 20px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* Scanline Animation */
-        .scanlines {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 1000; background-size: 100% 2px, 3px 100%; pointer-events: none;
+        /* MATRIX BG MERAH CERAH */
+        canvas {
+            position: fixed;
+            top: 0; left: 0;
+            z-index: -1;
+            opacity: 0.25;
         }
 
-        /* Header Neon */
-        .main-title {
-            font-size: 2.5rem;
-            text-align: center;
-            color: var(--glow);
-            text-shadow: 0 0 10px var(--glow), 0 0 20px var(--glow);
-            margin: 20px 0;
+        /* TEXT NEON CERAH MAKSIMAL */
+        .neon-bright {
+            color: #ff0000;
+            text-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 40px #ff0000;
             font-weight: 900;
-            letter-spacing: -1px;
+            text-transform: uppercase;
         }
 
-        /* Profile Glass Effect */
-        .profile-card {
-            width: 90%;
-            max-width: 400px;
-            margin: 0 auto;
-            background: rgba(20, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 0, 0, 0.3);
-            border-radius: 15px;
-            padding: 30px 20px;
-            text-align: center;
-            box-shadow: 0 0 30px rgba(0,0,0,1);
-        }
-
-        .img-container {
+        /* PROFILE HUD RADAR */
+        .hud-wrapper {
             position: relative;
-            width: 150px; height: 150px;
-            margin: 0 auto 20px;
+            width: 200px; height: 200px;
+            margin: 40px 0;
+            display: flex; align-items: center; justify-content: center;
         }
 
-        .img-container img {
-            width: 100%; height: 100%;
+        .profile-img {
+            width: 140px; height: 140px;
             border-radius: 50%;
-            border: 2px solid var(--glow);
-            box-shadow: 0 0 20px var(--glow);
+            border: 4px solid #ff0000;
+            box-shadow: 0 0 30px #ff0000;
+            z-index: 10;
             object-fit: cover;
         }
 
-        /* Sarcastic Quotes Section */
-        .sarcastic-box {
-            margin-top: 25px;
-            padding: 15px;
-            background: rgba(0,0,0,0.5);
-            border-left: 3px solid var(--glow);
-            font-style: italic;
-            font-size: 0.9rem;
-            color: #ccc;
-            line-height: 1.6;
+        .radar-ring {
+            position: absolute;
+            width: 100%; height: 100%;
+            border: 2px dashed #ff0000;
+            border-radius: 50%;
+            animation: rotate 6s linear infinite;
         }
 
-        /* Aggressive Skill Bars */
-        .skill-container {
-            width: 90%; max-width: 400px;
-            margin: 30px auto;
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* NYINDIR BOX (TAJAM) */
+        .sarcasm-card {
+            width: 90%;
+            max-width: 450px;
+            background: rgba(20, 0, 0, 0.8);
+            border: 2px solid #ff0000;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: inset 0 0 20px rgba(255, 0, 0, 0.2);
+            position: relative;
         }
 
-        .skill-label {
-            display: flex; justify-content: space-between;
-            font-size: 0.7rem; font-weight: bold; margin-bottom: 5px;
-            color: var(--glow);
+        .sarcasm-card::before {
+            content: "STATUS: UNTRACEABLE";
+            position: absolute; top: -12px; left: 10px;
+            background: #ff0000; color: #000;
+            padding: 2px 8px; font-size: 10px; font-weight: bold;
         }
 
-        .bar-outer {
-            width: 100%; height: 6px;
-            background: #1a0000; border-radius: 10px;
-            margin-bottom: 15px; overflow: hidden;
+        /* SKILL BARS NEON CERAH */
+        .skill-list { width: 90%; max-width: 450px; margin-bottom: 50px; }
+        .skill-info { display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px; }
+        .bar-outer { height: 12px; background: #1a0000; border: 1px solid #400; margin-bottom: 20px; }
+        .bar-inner { 
+            height: 100%; background: #ff0000; 
+            box-shadow: 0 0 15px #ff0000; 
         }
 
-        .bar-inner {
-            height: 100%; background: var(--glow);
-            box-shadow: 0 0 10px var(--glow);
-        }
-
-        .footer {
-            text-align: center; padding: 40px;
-            font-size: 0.6rem; letter-spacing: 5px; color: #400;
-        }
-    </style>
-</head>
-<body>
-    <div class="scanlines"></div>
-
-    <div class="main-title">RONIIXF CYBERCRIME</div>
-
-    <div class="profile-card">
-        <div class="img-container">
-            <img src="https://via.placeholder.com/150" alt="Avatar">
-        </div>
-        <p style="font-weight: bold; color: var(--glow); font-size: 0.8rem; letter-spacing: 2px;">STATUS: UNTRACEABLE</p>
-        
-        <div class="sarcastic-box">
-            "Katanya IT Expert? Kok firewall lo cuma butuh satu 'Halo' buat jebol? Keamanan lo itu kayak pintu rumah pake gembok plastik—kelihatan aman, tapi sekali gue tendang, bubar semua."
-        </div>
-    </div>
-
-    <div class="skill-container">
-        <div class="skill-label"><span>BRUTEFORCE_LOGIC</span><span>99%</span></div>
-        <div class="bar-outer"><div class="bar-inner" style="width: 99%"></div></div>
-
-        <div class="skill-label"><span>DATABASE_LEAK</span><span>95%</span></div>
-        <div class="bar-outer"><div class="bar-inner" style="width: 95%"></div></div>
-
-        <div class="skill-label"><span>SOCIAL_ENGINEERING</span><span>92%</span></div>
-        <div class="bar-outer"><div class="bar-inner" style="width: 92%"></div></div>
-    </div>
-
-    <div class="footer">
-        NO PERMISSION NEEDED // EST 2026
-    </div>
-</body>
-</html>
-            font-size: 10px; color: #f00;
-            height: 80px; overflow: hidden;
-            border-top: 1px solid #400; padding-top: 10px;
-        }
-
-        /* BUTTON ACTION */
-        .btn {
-            display: block; width: 100%;
-            background: #f00; color: #000;
-            padding: 15px; text-align: center;
-            font-weight: 900; text-decoration: none;
-            margin-top: 15px;
-            clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
+        /* TERMINAL LIVE LOG */
+        #log {
+            font-size: 10px; color: #ff0000;
+            text-align: left; height: 60px; overflow: hidden;
+            border-top: 1px solid #300; padding-top: 10px;
         }
     </style>
 </head>
@@ -160,56 +101,46 @@
 
     <canvas id="matrix"></canvas>
 
-    <div class="hud-container">
-        <div class="ring"></div>
+    <div class="hud-wrapper">
+        <div class="radar-ring"></div>
         <img src="https://via.placeholder.com/150" alt="RONIIXF" class="profile-img">
     </div>
 
-    <div style="text-align: center; margin-bottom: 30px;">
-        <h1 class="neon-red" style="font-size: 32px;">RONIIXF CYBERCRIME</h1>
-        <p style="color: #f00; font-size: 10px; letter-spacing: 5px; margin-top: 5px;">>> DATABASE_INFILTRATOR_LEVEL_99 <<</p>
+    <div style="text-align: center; margin-bottom: 25px;">
+        <h1 class="neon-bright" style="font-size: 32px;">RONIIXF CYBERCRIME</h1>
+        <p style="color: #ff0000; font-size: 10px; letter-spacing: 6px; margin-top: 5px;">SHADOW OPERATIVE // LEVEL 99</p>
     </div>
 
-    <div class="card">
-        <div class="card-header">UNAUTHORIZED_ACCESS</div>
-        <p style="font-size: 13px; font-style: italic; line-height: 1.6;">
-            "Gue gak ngetuk pintu mainframe lo, gue bakar seluruh gedungnya lewat satu baris kode. Keamanan lo cuma pajangan buat gue hancurin."
+    <div class="sarcasm-card">
+        <p style="font-size: 14px; font-style: italic; line-height: 1.6; text-align: center;">
+            "Katanya IT Expert? Kok firewall lo cuma butuh satu 'Halo' buat jebol? Keamanan lo itu kayak pintu rumah pake gembok plastik—kelihatan aman, tapi sekali gue tendang, bubar semua."
         </p>
     </div>
 
-    <div class="card">
-        <div class="card-header">CAPABILITIES</div>
-        <div class="skill-box">
-            <span style="font-size: 10px;">PY_EXPLOIT_V3</span>
-            <div class="bar-bg"><div class="bar-fill" style="width: 98%;"></div></div>
-        </div>
-        <div class="skill-box">
-            <span style="font-size: 10px;">JS_GHOST_DOM</span>
-            <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
-        </div>
-        <div class="skill-box">
-            <span style="font-size: 10px;">SERVER_HIJACK</span>
-            <div class="bar-bg"><div class="bar-fill" style="width: 90%;"></div></div>
-        </div>
-    </div>
+    <div class="skill-list">
+        <div class="skill-info"><span class="neon-bright">>> BRUTEFORCE_LOGIC</span><span>99%</span></div>
+        <div class="bar-outer"><div class="bar-inner" style="width: 99%;"></div></div>
 
-    <div class="card">
-        <div class="card-header">SYSTEM_LOGS</div>
+        <div class="skill-info"><span class="neon-bright">>> DATABASE_INFILTRATOR</span><span>95%</span></div>
+        <div class="bar-outer"><div class="bar-inner" style="width: 95%;"></div></div>
+
+        <div class="skill-info"><span class="neon-bright">>> SOCIAL_ENGINEERING</span><span>92%</span></div>
+        <div class="bar-outer"><div class="bar-inner" style="width: 92%;"></div></div>
+        
         <div id="log"></div>
-        <a href="#" class="btn">INITIALIZE ATTACK</a>
     </div>
 
-    <footer style="padding: 40px; text-align: center; font-size: 8px; color: #400; letter-spacing: 5px;">
-        © 2026 RONIIXF CRIMES // SHADOW_NETWORK
+    <footer style="padding: 20px; font-size: 8px; color: #400; letter-spacing: 5px;">
+        NO PERMISSION NEEDED // EST 2026
     </footer>
 
     <script>
-        // Matrix Effect
+        // MATRIX SCRIPT
         const c = document.getElementById('matrix');
         const ctx = c.getContext('2d');
         c.width = window.innerWidth;
         c.height = window.innerHeight;
-        const txts = "010101010101";
+        const txt = "0101010101";
         const drops = Array(Math.floor(c.width/16)).fill(1);
         function draw() {
             ctx.fillStyle = "rgba(0,0,0,0.05)";
@@ -217,24 +148,24 @@
             ctx.fillStyle = "#f00";
             ctx.font = "16px monospace";
             drops.forEach((y, i) => {
-                const t = txts[Math.floor(Math.random()*txts.length)];
-                ctx.fillText(t, i*16, y*16);
+                const char = txt[Math.floor(Math.random()*txt.length)];
+                ctx.fillText(char, i*16, y*16);
                 if(y*16 > c.height && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
             });
         }
         setInterval(draw, 33);
 
-        // Terminal Log
+        // LIVE LOG SCRIPT
         const logBox = document.getElementById('log');
-        const msgs = ["> Bypassing Firewall...", "> Root Access Granted", "> Downloading Database...", "> Masking IP Location...", "> Connection Secure"];
+        const logs = ["> Bypassing Firewall...", "> Accessing Mainframe...", "> Root Access Granted", "> Downloading Database...", "> Masking IP...", "> Connection Secure"];
         let idx = 0;
         setInterval(() => {
-            logBox.innerHTML += msgs[idx % msgs.length] + "<br>";
+            logBox.innerHTML += logs[idx % logs.length] + "<br>";
             logBox.scrollTop = logBox.scrollHeight;
             idx++;
-            if(logBox.innerHTML.length > 300) logBox.innerHTML = "";
-        }, 1200);
+            if(logBox.innerHTML.length > 200) logBox.innerHTML = "";
+        }, 1500);
     </script>
 </body>
 </html>
