@@ -161,3 +161,135 @@
     </script>
 </body>
 </html>
+            text-shadow: 0 0 10px #f00, 0 0 20px #f00, 0 0 40px #f00;
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 4px;
+        }
+
+        /* HUD PROFILE RADAR */
+        .hud-profile {
+            position: relative;
+            width: 200px; height: 200px;
+            margin: 50px 0;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .img-avatar {
+            width: 140px; height: 140px;
+            border-radius: 50%;
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 30px #ff0000;
+            z-index: 5;
+            object-fit: cover;
+        }
+
+        .scanner {
+            position: absolute;
+            width: 100%; height: 100%;
+            border: 2px solid transparent;
+            border-top: 2px solid #ff0000;
+            border-radius: 50%;
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* CONTENT CARD */
+        .container {
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .quote-card {
+            background: rgba(15, 0, 0, 0.9);
+            border-left: 4px solid #ff0000;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(0,0,0,1);
+        }
+
+        .quote-card p {
+            font-size: 14px;
+            color: #bbb;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* SKILL BARS */
+        .skill-item { margin-bottom: 25px; text-align: left; }
+        .skill-name { font-size: 11px; color: #ff0000; margin-bottom: 5px; font-weight: bold; }
+        .bar-outer { width: 100%; height: 6px; background: #111; border: 1px solid #300; }
+        .bar-inner { height: 100%; background: #ff0000; box-shadow: 0 0 15px #ff0000; }
+
+        .footer {
+            margin: 60px 0;
+            font-size: 9px;
+            color: #300;
+            letter-spacing: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix"></canvas>
+
+    <div class="hud-profile">
+        <div class="scanner"></div>
+        <img src="https://via.placeholder.com/150" alt="RONIIXF" class="img-avatar">
+    </div>
+
+    <div class="container">
+        <h1 class="neon-red" style="font-size: 26px;">RONIIXF // CYBERCRIME</h1>
+        <p style="color: #400; font-size: 10px; letter-spacing: 5px; margin-top: 10px;">EST 2026 // SILENT KILLER</p>
+
+        <div class="quote-card">
+            <p>
+                "Gue gak butuh kunci buat masuk ke sistem lo, gue cuma butuh satu detik kecerobohan adminnya. Keamanan lo itu cuma ilusi, dan gue adalah kenyataan pahit yang gak bisa lo hindari."
+            </p>
+        </div>
+
+        <div class="skill-item">
+            <div class="skill-name">>> KERNEL_PENETRATION</div>
+            <div class="bar-outer"><div class="bar-inner" style="width: 98%;"></div></div>
+        </div>
+
+        <div class="skill-item">
+            <div class="skill-name">>> SHADOW_EXFILTRATION</div>
+            <div class="bar-outer"><div class="bar-inner" style="width: 95%;"></div></div>
+        </div>
+
+        <div class="skill-item">
+            <div class="skill-name">>> LOG_WIPER_ELITE</div>
+            <div class="bar-outer"><div class="bar-inner" style="width: 100%;"></div></div>
+        </div>
+    </div>
+
+    <footer class="footer">STAY ANONYMOUS</footer>
+
+    <script>
+        // MATRIX EFFECT
+        const canvas = document.getElementById('matrix');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const chars = "010101";
+        const drops = Array(Math.floor(canvas.width/16)).fill(1);
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#f00";
+            ctx.font = "16px monospace";
+            drops.forEach((y, i) => {
+                const text = chars[Math.floor(Math.random()*chars.length)];
+                ctx.fillText(text, i*16, y*16);
+                if(y*16 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+        setInterval(draw, 40);
+    </script>
+</body>
+</html>
