@@ -3,354 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RONIXF // RED_NEON_OPERATIVE</title>
+    <title>RONIXF // ELITE_HACKER</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --neon: #ff003c;
-            --neon-glow: rgba(255, 0, 60, 0.6);
-        }
-
+        /* CSS RESET & BASE */
         body {
-            background-color: #030000;
-            color: #ffffff;
-            font-family: 'JetBrains Mono', monospace;
+            background: #000;
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
             overflow-x: hidden;
-            background-image: 
-                linear-gradient(rgba(255, 0, 60, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 0, 60, 0.05) 1px, transparent 1px);
-            background-size: 30px 30px;
         }
 
-        .header-font { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
-
-        /* Neon Glow Text */
-        .neon-text {
-            color: var(--neon);
-            text-shadow: 0 0 10px var(--neon), 0 0 20px var(--neon);
+        /* NEON GLOW EFFECT */
+        .neon-red {
+            color: #ff0000;
+            text-shadow: 0 0 5px #ff0000, 0 0 15px #ff0000;
+            font-family: 'Orbitron', sans-serif;
         }
 
-        /* Profile HUD Bulat */
-        .profile-ring {
+        /* PROFILE CIRCLE HUD */
+        .profile-wrapper {
             position: relative;
-            width: 170px; height: 170px;
+            width: 160px;
+            height: 160px;
             margin: 0 auto;
-            display: flex; align-items: center; justify-content: center;
         }
 
         .profile-img {
-            width: 130px; height: 130px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
-            border: 2px solid var(--neon);
-            object-fit: cover;
-            z-index: 5;
-            box-shadow: 0 0 25px var(--neon-glow);
-            filter: grayscale(0.5) contrast(1.2);
-        }
-
-        .circle-anim {
+            border: 3px solid #ff0000;
             position: absolute;
-            width: 100%; height: 100%;
-            border: 2px dashed var(--neon);
-            border-radius: 50%;
-            animation: rotate 10s linear infinite;
-            opacity: 0.5;
+            top: 15px;
+            left: 15px;
+            z-index: 10;
+            object-fit: cover;
+            box-shadow: 0 0 20px #ff0000;
         }
 
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* Skill Card High Contrast */
-        .skill-card {
-            background: #080000;
-            border: 1px solid #200000;
-            padding: 20px;
-            position: relative;
-            transition: 0.3s;
-        }
-
-        .skill-card:hover {
-            border-color: var(--neon);
-            box-shadow: 0 0 20px rgba(255, 0, 60, 0.2);
-        }
-
-        .bar-container { height: 4px; background: #1a0000; width: 100%; margin-top: 10px; }
-        .bar-fill { 
-            height: 100%; background: var(--neon); 
-            box-shadow: 0 0 15px var(--neon); 
-        }
-
-        /* Scanline Effect */
-        .scanline {
-            width: 100%; height: 100px;
-            background: linear-gradient(0deg, transparent, rgba(255, 0, 60, 0.05), transparent);
-            position: fixed; top: -100px; left: 0;
-            animation: scan 4s linear infinite;
-            pointer-events: none; z-index: 100;
-        }
-        @keyframes scan { 0% { top: -100px; } 100% { top: 100vh; } }
-    </style>
-</head>
-<body class="p-6">
-    <div class="scanline"></div>
-
-    <nav class="max-w-5xl mx-auto flex justify-between items-center mb-16 border-b border-white/5 pb-4">
-        <div class="header-font text-xl font-bold neon-text italic">RONIXF_CORE</div>
-        <div class="text-[10px] tracking-widest opacity-50 uppercase">Secured_Uplink: Active</div>
-    </nav>
-
-    <header class="text-center mb-20">
-        <div class="profile-ring mb-8">
-            <div class="circle-anim"></div>
-            <img src="https://via.placeholder.com/150" alt="RONIXF" class="profile-img">
-        </div>
-        <h1 class="header-font text-6xl md:text-8xl font-black mb-4">RONIXF</h1>
-        <p class="text-red-600 font-bold tracking-[0.4em] text-xs uppercase mb-8 opacity-80 italic">Shadow Operative // System Architect</p>
-        
-        <div class="max-w-xl mx-auto p-5 border-l-4 border-red-600 bg-red-950/10 text-sm text-gray-300 italic">
-            "Keamanan hanyalah ilusi. Saya tidak mencari pintu terbuka, saya membangun jalan pintas saya sendiri."
-        </div>
-    </header>
-
-    <section class="max-w-4xl mx-auto mb-20">
-        <h2 class="header-font text-sm mb-10 border-b border-red-600 inline-block tracking-widest">>> Infiltration_Skills</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            
-            <div class="skill-card">
-                <div class="flex justify-between text-[10px] font-bold">
-                    <span>PYTHON_EXPLOIT</span>
-                    <span class="neon-text">98%</span>
-                </div>
-                <div class="bar-container"><div class="bar-fill" style="width: 98%"></div></div>
-            </div>
-
-            <div class="skill-card">
-                <div class="flex justify-between text-[10px] font-bold">
-                    <span>JS_GHOST_SCRIPT</span>
-                    <span class="neon-text">92%</span>
-                </div>
-                <div class="bar-container"><div class="bar-fill" style="width: 92%"></div></div>
-            </div>
-
-            <div class="skill-card">
-                <div class="flex justify-between text-[10px] font-bold">
-                    <span>PHP_OVERRIDE</span>
-                    <span class="neon-text">85%</span>
-                </div>
-                <div class="bar-container"><div class="bar-fill" style="width: 85%"></div></div>
-            </div>
-
-            <div class="skill-card">
-                <div class="flex justify-between text-[10px] font-bold">
-                    <span>NETWORK_RECON</span>
-                    <span class="neon-text">95%</span>
-                </div>
-                <div class="bar-container"><div class="bar-fill" style="width: 95%"></div></div>
-            </div>
-
-        </div>
-    </section>
-
-    <footer class="text-center py-20 border-t border-white/5 text-[9px] opacity-30 tracking-[1em] uppercase">
-        Established 2026 // Ronixf Systems
-    </footer>
-</body>
-</html>
-        .cyber-card::before {
-            content: "SECURED";
-            position: absolute; top: 5px; right: 10px;
-            font-size: 8px; color: var(--neon-red); opacity: 0.5;
-        }
-
-        .bar-container { height: 10px; background: #200000; border: 1px solid #400000; }
-        .bar-fill { height: 100%; background: var(--neon-red); box-shadow: 0 0 15px var(--neon-red); }
-
-        .btn-glitch {
-            background: var(--neon-red);
-            color: black;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 900;
-            padding: 15px 40px;
-            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
-            transition: 0.3s;
-        }
-        .btn-glitch:hover {
-            box-shadow: 0 0 30px var(--neon-red);
-            transform: scale(1.05);
-        }
-    </style>
-</head>
-<body class="p-4 md:p-8">
-
-    <nav class="max-w-6xl mx-auto flex justify-between items-center mb-12 py-4">
-        <div class="header-glow text-2xl italic">RONIXF_CORE</div>
-        <div class="hidden md:flex gap-8 text-[10px] font-bold tracking-[0.4em] uppercase">
-            <a href="#" class="hover:text-red-500 underline decoration-red-600">Overview</a>
-            <a href="#" class="hover:text-red-500">Intrusion</a>
-            <a href="#" class="hover:text-red-500">Logs</a>
-        </div>
-    </nav>
-
-    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-        <div class="lg:col-span-5 text-center">
-            <div class="profile-container mb-8">
-                <div class="hud-spinner"></div>
-                <div class="hud-dots"></div>
-                <img src="https://via.placeholder.com/150" alt="RONIXF" class="profile-img">
-            </div>
-            <h1 class="header-glow text-6xl md:text-8xl mb-2">RONIXF</h1>
-            <p class="text-red-600 font-bold tracking-[0.7em] text-xs uppercase mb-8">Level: Ghost Operative</p>
-            <button class="btn-glitch">INITIALIZE EXPLOIT</button>
-        </div>
-
-        <div class="lg:col-span-7 space-y-6">
-            <div class="cyber-card p-6">
-                <p class="text-red-500 text-[10px] font-bold mb-4">// MANIFESTO_</p>
-                <p class="text-sm md:text-base leading-relaxed italic text-gray-300">
-                    "Gue gak butuh kunci buat masuk ke rumah lo. Gue cuma butuh satu baris kode buat bikin rumah lo angkat tangan. Keamanan itu cuma mitos, yang nyata cuma kecepatan gue nemuin celah."
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-black border border-zinc-800 p-4">
-                    <div class="flex justify-between text-[10px] font-black mb-2 tracking-widest">
-                        <span>PYTHON_AUTO_EXPLOIT</span>
-                        <span class="text-red-600">98%</span>
-                    </div>
-                    <div class="bar-container"><div class="bar-fill" style="width: 98%"></div></div>
-                </div>
-                <div class="bg-black border border-zinc-800 p-4">
-                    <div class="flex justify-between text-[10px] font-black mb-2 tracking-widest">
-                        <span>JS_INJECTION_V3</span>
-                        <span class="text-red-600">92%</span>
-                    </div>
-                    <div class="bar-container"><div class="bar-fill" style="width: 92%"></div></div>
-                </div>
-                <div class="bg-black border border-zinc-800 p-4">
-                    <div class="flex justify-between text-[10px] font-black mb-2 tracking-widest">
-                        <span>PHP_BACKDOOR_ELITE</span>
-                        <span class="text-red-600">85%</span>
-                    </div>
-                    <div class="bar-container"><div class="bar-fill" style="width: 85%"></div></div>
-                </div>
-                <div class="bg-black border border-zinc-800 p-4">
-                    <div class="flex justify-between text-[10px] font-black mb-2 tracking-widest">
-                        <span>NET_PENETRATION</span>
-                        <span class="text-red-600">95%</span>
-                    </div>
-                    <div class="bar-container"><div class="bar-fill" style="width: 95%"></div></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="max-w-6xl mx-auto mt-16 bg-red-950/10 border border-red-900/40 p-3 text-[10px] flex gap-6 overflow-hidden whitespace-nowrap">
-        <span class="text-red-600 font-bold uppercase">System_Log:</span>
-        <marquee behavior="scroll" direction="left" class="text-gray-500">
-            >> Connecting to Satellite Uplink... [OK] >> Bypassing Firewall... [OK] >> Extracting Admin Hash... [PENDING] >> Masking IP: 192.168.**.** >> Shadow Protocol Active.
-        </marquee>
-    </div>
-
-    <footer class="mt-20 text-center py-10 opacity-20 text-[8px] tracking-[1em] uppercase">
-        Ronixf Underground Networks // Est 2026
-    </footer>
-
-</body>
-</html>
-            height: 6px;
-            background: #1a1a1a;
+        .outer-ring {
+            position: absolute;
             width: 100%;
-            margin-top: 10px;
-            border-radius: 10px;
-        }
-
-        .progress-bar {
             height: 100%;
-            background: var(--neon-red);
-            box-shadow: 0 0 12px var(--neon-glow);
-            border-radius: 10px;
+            border: 2px dashed #ff0000;
+            border-radius: 50%;
+            animation: rotate 8s linear infinite;
         }
 
-        /* Glow Text Merah */
-        .glow-red {
-            color: var(--neon-red);
-            text-shadow: 0 0 10px var(--neon-glow);
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* SKILL BARS */
+        .skill-node {
+            background: #0a0000;
+            border: 1px solid #300000;
+            padding: 15px;
+            border-left: 4px solid #ff0000;
+            margin-bottom: 15px;
+        }
+
+        .bar-bg { height: 6px; background: #222; width: 100%; margin-top: 10px; }
+        .bar-fill { height: 100%; background: #ff0000; box-shadow: 0 0 10px #ff0000; }
+
+        /* BUTTON STYLE */
+        .btn-access {
+            background: #ff0000;
+            color: #000;
+            font-weight: bold;
+            padding: 12px 30px;
+            display: inline-block;
+            text-decoration: none;
+            margin-top: 20px;
+            box-shadow: 0 0 15px #ff0000;
         }
     </style>
 </head>
-<body class="p-6 md:p-12">
+<body class="p-5">
 
-    <nav class="max-w-4xl mx-auto flex justify-between items-center mb-16 border-b border-zinc-900 pb-4">
-        <div class="font-header text-xl font-bold tracking-tighter glow-red italic">RONIXF.EXE</div>
-        <div class="text-[10px] opacity-60 flex gap-4 font-bold">
-            <span>STATUS: <span class="text-green-500">ACTIVE</span></span>
-            <span class="hidden md:inline">LOC: CYBER_SPACE</span>
-        </div>
-    </nav>
+    <div class="max-w-xl mx-auto flex justify-between text-[10px] opacity-60 mb-10 tracking-widest">
+        <span>[ CONNECTION: SECURE ]</span>
+        <span>[ STATUS: ONLINE ]</span>
+    </div>
 
-    <header class="text-center mb-20">
-        <div class="profile-box mb-8">
-            <div class="radar-wave"></div>
-            <div class="radar-wave" style="animation-delay: 0.5s"></div>
+    <div class="text-center mb-16">
+        <div class="profile-wrapper mb-6">
+            <div class="outer-ring"></div>
             <img src="https://via.placeholder.com/150" alt="RONIXF" class="profile-img">
         </div>
-
-        <h1 class="font-header text-5xl md:text-7xl font-black mb-4 tracking-tighter">RONIXF</h1>
-        <p class="glow-red text-xs tracking-[0.5em] font-bold uppercase mb-8">Professional Cyber Operative</p>
-
-        <div class="max-w-xl mx-auto p-6 bg-zinc-950 border border-zinc-900 italic text-sm text-zinc-400">
-            "Sistem yang paling aman adalah sistem yang sudah mati. Selama sebuah kode masih berjalan, saya akan selalu menemukan celah untuk masuk."
-        </div>
-    </header>
-
-    <section class="max-w-4xl mx-auto">
-        <h2 class="font-header text-sm mb-8 border-b border-red-600 inline-block uppercase tracking-widest">Capabilities_</h2>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="skill-card">
-                <div class="flex justify-between text-xs font-bold uppercase">
-                    <span>Python // Advanced Exploit</span>
-                    <span class="glow-red">98%</span>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-bar" style="width: 98%"></div>
-                </div>
-            </div>
-
-            <div class="skill-card">
-                <div class="flex justify-between text-xs font-bold uppercase">
-                    <span>JavaScript // Ghost Script</span>
-                    <span class="glow-red">92%</span>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-bar" style="width: 92%"></div>
-                </div>
-            </div>
-
-            <div class="skill-card">
-                <div class="flex justify-between text-xs font-bold uppercase">
-                    <span>PHP // Server Backdoor</span>
-                    <span class="glow-red">85%</span>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-bar" style="width: 85%"></div>
-                </div>
-            </div>
-
-            <div class="skill-card">
-                <div class="flex justify-between text-xs font-bold uppercase">
-                    <span>Penetration Testing</span>
-                    <span class="glow-red">90%</span>
-                </div>
-                <div class="progress-container">
-                    <div class="progress-bar" style="width: 90%"></div>
-                </div>
-            </div>
+        <h1 class="neon-red text-5xl italic mb-2">RONIXF</h1>
+        <p class="text-[10px] tracking-[0.5em] text-red-700 font-bold uppercase mb-6 underline">System Overrider</p>
+        
+        <div class="max-w-md mx-auto p-4 border border-red-900 bg-red-950/10 text-xs italic text-zinc-400 leading-relaxed">
+            "Keamanan lo cuma ilusi. Gue nggak ngetuk pintu, gue masuk lewat celah yang bahkan lo nggak tahu itu ada."
         </div>
-    </section>
+    </div>
 
-    <footer class="mt-32 text-center py-10 border-t border-zinc-900 opacity-30 text-[9px] tracking-[0.5em]">
-        &copy; 2026 RONIXF_MAINFRAME // NO TRACE LEFT BEHIND
+    <div class="max-w-md mx-auto">
+        <div class="skill-node">
+            <div class="flex justify-between text-[10px] font-bold">
+                <span>PYTHON_EXPLOIT</span>
+                <span class="neon-red">98%</span>
+            </div>
+            <div class="bar-bg"><div class="bar-fill" style="width: 98%"></div></div>
+        </div>
+
+        <div class="skill-node">
+            <div class="flex justify-between text-[10px] font-bold">
+                <span>JS_GHOST_CODE</span>
+                <span class="neon-red">92%</span>
+            </div>
+            <div class="bar-bg"><div class="bar-fill" style="width: 92%"></div></div>
+        </div>
+
+        <div class="skill-node">
+            <div class="flex justify-between text-[10px] font-bold">
+                <span>PHP_SERVER_KILL</span>
+                <span class="neon-red">85%</span>
+            </div>
+            <div class="bar-bg"><div class="bar-fill" style="width: 85%"></div></div>
+        </div>
+
+        <div class="text-center">
+            <a href="#" class="btn-access uppercase text-xs">Initialize Connection</a>
+        </div>
+    </div>
+
+    <footer class="text-center mt-20 opacity-20 text-[8px] tracking-[1em] uppercase">
+        Ronixf Systems // Untraceable
     </footer>
 
 </body>
