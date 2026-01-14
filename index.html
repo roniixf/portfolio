@@ -3,80 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RONIXF // NEON_OVERRIDE</title>
-    
+    <title>RONIXF // SYSTEM_BREAKER</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=JetBrains+Mono&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
             --neon-red: #ff0000;
-            --neon-glow: #ff3131;
+            --neon-bg: #0d0000;
         }
 
         body {
-            background-color: #000000;
-            color: #ffffff;
+            background-color: #000;
+            color: #fff;
             font-family: 'JetBrains Mono', monospace;
             overflow-x: hidden;
-            margin: 0;
+            background-image: linear-gradient(0deg, transparent 24%, rgba(255, 0, 0, 0.05) 25%, rgba(255, 0, 0, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 0, 0, 0.05) 75%, rgba(255, 0, 0, 0.05) 76%, transparent 77%, transparent), linear-gradient(90deg, transparent 24%, rgba(255, 0, 0, 0.05) 25%, rgba(255, 0, 0, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 0, 0, 0.05) 75%, rgba(255, 0, 0, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
         }
 
-        .font-header { font-family: 'Orbitron', sans-serif; }
+        /* Scanline Animation */
+        body::after {
+            content: " ";
+            position: fixed; top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 1000; background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
 
-        /* Foto Profile Bulat & Glow */
-        .profile-box {
+        .header-glow {
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 10px var(--neon-red), 0 0 20px var(--neon-red);
+            letter-spacing: -2px;
+        }
+
+        /* Advanced Profile HUD */
+        .profile-container {
             position: relative;
-            width: 150px;
-            height: 150px;
+            width: 180px; height: 180px;
             margin: 0 auto;
+            display: flex; align-items: center; justify-content: center;
         }
-
         .profile-img {
-            width: 130px;
-            height: 130px;
+            width: 140px; height: 140px;
             border-radius: 50%;
-            border: 3px solid var(--neon-red);
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 5;
-            object-fit: cover;
-            box-shadow: 0 0 20px var(--neon-glow);
-        }
-
-        /* Radar Animasi Belakang Foto */
-        .radar-wave {
-            position: absolute;
-            width: 100%;
-            height: 100%;
             border: 2px solid var(--neon-red);
+            z-index: 10; object-fit: cover;
+            filter: grayscale(1) contrast(1.5) brightness(0.9);
+            box-shadow: inset 0 0 20px #ff0000;
+        }
+        .hud-spinner {
+            position: absolute; width: 100%; height: 100%;
+            border: 2px solid transparent;
+            border-top: 2px solid var(--neon-red);
+            border-bottom: 2px solid var(--neon-red);
             border-radius: 50%;
-            animation: ripple 2s infinite;
-            opacity: 0;
+            animation: spin 3s linear infinite;
+        }
+        .hud-dots {
+            position: absolute; width: 160px; height: 160px;
+            border: 5px dotted rgba(255, 0, 0, 0.3);
+            border-radius: 50%;
+            animation: spin-reverse 10s linear infinite;
         }
 
-        @keyframes ripple {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.6); opacity: 0; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes spin-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+
+        /* Aggressive Glitch Card */
+        .cyber-card {
+            background: rgba(15, 0, 0, 0.8);
+            border: 1px solid var(--neon-red);
+            position: relative;
+            overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 95% 100%, 0 100%);
+        }
+        .cyber-card::before {
+            content: "SECURED";
+            position: absolute; top: 5px; right: 10px;
+            font-size: 8px; color: var(--neon-red); opacity: 0.5;
         }
 
-        /* Skill Card Merah Cerah */
-        .skill-card {
-            background: rgba(255, 0, 0, 0.05);
-            border: 1px solid rgba(255, 0, 0, 0.3);
-            padding: 20px;
-            border-left: 5px solid var(--neon-red);
+        .bar-container { height: 10px; background: #200000; border: 1px solid #400000; }
+        .bar-fill { height: 100%; background: var(--neon-red); box-shadow: 0 0 15px var(--neon-red); }
+
+        .btn-glitch {
+            background: var(--neon-red);
+            color: black;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            padding: 15px 40px;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
             transition: 0.3s;
         }
-
-        .skill-card:hover {
-            background: rgba(255, 0, 0, 0.1);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
-            transform: scale(1.02);
+        .btn-glitch:hover {
+            box-shadow: 0 0 30px var(--neon-red);
+            transform: scale(1.05);
         }
+    </style>
+</head>
+<body class="p-4 md:p-8">
 
-        .progress-container {
+    <nav class="max-w-6xl mx-auto flex justify-between items-center mb-12 py-4">
+        <div class="header-glow text-2xl italic">RONIXF_CORE</div>
+        <div class="hidden md:flex gap-8 text-[10px] font-bold tracking-[0.4em] uppercase">
+            <a href="#" class="hover:text-red-500 underline decoration-red-600">Overview</a>
+            <a href="#" class="hover:text-red-500">Intrusion</a>
+            <a href="#" class="hover:text-red-500">Logs</a>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-5 text-center">
+            <div class="profile-container mb-8">
+                <div class="hud-spinner"></div>
+                <div class="hud-dots"></div>
+                <img src="https://via.placeholder.com/150" alt="RONIXF" class="profile-img">
+            </div>
+            <h1 class="header-glow text-6xl md:text-8xl mb-2">RONIXF</h1>
+            <p class="text-red-600 font-bold tracking-[0.7em] text-xs uppercase mb-8">Level: Ghost Operative</p>
+            <button class="btn-glitch">INITIALIZE EXPLOIT</button>
+        </div>
+
+        <div class="lg:col-span-7 space-y-6">
+            <div class="cyber-card p-6">
+                <p class="text-red-500 text-[10px] font-bold mb-4">// MANIFESTO_</p>
+                <p class="text-sm md:text-base leading-relaxed italic text-gray-300">
+                    "Gue gak butuh kunci buat masuk ke rumah lo. Gue cuma butuh satu baris kode buat bikin rumah lo angkat tangan. Keamanan itu cuma mitos, yang nyata cuma kecepatan gue nemuin celah."
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-black border border-zinc-800 p-4">
+                    <div class="flex justify-between text-[10px] font-black mb-2 tracking-widest">
+                        <span>PYTHON_AUTO_EXPLOIT</span>
+                        <span class="text-red-600">98%</span>
+                    </div>
+                    <div class="bar-container"><div class="bar-fill" style="width: 98%"></div></div>
+                </div>
+                <div class="bg-black border border-zinc-800 p-4">
+                    <div class="flex justify-between text-[10px] font-black mb-2 tracking-widest">
+                        <span>JS_INJECTION_V3</span>
+                        <span class="text-red-600">92%</span>
+                    </div>
+                    <div class="bar-container"><div class="bar-fill" style="width: 92%"></div></div>
+                </div>
+                <div class="bg-black border border-zinc-800 p-4">
+                    <div class="flex justify-between text-[10px] font-black mb-2 tracking-widest">
+                        <span>PHP_BACKDOOR_ELITE</span>
+                        <span class="text-red-600">85%</span>
+                    </div>
+                    <div class="bar-container"><div class="bar-fill" style="width: 85%"></div></div>
+                </div>
+                <div class="bg-black border border-zinc-800 p-4">
+                    <div class="flex justify-between text-[10px] font-black mb-2 tracking-widest">
+                        <span>NET_PENETRATION</span>
+                        <span class="text-red-600">95%</span>
+                    </div>
+                    <div class="bar-container"><div class="bar-fill" style="width: 95%"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto mt-16 bg-red-950/10 border border-red-900/40 p-3 text-[10px] flex gap-6 overflow-hidden whitespace-nowrap">
+        <span class="text-red-600 font-bold uppercase">System_Log:</span>
+        <marquee behavior="scroll" direction="left" class="text-gray-500">
+            >> Connecting to Satellite Uplink... [OK] >> Bypassing Firewall... [OK] >> Extracting Admin Hash... [PENDING] >> Masking IP: 192.168.**.** >> Shadow Protocol Active.
+        </marquee>
+    </div>
+
+    <footer class="mt-20 text-center py-10 opacity-20 text-[8px] tracking-[1em] uppercase">
+        Ronixf Underground Networks // Est 2026
+    </footer>
+
+</body>
+</html>
             height: 6px;
             background: #1a1a1a;
             width: 100%;
