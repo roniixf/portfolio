@@ -3,80 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RONIXF // ELITE_HACKER</title>
+    <title>RONIIXF // CYBERCRIME_UPLINK</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        /* CSS RESET & BASE */
+        :root {
+            --neon: #ff0000;
+            --dark-red: #330000;
+        }
+
         body {
-            background: #000;
+            background-color: #000;
             color: #fff;
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
+            font-family: 'Share Tech Mono', monospace;
             overflow-x: hidden;
+            margin: 0;
+            /* Efek Vignette Merah di pojok layar */
+            background: radial-gradient(circle, transparent 40%, #1a0000 100%);
         }
 
-        /* NEON GLOW EFFECT */
-        .neon-red {
-            color: #ff0000;
-            text-shadow: 0 0 5px #ff0000, 0 0 15px #ff0000;
-            font-family: 'Orbitron', sans-serif;
+        .header-font { font-family: 'Orbitron', sans-serif; }
+
+        /* Background Scanline Bergerak */
+        body::before {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            z-index: 100; pointer-events: none; background-size: 100% 3px, 3px 100%;
         }
 
-        /* PROFILE CIRCLE HUD */
-        .profile-wrapper {
+        /* Glitch Animation untuk Nama */
+        .glitch-wrapper {
             position: relative;
-            width: 160px;
-            height: 160px;
-            margin: 0 auto;
-        }
-
-        .profile-img {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            border: 3px solid #ff0000;
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            z-index: 10;
-            object-fit: cover;
-            box-shadow: 0 0 20px #ff0000;
-        }
-
-        .outer-ring {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px dashed #ff0000;
-            border-radius: 50%;
-            animation: rotate 8s linear infinite;
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* SKILL BARS */
-        .skill-node {
-            background: #0a0000;
-            border: 1px solid #300000;
-            padding: 15px;
-            border-left: 4px solid #ff0000;
-            margin-bottom: 15px;
-        }
-
-        .bar-bg { height: 6px; background: #222; width: 100%; margin-top: 10px; }
-        .bar-fill { height: 100%; background: #ff0000; box-shadow: 0 0 10px #ff0000; }
-
-        /* BUTTON STYLE */
-        .btn-access {
-            background: #ff0000;
-            color: #000;
-            font-weight: bold;
-            padding: 12px 30px;
             display: inline-block;
+        }
+
+        .glitch-text {
+            font-size: 3.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            position: relative;
+            text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                        -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
+                        0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+            animation: glitch 500ms infinite;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 #ff0000, -0.05em -0.025em 0 #00ff00; }
+            14% { text-shadow: 0.05em 0 0 #ff0000, -0.05em -0.025em 0 #00ff00; }
+            15% { text-shadow: -0.05em -0.025em 0 #ff0000, 0.025em 0.025em 0 #00ff00; }
+            49% { text-shadow: -0.05em -0.025em 0 #ff0000, 0.025em 0.025em 0 #00ff00; }
+            50% { text-shadow: 0.025em 0.05em 0 #ff0000, 0.05em 0 0 #00ff00; }
+            99% { text-shadow: 0.025em 0.05em 0 #ff0000, 0.05em 0 0 #00ff00; }
+            100% { text-shadow: -0.025em 0 0 #ff0000, -0.025em -0.025em 0 #00ff00; }
+        }
+
+        /* Profile Radar Complex */
+        .radar-box {
+            position: relative; width: 180px; height: 180px; margin: 0 auto;
+        }
+        .profile-img {
+            width: 140px; height: 140px; border-radius: 50%;
+            border: 2px solid var(--neon);
+            position: absolute; top: 20px; left: 20px;
+            z-index: 10; filter: grayscale(1) brightness(0.6) contrast(1.5);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+        }
+        .ring-1 { position: absolute; width: 100%; height: 100%; border: 1px solid var(--neon); border-radius: 50%; animation: spin 4s linear infinite; opacity: 0.5; }
+        .ring-2 { position: absolute; width: 160px; height: 160px; border: 3px double var(--neon); border-radius: 50%; top: 10px; left: 10px; animation: spin-rev 6s linear infinite; opacity: 0.3; }
+
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes spin-rev { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+
+        /* Skill Nodes */
+        .skill-node {
+            background: linear-gradient(90deg, #1a0000, #000);
+            border: 1px solid var(--dark-red);
+            padding: 15px; position: relative; overflow: hidden;
+        }
+        .skill-node::after {
+            content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--neon); box-shadow: 0 0 15px var(--neon);
+        }
+        .bar-bg { height: 4px; background: #222; margin-top: 10px; }
+        .bar-fill { height: 100%; background: var(--neon); box-shadow: 0 0 10px var(--neon); }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <div class="max-w-4xl mx-auto flex justify-between text-[10px] font-bold tracking-[0.4em] mb-12 text-red-600">
+        <span>UPLINK_STABLE // NO_TRACE</span>
+        <span>ID: 000-XF-CRIME</span>
+    </div>
+
+    <header class="text-center mb-20">
+        <div class="radar-box mb-10">
+            <div class="ring-1"></div>
+            <div class="ring-2"></div>
+            <img src="https://via.placeholder.com/150" alt="RONIIXF" class="profile-img">
+        </div>
+
+        <div class="glitch-wrapper mb-4">
+            <h1 class="header-font glitch-text">RONIIXF CYBERCRIME</h1>
+        </div>
+        
+        <p class="text-red-500 text-xs tracking-[0.8em] font-black uppercase mb-10">Advanced System Saboteur</p>
+
+        <div class="max-w-xl mx-auto p-6 border border-red-900 bg-red-950/20 text-xs text-gray-400 italic leading-loose">
+            <span class="text-red-600 font-bold uppercase block mb-2">// LOG_MESSAGE:</span>
+            "Keamanan digital adalah lelucon. Gue nggak butuh izin buat masuk, gue cuma butuh IP address. Sekali gue di dalam, seluruh database lo adalah milik gue."
+        </div>
+    </header>
+
+    <div class="max-w-2xl mx-auto space-y-6">
+        <div class="skill-node">
+            <div class="flex justify-between text-[10px] font-bold tracking-widest">
+                <span>>> DATA_EXFILTRATION (PYTHON)</span>
+                <span class="text-red-600">98%</span>
+            </div>
+            <div class="bar-bg"><div class="bar-fill" style="width: 98%"></div></div>
+        </div>
+
+        <div class="skill-node">
+            <div class="flex justify-between text-[10px] font-bold tracking-widest">
+                <span>>> DOM_OVERRIDE (JS)</span>
+                <span class="text-red-600">94%</span>
+            </div>
+            <div class="bar-bg"><div class="bar-fill" style="width: 94%"></div></div>
+        </div>
+
+        <div class="skill-node">
+            <div class="flex justify-between text-[10px] font-bold tracking-widest">
+                <span>>> SERVER_HIJACK (PHP)</span>
+                <span class="text-red-600">88%</span>
+            </div>
+            <div class="bar-bg"><div class="bar-fill" style="width: 88%"></div></div>
+        </div>
+    </div>
+
+    <footer class="mt-32 text-center opacity-30">
+        <div class="text-[9px] tracking-[1.5em] text-red-600 font-bold uppercase mb-4">
+            No Mercy // No Trace // Ronixf Crime
+        </div>
+        <div class="text-[8px] text-gray-700 font-mono">
+            SECURE_TUNNEL_ESTABLISHED_VIA_TOR_V3
+        </div>
+    </footer>
+
+</body>
+</html>
             text-decoration: none;
             margin-top: 20px;
             box-shadow: 0 0 15px #ff0000;
