@@ -21,7 +21,7 @@
             box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
         }
         .pay-btn:hover { box-shadow: 0 0 20px #ff0000; transform: scale(1.02); }
-        .back { background: #111; border-color: #444; margin-top: 20px; font-size: 14px; }
+        .back { background: #111; border-color: #444; margin-top: 20px; font-size: 14px; text-decoration: none; }
 
         /* BOX KONTEN */
         .content { 
@@ -33,11 +33,12 @@
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .logo-pay { width: 140px; height: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; }
+        /* LOGO FIX */
+        .logo-pay { width: 160px; height: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; filter: drop-shadow(0 0 5px #fff); }
         .qris-img { width: 100%; border-radius: 10px; border: 3px solid #fff; box-shadow: 0 0 15px #ff0000; }
-        .acc-number { font-size: 20px; color: #ff0000; font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 5px #ff0000; }
+        .acc-number { font-size: 24px; color: #ff0000; font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 5px #ff0000; margin: 10px 0; }
 
-        /* FORM UPLOAD - DIBIKIN GAHAR */
+        /* AREA UPLOAD */
         .upload-section {
             width: 100%; max-width: 400px; margin: 30px auto; 
             padding: 20px; border: 1px dashed #ff0000; border-radius: 15px;
@@ -49,8 +50,6 @@
             width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; 
             border: 1px solid #333; background: #000; color: #fff; box-sizing: border-box;
         }
-        input[type="text"]:focus { border-color: #ff0000; outline: none; box-shadow: 0 0 5px #ff0000; }
-
         input[type="file"] {
             width: 100%; background: #fff; color: #000; padding: 10px; border-radius: 8px;
             margin: 10px 0; cursor: pointer; font-weight: bold;
@@ -61,9 +60,7 @@
             font-weight: 900; border: none; cursor: pointer; width: 100%; 
             margin-top: 15px; text-transform: uppercase; 
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
-            transition: 0.3s;
         }
-        .btn-submit:hover { transform: scale(1.03); background: #ff3333; }
     </style>
 </head>
 <body>
@@ -82,15 +79,17 @@
     </div>
 
     <div id="dana-box" class="content">
-        <img src="https://i.ibb.co/S769z6r/DANA-Logo.png" class="logo-pay" alt="Logo DANA">
-        <p>NOMOR DANA:</p>
-        <div class="acc-number">0881024597294</div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_danain.svg/1200px-Logo_danain.svg.png" class="logo-pay" alt="DANA">
+        <p>TRANSFER DANA KE:</p>
+        <div class="acc-number">082245390572</div>
+        <p style="font-size: 12px; color: #aaa;">Pastikan nomor sudah benar sebelum transfer</p>
     </div>
 
     <div id="ovo-box" class="content">
-        <img src="https://i.ibb.co/3WqYq5V/OVO-Logo.png" class="logo-pay" alt="Logo OVO">
-        <p>NOMOR OVO:</p>
-        <div class="acc-number">0881024597294</div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Logo_ovo_purple.svg/1200px-Logo_ovo_purple.svg.png" class="logo-pay" alt="OVO">
+        <p>TRANSFER OVO KE:</p>
+        <div class="acc-number">08385080976</div>
+        <p style="font-size: 12px; color: #aaa;">Pastikan nomor sudah benar sebelum transfer</p>
     </div>
 
     <div class="upload-section">
@@ -130,10 +129,10 @@
             const nama = document.getElementById('user-nama').value;
             const wa = document.getElementById('user-wa').value;
             const produk = document.getElementById('prod-name').innerText;
-            if(!nama || !wa) { alert('Isi Nama & WA dulu bos!'); return; }
+            if(!nama || !wa) { alert('Nama & Nomor WA wajib diisi!'); return; }
             
             const waLink = "https://wa.me/628385080976?text=" + encodeURIComponent(
-                "KONFIRMASI PEMBAYARAN\nNama: " + nama + "\nWA: " + wa + "\nProduk: " + produk + "\n\nBukti transfer sudah disiapkan."
+                "KONFIRMASI PEMBAYARAN\nNama: " + nama + "\nWA: " + wa + "\nProduk: " + produk + "\n\nMohon dicek bukti transfer saya."
             );
             window.location.href = waLink;
         }
