@@ -1,107 +1,131 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RONIIXF // CYBERCRIME</title>
-<style>
-  /* CSS RESET */
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #000; color: #fff; font-family: 'Consolas', monospace; overflow-x: hidden; display: flex; flex-direction: column; align-items: center; }
-  canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.2; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RONIIXF // CYBERCRIME</title>
+    <style>
+        /* RESET TOTAL BIAR GAK BERANTAKAN */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Consolas', monospace; }
+        body { background: #000; color: #fff; overflow-x: hidden; }
 
-  /* TOMBOL MENU GARIS TIGA */
-  .menu-btn { position: fixed; top: 20px; right: 20px; z-index: 1001; cursor: pointer; padding: 5px; }
-  .menu-btn div { width: 30px; height: 3px; background: #f00; margin: 6px 0; box-shadow: 0 0 10px #f00; transition: 0.4s; }
+        /* MATRIX BG */
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.2; pointer-events: none; }
 
-  /* SIDE NAV PANEL */
-  #sideNav { position: fixed; top: 0; right: -100%; width: 260px; height: 100%; background: rgba(10, 0, 0, 0.95); border-left: 2px solid #f00; z-index: 1000; transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); display: flex; flex-direction: column; padding: 100px 25px; box-shadow: -10px 0 30px rgba(255,0,0,0.2); }
-  #sideNav.active { right: 0; }
-  #sideNav a { color: #fff; text-decoration: none; font-size: 18px; margin: 15px 0; letter-spacing: 3px; border-bottom: 1px solid #300; padding-bottom: 5px; text-transform: uppercase; }
-  #sideNav a:hover { color: #f00; text-shadow: 0 0 10px #f00; }
+        /* TOMBOL MENU (GARIS TIGA) - DIPAKSA PALING ATAS */
+        .btn-menu {
+            position: fixed; top: 20px; right: 20px;
+            z-index: 10000; cursor: pointer;
+            width: 40px; height: 30px;
+            display: flex; flex-direction: column; justify-content: space-between;
+            padding: 5px; background: rgba(255, 0, 0, 0.1); border: 1px solid #f00;
+        }
+        .btn-menu span { display: block; width: 100%; height: 3px; background: #f00; box-shadow: 0 0 10px #f00; }
 
-  /* PROFILE HUD */
-  .p-frame { position: relative; width: 220px; height: 220px; margin: 80px 0 20px; display: flex; align-items: center; justify-content: center; }
-  .p-frame img { width: 160px; height: 160px; border-radius: 50%; border: 3px solid #f00; box-shadow: 0 0 35px #f00; z-index: 5; object-fit: cover; }
-  .radar-line { position: absolute; width: 100%; height: 100%; border: 2px solid transparent; border-top: 3px solid #f00; border-radius: 50%; animation: rot 2s linear infinite; }
-  @keyframes rot { from {transform: rotate(0deg)} to {transform: rotate(360deg)} }
+        /* PANEL NAVIGASI (ISI MENU) */
+        #nav-side {
+            position: fixed; top: 0; right: -100%;
+            width: 280px; height: 100%;
+            background: rgba(10, 0, 0, 0.98);
+            border-left: 2px solid #f00; z-index: 9999;
+            transition: 0.5s ease;
+            display: flex; flex-direction: column; padding: 100px 25px;
+        }
+        #nav-side.active { right: 0; }
+        #nav-side a {
+            color: #fff; text-decoration: none; font-size: 18px;
+            margin: 15px 0; letter-spacing: 3px; border-bottom: 1px solid #300;
+            padding-bottom: 10px; transition: 0.3s;
+        }
+        #nav-side a:hover { color: #f00; text-shadow: 0 0 10px #f00; padding-left: 10px; }
 
-  /* TEXT & CARDS */
-  .neon-title { font-size: 26px; color: #f00; font-weight: 900; text-shadow: 0 0 20px #f00; letter-spacing: 5px; text-align: center; margin-bottom: 40px; }
-  .box-nyindir { width: 90%; max-width: 480px; background: rgba(15, 0, 0, 0.85); border: 1px solid #f00; padding: 25px; margin-bottom: 30px; position: relative; box-shadow: inset 0 0 20px rgba(255,0,0,0.2); border-left: 5px solid #f00; }
-  .box-nyindir p { font-size: 14px; font-style: italic; color: #ccc; line-height: 1.8; }
-  
-  /* SKILL BAR */
-  .skill-cont { width: 90%; max-width: 480px; margin-bottom: 50px; }
-  .skill-name { font-size: 11px; color: #f00; margin-bottom: 5px; font-weight: bold; letter-spacing: 2px; }
-  .bar-bg { width: 100%; height: 8px; background: #111; margin-bottom: 15px; border: 1px solid #300; }
-  .bar-fill { height: 100%; background: #f00; box-shadow: 0 0 15px #f00; }
+        /* PROFILE HUD */
+        .profile-container {
+            display: flex; flex-direction: column; align-items: center;
+            margin-top: 80px; position: relative; z-index: 10;
+        }
+        .img-wrapper { position: relative; width: 180px; height: 180px; }
+        .img-wrapper img { width: 100%; height: 100%; border-radius: 50%; border: 3px solid #f00; box-shadow: 0 0 30px #f00; }
+        .radar-circle {
+            position: absolute; top: -10px; left: -10px; width: 200px; height: 200px;
+            border: 2px solid transparent; border-top: 3px solid #f00;
+            border-radius: 50%; animation: muter 2s linear infinite;
+        }
+        @keyframes muter { to { transform: rotate(360deg); } }
 
-  footer { padding-bottom: 50px; font-size: 10px; color: #300; letter-spacing: 10px; text-align: center; }
-</style>
+        /* TEXT STYLING */
+        .nick { font-size: 26px; color: #f00; text-shadow: 0 0 15px #f00; margin-top: 25px; letter-spacing: 5px; font-weight: 900; }
+        .est-text { font-size: 16px; color: #ff0000; font-weight: bold; letter-spacing: 10px; margin-top: 5px; text-shadow: 0 0 10px #f00; }
+
+        /* QUOTE CARD */
+        .card-msg {
+            width: 90%; max-width: 450px; margin: 40px auto;
+            background: rgba(15, 0, 0, 0.85); border: 1px solid #f00;
+            padding: 20px; border-left: 5px solid #f00;
+            box-shadow: inset 0 0 15px rgba(255, 0, 0, 0.1);
+        }
+        .card-msg p { font-size: 14px; font-style: italic; color: #ccc; line-height: 1.6; text-align: center; }
+
+        footer { text-align: center; padding: 40px 0; color: #300; font-size: 10px; letter-spacing: 5px; }
+    </style>
 </head>
 <body>
 
-<canvas id="matrix"></canvas>
+    <canvas id="mtx"></canvas>
 
-<div class="menu-btn" onclick="openMenu()">
-  <div></div><div></div><div></div>
-</div>
+    <div class="btn-menu" onclick="aksiMenu()">
+        <span></span><span></span><span></span>
+    </div>
 
-<div id="sideNav">
-  <a href="#">// ROOT_ACCESS</a>
-  <a href="#">// EXPLOIT_DB</a>
-  <a href="#">// SHADOW_LOG</a>
-  <a href="#">// DISCONNECT</a>
-  <p style="margin-top: auto; font-size: 8px; color: #400;">RONIIXF_SABOTEUR_SYSTEM</p>
-</div>
+    <div id="nav-side">
+        <p style="color: #f00; font-size: 10px; margin-bottom: 20px;">>> SELECT_TARGET</p>
+        <a href="#">// MAIN_SERVER</a>
+        <a href="#">// DATABASE_LEAK</a>
+        <a href="#">// NETWORK_MAP</a>
+        <a href="#">// BYPASS_GATE</a>
+        <a href="#" onclick="aksiMenu()" style="color: #500; border: none;">[ CLOSE_MENU ]</a>
+    </div>
 
-<div class="p-frame">
-  <div class="radar-line"></div>
-  <img src="https://takenupload.com/69672d9dd452e" alt="RONIIXF">
-</div>
+    <div class="profile-container">
+        <div class="img-wrapper">
+            <div class="radar-circle"></div>
+            <img src="https://takenupload.com/69672d9dd452e" alt="RONIIXF">
+        </div>
+        <h1 class="nick">RONIIXF // CYBERCRIME</h1>
+        <p class="est-text">EST 2026</p>
 
-<h1 class="neon-title">RONIIXF // CYBERCRIME</h1>
+        <div class="card-msg">
+            <p>"Keamanan lo itu cuma ilusi. Pas lo sadar sistem lo jebol, gue udah dapet apa yang gue mau. Gak usah ganti password, itu cuma nunda waktu gue buat balik lagi."</p>
+        </div>
+    </div>
 
-<div class="box-nyindir">
-  <p>"Gue gak butuh kunci buat masuk ke sistem lo, gue cuma butuh satu detik kecerobohan adminnya. Keamanan lo itu cuma ilusi, dan gue adalah kenyataan pahit yang gak bisa lo hindari."</p>
-</div>
+    <footer>STAY UNTRACEABLE // 2026</footer>
 
-<div class="skill-cont">
-  <div class="skill-name">>> SYSTEM_PENETRATION [99%]</div>
-  <div class="bar-bg"><div class="bar-fill" style="width: 99%;"></div></div>
-  <div class="skill-name">>> DATABASE_EXFILTRATION [95%]</div>
-  <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
-</div>
+    <script>
+        // LOGIC MENU BIAR JALAN
+        function aksiMenu() {
+            const menu = document.getElementById('nav-side');
+            menu.classList.toggle('active');
+        }
 
-<footer>EST 2026 // SILENCE IS DEADLY</footer>
-
-<script>
-  // MATRIX EFFECT
-  const c = document.getElementById('matrix');
-  const ctx = c.getContext('2d');
-  c.width = window.innerWidth;
-  c.height = window.innerHeight;
-  const drops = Array(Math.floor(c.width/16)).fill(1);
-  function draw() {
-    ctx.fillStyle = "rgba(0,0,0,0.05)";
-    ctx.fillRect(0,0,c.width,c.height);
-    ctx.fillStyle = "#f00";
-    ctx.font = "16px monospace";
-    drops.forEach((y, i) => {
-      ctx.fillText(Math.floor(Math.random()*2), i*16, y*16);
-      if(y*16 > c.height && Math.random() > 0.975) drops[i] = 0;
-      drops[i]++;
-    });
-  }
-  setInterval(draw, 40);
-
-  // MENU INTERACTION SCRIPT
-  function openMenu() {
-    const nav = document.getElementById('sideNav');
-    nav.classList.toggle('active');
-  }
-</script>
-
+        // MATRIX BACKGROUND
+        const c = document.getElementById('mtx');
+        const ctx = c.getContext('2d');
+        c.width = window.innerWidth;
+        c.height = window.innerHeight;
+        const drops = Array(Math.floor(c.width/16)).fill(1);
+        function draw() {
+            ctx.fillStyle = "rgba(0,0,0,0.05)";
+            ctx.fillRect(0,0,c.width,c.height);
+            ctx.fillStyle = "#f00";
+            ctx.font = "16px monospace";
+            drops.forEach((y, i) => {
+                ctx.fillText(Math.floor(Math.random()*2), i*16, y*16);
+                if(y*16 > c.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+        setInterval(draw, 40);
+    </script>
 </body>
 </html>
