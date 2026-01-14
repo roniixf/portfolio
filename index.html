@@ -1,82 +1,181 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RONIXF // PROTOCOL-X</title>
+    <title>RONIXF // NEURAL INTERFACE</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Source+Code+Pro:wght@300;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --neon: #00ff41; /* Green Matrix */
-            --bg: #050805;
+            --primary: #ff0055; /* Cyber Pink */
+            --secondary: #00f2ff; /* Cyber Blue */
+            --bg: #020205;
         }
 
         body {
             background-color: var(--bg);
-            color: var(--neon);
-            font-family: 'Source Code Pro', monospace;
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
             overflow-x: hidden;
-            text-transform: uppercase;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(255, 0, 85, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 0% 0%, rgba(0, 242, 255, 0.05) 0%, transparent 30%);
         }
 
-        h1, h2, .font-cyber { font-family: 'Orbitron', sans-serif; }
+        .font-title { font-family: 'Syncopate', sans-serif; }
 
-        /* Matrix Rain Background Simulation */
-        .matrix-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), 
-                        url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
-            z-index: -1;
-            opacity: 0.3;
+        /* Background Noise Effect */
+        .noise {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 9999; pointer-events: none; opacity: .05;
+            background-image: url('https://media.giphy.com/media/oEI9uWUicGLeE/giphy.gif');
         }
 
-        /* Glitch Effect Intense */
-        .glitch-wrapper { position: relative; display: inline-block; }
-        
-        .glitch-text::before, .glitch-text::after {
-            content: attr(data-text);
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg);
+        /* Hero Text Animation */
+        .hero-title {
+            font-size: clamp(3rem, 15vw, 10rem);
+            line-height: 0.8;
+            letter-spacing: -0.05em;
+            background: linear-gradient(to bottom, #fff 30%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(255, 0, 85, 0.5));
         }
 
-        .glitch-text::after {
-            left: 2px; text-shadow: -2px 0 #ff003c;
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim 5s infinite linear alternate-reverse;
+        /* Floating Animation */
+        .float { animation: floating 3s ease-in-out infinite; }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
 
-        @keyframes glitch-anim {
-            0% { clip: rect(10px, 9999px, 20px, 0); }
-            20% { clip: rect(80px, 9999px, 90px, 0); }
-            100% { clip: rect(40px, 9999px, 50px, 0); }
+        /* Cyber Card with Glassmorphism */
+        .cyber-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Cyber Borders */
-        .cyber-box {
-            border: 2px solid var(--neon);
-            clip-path: polygon(0 0, 95% 0, 100% 20%, 100% 100%, 5% 100%, 0 80%);
-            background: rgba(0, 255, 65, 0.05);
-            transition: all 0.3s;
+        .cyber-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 242, 255, 0.2);
         }
 
-        .cyber-box:hover {
-            background: rgba(0, 255, 65, 0.15);
-            box-shadow: 0 0 20px var(--neon);
-            transform: scale(1.02);
+        .cyber-card::after {
+            content: ""; position: absolute; top: -1px; left: -1px; width: 40px; height: 40px;
+            border-top: 2px solid var(--primary); border-left: 2px solid var(--primary);
         }
 
-        .scanline {
-            width: 100%; height: 100px;
-            z-index: 10;
-            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(0, 255, 65, 0.1) 50%, rgba(0, 0, 0, 0) 100%);
-            opacity: 0.1;
-            position: absolute; bottom: 100%;
-            animation: scanline 8s linear infinite;
+        /* Animated Bar */
+        .skill-bar {
+            height: 4px; background: rgba(255,255,255,0.1); position: relative; overflow: hidden;
+        }
+        .skill-progress {
+            position: absolute; height: 100%; left: 0; top: 0;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            box-shadow: 0 0 10px var(--secondary);
         }
 
-        @keyframes scanline {
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); }
+    </style>
+</head>
+<body class="antialiased">
+    <div class="noise"></div>
+
+    <nav class="fixed top-0 w-full z-50 p-6 flex justify-between items-center mix-blend-difference">
+        <div class="font-title font-bold text-xl tracking-tighter">RNXF.SYS</div>
+        <div class="flex gap-8 text-[10px] tracking-[0.3em] font-bold uppercase">
+            <a href="#" class="hover:text-pink-500 transition">Works</a>
+            <a href="#" class="hover:text-pink-500 transition">About</a>
+            <a href="#" class="hover:text-pink-500 transition text-pink-500">Connect</a>
+        </div>
+    </nav>
+
+    <section class="min-h-screen flex flex-col justify-center items-center px-6 pt-20">
+        <div class="text-center relative">
+            <span class="text-[10px] tracking-[0.5em] text-cyan-400 font-bold mb-4 block float uppercase">Access Granted // Identity Verified</span>
+            <h1 class="hero-title font-title font-bold uppercase">RONIXF</h1>
+            <p class="mt-6 text-gray-400 max-w-lg mx-auto text-lg leading-relaxed">
+                Breaking the digital boundaries through <span class="text-white">creative code</span> and <span class="text-white">cybernetic design</span>. 
+            </p>
+        </div>
+
+        <div class="mt-12 flex gap-6">
+            <button class="bg-white text-black px-10 py-4 font-bold uppercase text-xs tracking-widest hover:bg-pink-500 hover:text-white transition-all duration-300">
+                Initiate Project
+            </button>
+            <div class="h-12 w-[1px] bg-white/20"></div>
+            <div class="flex items-center gap-4">
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span class="text-[10px] tracking-widest opacity-50 uppercase">Available for freelance</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-6 py-32 grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div class="cyber-card p-8 group">
+            <div class="text-[10px] text-pink-500 font-bold mb-2">01 / DEVELOPMENT</div>
+            <h3 class="text-2xl font-bold mb-4 font-title uppercase">Hyper_Loop</h3>
+            <p class="text-sm text-gray-500 mb-6">A decentralized network interface for real-time asset tracking in the metaverse.</p>
+            <div class="skill-bar mb-2"><div class="skill-progress" style="width: 85%"></div></div>
+            <div class="text-[10px] opacity-40">STABILITY: 100%</div>
+        </div>
+
+        <div class="cyber-card p-8 group">
+            <div class="text-[10px] text-cyan-400 font-bold mb-2">02 / VISUALS</div>
+            <h3 class="text-2xl font-bold mb-4 font-title uppercase">Neon_Gaze</h3>
+            <p class="text-sm text-gray-500 mb-6">Interactive 3D environment built for high-end digital fashion showcases.</p>
+            <div class="skill-bar mb-2"><div class="skill-progress" style="width: 92%"></div></div>
+            <div class="text-[10px] opacity-40">RENDERING: ACTIVE</div>
+        </div>
+
+        <div class="cyber-card p-8 group">
+            <div class="text-[10px] text-purple-500 font-bold mb-2">03 / SECURITY</div>
+            <h3 class="text-2xl font-bold mb-4 font-title uppercase">Void_Shell</h3>
+            <p class="text-sm text-gray-500 mb-6">Custom encryption layer for secure communication in high-risk zones.</p>
+            <div class="skill-bar mb-2"><div class="skill-progress" style="width: 78%"></div></div>
+            <div class="text-[10px] opacity-40">ENCRYPTION: AES-256</div>
+        </div>
+    </section>
+
+    <footer class="p-10 border-t border-white/5 bg-black/50">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-10">
+            <div class="max-w-md">
+                <h4 class="font-title text-sm mb-4 tracking-tighter">COMMAND_CENTER</h4>
+                <p class="text-xs text-gray-500 leading-loose">
+                    Lokasi: [HIDDEN SECTOR] // Jaringan: [ENCRYPTED] <br>
+                    Portfolio ini adalah representasi digital dari Ronixf. Segala bentuk akses tidak sah akan dilacak oleh sistem Sentinel kami.
+                </p>
+            </div>
+            <div class="flex flex-wrap gap-10">
+                <div>
+                    <span class="text-[10px] block mb-4 opacity-30 tracking-[0.3em]">SOCIALS</span>
+                    <ul class="text-xs space-y-2 font-bold uppercase tracking-widest">
+                        <li><a href="#" class="hover:text-pink-500 transition">Instagram</a></li>
+                        <li><a href="#" class="hover:text-pink-500 transition">Github</a></li>
+                        <li><a href="#" class="hover:text-pink-500 transition">Behance</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <span class="text-[10px] block mb-4 opacity-30 tracking-[0.3em]">CONTACT</span>
+                    <p class="text-xs font-bold uppercase tracking-widest text-cyan-400 underline">ronixf@nexus.io</p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-20 text-[9px] opacity-20 tracking-[1em] font-bold">
+            ESTABLISHED 2026 // NEURAL NETWORK v4.0
+        </div>
+    </footer>
+
+</body>
+</html>
             0% { bottom: 100%; }
             100% { bottom: -100%; }
         }
