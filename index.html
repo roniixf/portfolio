@@ -3,80 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RONIXF // SHADOW_OPERATIVE</title>
+    <title>RONIXF // DATABASE_OVERRIDE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
         body {
-            background: #0a0a0a;
+            background: #000;
             color: #fff;
             font-family: 'JetBrains Mono', monospace;
-            background-image: radial-gradient(circle at center, #1a0505 0%, #0a0a0a 100%);
+            overflow-x: hidden;
         }
-        .header-font { font-family: 'Chakra Petch', sans-serif; }
+        .cyber-font { font-family: 'Chakra Petch', sans-serif; }
         
-        /* Profile Image HUD */
-        .profile-container {
+        /* Efek Latar Belakang Digital Static */
+        body::before {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+            background-size: 100% 2px, 3px 100%;
+            z-index: 100; pointer-events: none;
+        }
+
+        /* Profile Pulse Effect */
+        .profile-wrapper {
             position: relative;
-            width: 160px; height: 160px;
+            width: 150px; height: 150px;
             margin: 0 auto;
         }
         .profile-img {
-            width: 130px; height: 130px;
+            width: 100%; height: 100%;
             border-radius: 50%;
-            border: 2px solid #ff003c;
-            position: absolute; top: 15px; left: 15px;
-            z-index: 5; object-fit: cover;
-            filter: grayscale(1) contrast(1.2);
+            border: 3px solid #ff003c;
+            object-fit: cover;
+            z-index: 10; position: relative;
+            filter: grayscale(1) brightness(0.8);
         }
-        .hud-scan {
-            position: absolute; width: 100%; height: 100%;
+        .pulse {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
             border: 2px solid #ff003c;
             border-radius: 50%;
-            border-style: double dashed;
-            animation: spin 8s linear infinite;
-            opacity: 0.5;
+            animation: pulse-anim 2s infinite;
         }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        /* Card Style */
-        .node-card {
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid #330000;
-            position: relative;
-            transition: 0.3s;
-        }
-        .node-card:hover {
-            border-color: #ff003c;
-            box-shadow: 0 0 15px rgba(255, 0, 60, 0.2);
-        }
-        .node-header {
-            background: #330000;
-            font-size: 10px;
-            padding: 2px 10px;
-            color: #ff003c;
-            display: inline-block;
+        @keyframes pulse-anim {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
         }
 
-        /* Stats Bar */
-        .stat-bar { height: 4px; background: #1a1a1a; width: 100%; margin-top: 8px; }
-        .stat-progress { height: 100%; background: #ff003c; box-shadow: 0 0 10px #ff003c; }
+        /* Skill Cards */
+        .skill-box {
+            background: rgba(20, 2, 2, 0.6);
+            border-left: 4px solid #ff003c;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .progress-bg { height: 4px; background: #222; width: 100%; margin-top: 8px; }
+        .progress-fill { height: 100%; background: #ff003c; box-shadow: 0 0 10px #ff003c; }
 
-        .glitch-text { text-shadow: 2px 0 #ff003c, -2px 0 #00f0ff; }
+        /* Glitch Title */
+        .glitch {
+            text-shadow: 2px 0 #ff003c, -2px 0 #00f0ff;
+            animation: glitch-skew 1s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-skew {
+            0% { transform: skew(0deg); }
+            20% { transform: skew(3deg); }
+            100% { transform: skew(-1deg); }
+        }
     </style>
 </head>
 <body class="p-4 md:p-10">
 
-    <nav class="max-w-4xl mx-auto flex justify-between items-center mb-12 border-b border-white/5 pb-4">
-        <div class="header-font text-xl font-bold italic text-red-600 tracking-tighter">RONIXF_OPS</div>
-        <div class="flex gap-4 text-[10px] font-bold uppercase tracking-widest">
-            <a href="#" class="hover:text-red-500 transition">[ Home ]</a>
-            <a href="#" class="hover:text-red-500 transition">[ Targets ]</a>
-            <a href="#" class="hover:text-red-500 transition">[ Decrypt ]</a>
+    <nav class="max-w-4xl mx-auto flex justify-between items-center mb-16 border-b border-red-900 pb-4">
+        <div class="cyber-font text-xl font-bold tracking-tighter text-red-600 uppercase">RONIXF_CORE</div>
+        <div class="flex gap-4 text-[10px] font-bold opacity-70">
+            <span>[NET_ID: 882-XF]</span>
+            <span class="text-green-500 animate-pulse text-center">● ONLINE</span>
         </div>
     </nav>
 
-    <header class="text-center mb-20">
+    <header class="text-center mb-16">
+        <div class="profile-wrapper mb-8">
+            <div class="pulse"></div>
+            <img src="https://via.placeholder.com/150" alt="RONIXF" class="profile-img">
+        </div>
+        
+        <h1 class="cyber-font text-6xl font-black mb-2 glitch">RONIXF</h1>
+        <p class="text-red-500 text-xs tracking-[0.4em] font-bold uppercase mb-8 italic">Shadow Operative // System Architect</p>
+        
+        <div class="max-w-xl mx-auto p-4 border border-red-900/30 bg-red-950/10 text-xs leading-relaxed text-gray-300 italic">
+            "Dunia ini hanyalah barisan kode yang menunggu untuk diatur ulang. Jika kau tak bisa melihat celahnya, kau hanyalah bagian dari variabel yang akan dihapus."
+        </div>
+    </header>
+
+    <section class="max-w-2xl mx-auto mb-20">
+        <h2 class="cyber-font text-sm mb-6 border-b border-red-600 inline-block uppercase tracking-widest">>> Core_Analysis</h2>
+        
+        <div class="skill-box">
+            <div class="flex justify-between text-[10px] font-bold uppercase">
+                <span>Python_Infiltration</span>
+                <span class="text-red-600">98%</span>
+            </div>
+            <div class="progress-bg"><div class="progress-fill" style="width: 98%"></div></div>
+        </div>
+
+        <div class="skill-box">
+            <div class="flex justify-between text-[10px] font-bold uppercase">
+                <span>JS_Ghost_Protocol</span>
+                <span class="text-red-600">92%</span>
+            </div>
+            <div class="progress-bg"><div class="progress-fill" style="width: 92%"></div></div>
+        </div>
+
+        <div class="skill-box">
+            <div class="flex justify-between text-[10px] font-bold uppercase">
+                <span>PHP_Server_Override</span>
+                <span class="text-red-600">85%</span>
+            </div>
+            <div class="progress-bg"><div class="progress-fill" style="width: 85%"></div></div>
+        </div>
+    </section>
+
+    <section class="max-w-2xl mx-auto text-center py-10 border-t border-red-900/20">
+        <h3 class="cyber-font text-2xl font-bold text-white mb-4 uppercase">No Trace. No Mercy.</h3>
+        <p class="text-[11px] text-gray-500 tracking-wider">
+            "Keamanan hanyalah ilusi bagi mereka yang malas. Di tangan yang tepat, setiap enkripsi hanyalah sebuah pintu yang belum diketuk."
+        </p>
+    </section>
+
+    <footer class="text-center mt-20 opacity-30 text-[9px] tracking-widest">
+        SYSTEM_ID: RONIXF_MAINFRAME // SEC_LEVEL: ALPHA <br>
+        &copy; 2026 // UNTRACEABLE
+    </footer>
+
+</body>
+</html>
         <div class="profile-container mb-6">
             <div class="hud-scan"></div>
             <img src="https://via.placeholder.com/150" alt="RONIXF" class="profile-img">
