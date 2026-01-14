@@ -2,154 +2,134 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>JASAWEBKU - SEO DEV Red Edition</title>
+<title>JASAWEBKU</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: radial-gradient(circle at top, #330000, #000);
-    color: #fff;
-    overflow-x: hidden;
-  }
-  .container { max-width: 420px; margin: auto; padding: 20px; text-align: center; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: radial-gradient(circle at top, #1a1400, #000);
+  color: #fff;
+}
+.container { max-width: 420px; margin: auto; padding: 20px; text-align: center; }
 
-  /* PROFILE */
-  .profile { margin-top: 15px; margin-bottom: 25px; }
-  .profile img {
-    width: 130px; height: 130px; border-radius: 50%;
-    border: 4px solid #ff0000; box-shadow: 0 0 25px #ff0000;
-    object-fit: cover;
-  }
-  h1 { color: #ff0000; margin: 15px 0 5px 0; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255,0,0,0.5); }
-  .profile p { font-size: 13px; opacity: 0.8; margin-bottom: 20px; }
+/* PROFILE - TETAP ORI */
+.profile { margin-top: 15px; }
+.profile img {
+  width: 140px; height: 140px; border-radius: 50%;
+  border: 4px solid gold; box-shadow: 0 0 25px gold;
+}
+h1 { color: gold; margin: 10px 0; }
 
-  /* BUTTON UTAMA */
-  .btn {
-    display: block;
-    background: linear-gradient(120deg, #ff0000, #ff6666, #ff0000);
-    color: #fff; padding: 14px; border-radius: 30px;
-    text-decoration: none; margin: 10px 0; font-weight: bold;
-    position: relative; overflow: hidden; transition: transform 0.2s;
-    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
-  }
-  .btn:active { transform: scale(0.95); }
-  .btn:after {
-    content: ""; position: absolute; top: 0; left: -150%;
-    width: 60%; height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .5), transparent);
-    animation: shimmer 4s infinite;
-  }
-  @keyframes shimmer { 0% { left: -150% } 100% { left: 150% } }
+/* BUTTON - TETAP WARNA EMAS/GOLD */
+.btn {
+  display: block;
+  background: linear-gradient(120deg, #ffcc00, #fff1a8, #ffcc00);
+  color: #000; padding: 14px; border-radius: 30px;
+  text-decoration: none; margin: 10px 0; font-weight: bold;
+  position: relative; overflow: hidden;
+}
+.btn:after {
+  content: ""; position: absolute; top: 0; left: -150%;
+  width: 60%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .8), transparent);
+  animation: shimmer 5s infinite;
+}
+@keyframes shimmer { 0% { left: -150% } 100% { left: 150% } }
 
-  /* GRID PRODUK */
-  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
-  
-  .card {
-    border: 1px solid rgba(255, 0, 0, 0.4); 
-    border-radius: 18px; 
-    background: #050505; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.7);
-    transition: 0.3s;
-    overflow: hidden; /* Penting: supaya pojok gambar ikut melengkung */
-    padding-bottom: 12px;
-  }
+/* GRID */
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 30px; }
 
-  /* BAGIAN GAMBAR FULL */
-  .card img { 
-    width: 100%; 
-    height: 140px; /* Tinggi disesuaikan biar pas */
-    object-fit: cover; 
-    display: block;
-    border-bottom: 2px solid #ff0000;
-  }
+/* CARD - BAGIAN GAMBAR DI-FIX SUPAYA KELIHATAN FULL */
+.card {
+  border: 2px solid gold; border-radius: 18px; 
+  background: #050505; box-shadow: 0 0 12px rgba(255, 215, 0, .35);
+  overflow: hidden; /* Biar gambar gak keluar jalur border */
+  padding-bottom: 10px;
+}
 
-  .card h3 { margin: 12px 8px 5px 8px; font-size: 12px; height: 32px; overflow: hidden; text-transform: uppercase; color: #fff; }
-  .card p { color: #ff0000; margin: 5px 0; font-weight: bold; font-size: 15px; }
-  
-  /* Tombol Beli di dalam Card */
-  .card .btn-buy {
-    display: inline-block;
-    width: 85%;
-    background: #ff0000;
-    color: #fff;
-    padding: 8px 0;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 12px;
-    margin-top: 5px;
-  }
+.card .img-box {
+  width: 100%;
+  height: 120px; /* Tinggi box foto */
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
 
-  /* POPUP NOTIFIKASI */
-  .notif, .review {
-    position: fixed; left: 50%; transform: translateX(-50%) translateY(100px);
-    background: rgba(20, 0, 0, 0.95); border: 1px solid #ff0000;
-    padding: 10px 20px; border-radius: 25px;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
-    font-size: 12px; z-index: 999; width: 85%; max-width: 350px;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    opacity: 0; visibility: hidden;
-  }
-  .popup-show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
-  .notif { bottom: 20px; }
-  .review { bottom: 75px; border-radius: 15px; }
-  .stars { color: #ff0000; margin-right: 8px; font-size: 14px; }
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* INI KUNCINYA: Foto bakal kelihatan FULL semua tanpa kepotong */
+  background: #111;
+}
+
+.card h3 { margin: 10px 5px 5px; font-size: 13px; color: #fff; }
+.card p { color: gold; margin: 3px 0; font-weight: bold; }
+.card .btn { padding: 10px; font-size: 14px; margin: 10px 8px 0 8px; }
+
+/* POPUP */
+.notif, .review {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  background: #111; border: 1px solid gold;
+  padding: 8px 16px; border-radius: 25px;
+  box-shadow: 0 0 12px gold; font-size: 12px;
+  display: none; z-index: 999; color: #fff;
+}
+.notif { bottom: 15px; }
+.review { bottom: 65px; border-radius: 20px; }
+.stars { color: gold; margin-right: 6px; }
 </style>
 </head>
 <body>
 
 <div class="container">
   <div class="profile">
-    <img src="https://takenupload.com/69672d9dd452e" alt="Profile">
+    <img src="https://takenupload.com/69672d9dd452e">
     <h1>SEO DEV</h1>
-    <p>Solusi Tampilan Website Premium & SEO Friendly</p>
-    <a class="btn" href="https://wa.me/628385080976">WhatsApp Admin</a>
-    <a class="btn" href="https://t.me/axionwl1">Telegram Channel</a>
+    <p>Untuk melihat panel admin silahkan hubungi kontak di bawah ini</p>
+    <a class="btn" href="https://wa.me/628385080976">WhatsApp</a>
+    <a class="btn" href="https://t.me/axionwl1">Telegram</a>
   </div>
 
   <div class="grid">
     <div class="card">
-      <img src="https://takenupload.com/6967768c233e8">
+      <div class="img-box"><img src="https://takenupload.com/6967768c233e8"></div>
       <h3>TAMPILAN MPO NEW</h3>
       <p>Rp 650,000</p>
-      <a class="btn-buy" href="bayar.php?id=11">Beli Sekarang</a>
+      <a class="btn" href="bayar.php?id=11">Beli</a>
     </div>
-
     <div class="card">
-      <img src="https://takenupload.com/69677682c8d65">
+      <div class="img-box"><img src="https://takenupload.com/69677682c8d65"></div>
       <h3>TAMPILAN KINCAI PRO</h3>
       <p>Rp 650,000</p>
-      <a class="btn-buy" href="bayar.php?id=10">Beli Sekarang</a>
+      <a class="btn" href="bayar.php?id=10">Beli</a>
     </div>
-
     <div class="card">
-      <img src="https://takenupload.com/6967767c8dd61">
+      <div class="img-box"><img src="https://takenupload.com/6967767c8dd61"></div>
       <h3>TAMPILAN NEXUS</h3>
       <p>Rp 650,000</p>
-      <a class="btn-buy" href="bayar.php?id=9">Beli Sekarang</a>
+      <a class="btn" href="bayar.php?id=9">Beli</a>
     </div>
-
     <div class="card">
-      <img src="https://takenupload.com/696776763bce2">
+      <div class="img-box"><img src="https://takenupload.com/696776763bce2"></div>
       <h3>TAMPILAN IDN GREEN</h3>
       <p>Rp 300,000</p>
-      <a class="btn-buy" href="bayar.php?id=8">Beli Sekarang</a>
+      <a class="btn" href="bayar.php?id=8">Beli</a>
     </div>
-
     <div class="card">
-      <img src="https://takenupload.com/696776710061f">
+      <div class="img-box"><img src="https://takenupload.com/696776710061f"></div>
       <h3>TAMPILAN PAY4D</h3>
       <p>Rp 400,000</p>
-      <a class="btn-buy" href="bayar.php?id=7">Beli Sekarang</a>
+      <a class="btn" href="bayar.php?id=7">Beli</a>
     </div>
-
     <div class="card">
-      <img src="https://takenupload.com/696776659112a">
+      <div class="img-box"><img src="https://takenupload.com/696776659112a"></div>
       <h3>TAMPILAN NUKE</h3>
       <p>Rp 550,000</p>
-      <a class="btn-buy" href="bayar.php?id=6">Beli Sekarang</a>
+      <a class="btn" href="bayar.php?id=6">Beli</a>
     </div>
   </div>
 </div>
@@ -159,30 +139,30 @@
 
 <script>
 const users = ["Ra*** Ad***", "Di*** Se***", "Fa*** Ri***", "An*** Wi***", "Ri*** Su***", "De*** Ka***"];
-const produkNotif = ["TAMPILAN MPO NEW", "TAMPILAN KINCAI PRO", "TAMPILAN NEXUS", "TAMPILAN IDN GREEN", "TAMPILAN PAY4D", "TAMPILAN NUKE"];
-const komentar = ["Desainnya merahnya sangar!", "Admin fast respon 👍", "Tampilan premium, ga nyesel beli", "Work semua, mantap!", "Langsung dipasang, hasil memuaskan 🔥"];
+const produkNotif = ["MPO NEW", "KINCAI PRO", "NEXUS", "IDN GREEN", "PAY4D", "NUKE"];
+const komentar = ["Desainnya keren banget!", "Admin fast respon 👍", "Work semua, mantap!", "Hasil memuaskan 🔥"];
 
-function showPopups() {
+function showNotif() {
   const u = users[Math.floor(Math.random() * users.length)];
   const p = produkNotif[Math.floor(Math.random() * produkNotif.length)];
   const c = komentar[Math.floor(Math.random() * komentar.length)];
-  const boxNotif = document.getElementById("notif");
-  const boxReview = document.getElementById("review");
 
-  boxNotif.innerHTML = `🔔 <b>${u}</b> membeli <b>${p}</b>`;
-  boxReview.innerHTML = `<span class="stars">★★★★★</span> ${c}`;
+  const box = document.getElementById("notif");
+  const rev = document.getElementById("review");
 
-  boxNotif.classList.add("popup-show");
-  boxReview.classList.add("popup-show");
+  box.innerHTML = "🔔 " + u + " berhasil membeli " + p;
+  rev.innerHTML = "<span class='stars'>★★★★★</span> " + c;
+
+  box.style.display = "block";
+  rev.style.display = "block";
 
   setTimeout(() => {
-    boxNotif.classList.remove("popup-show");
-    boxReview.classList.remove("popup-show");
+    box.style.display = "none";
+    rev.style.display = "none";
   }, 4000);
 }
-
-setInterval(showPopups, 8000);
-setTimeout(showPopups, 2000);
+setInterval(showNotif, 8000);
+setTimeout(showNotif, 2000);
 </script>
 
 </body>
