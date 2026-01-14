@@ -3,179 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RONIXF // CORE_KERNEL</title>
+    <title>RONIXF // SHADOW_NETWORK_ACCESS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
-            --neon-green: #00ff9d;
-            --neon-blue: #00d2ff;
-            --neon-red: #ff0055;
-            --bg-dark: #08080c;
+            --accent-red: #ff3366; /* Deep Red / Magenta */
+            --accent-purple: #9900ff; /* Dark Purple */
+            --bg-dark: #000000;
+            --text-light: #e0e0e0;
         }
 
         body {
             background-color: var(--bg-dark);
-            color: #e0e0e0;
-            font-family: 'Rajdhani', sans-serif;
-            overflow-x: hidden;
+            color: var(--text-light);
+            font-family: 'Share Tech Mono', monospace;
+            overflow: hidden; /* Prevent scroll for 3D effect */
+            perspective: 1000px; /* Enable 3D perspective */
         }
 
-        .orbitron { font-family: 'Orbitron', sans-serif; }
+        .chakra-petch { font-family: 'Chakra Petch', sans-serif; }
 
-        /* Scanning Line Animation */
-        .scanner {
-            position: fixed; top: 0; left: 0; width: 100%; height: 2px;
-            background: rgba(0, 255, 157, 0.5);
-            box-shadow: 0 0 15px var(--neon-green);
-            z-index: 100; animation: scan 4s linear infinite;
+        /* Matrix Rain Background - More dynamic */
+        .matrix-rain {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -1;
+            overflow: hidden;
+            background: rgba(0,0,0,0.9);
+        }
+        .matrix-column {
+            position: absolute; width: 15px; /* Thinner columns */
+            left: var(--left); top: var(--top);
+            color: var(--accent-red); /* Red data stream */
+            font-size: 14px;
+            opacity: 0.6;
+            animation: matrix-drop var(--duration) linear infinite;
+        }
+        @keyframes matrix-drop {
+            0% { transform: translateY(-100%); opacity: 0; }
+            10% { opacity: 0.6; }
+            100% { transform: translateY(2000%); opacity: 0; }
         }
 
-        @keyframes scan {
-            0% { top: -5%; }
-            100% { top: 105%; }
-        }
-
-        /* Skill Circle Animation */
-        .circle-chart {
-            width: 120px; height: 120px;
-            filter: drop-shadow(0 0 8px var(--neon-blue));
-        }
-
-        .circle-bg { fill: none; stroke: rgba(255,255,255,0.05); stroke-width: 2.8; }
-        
-        .circle {
-            fill: none; stroke-width: 2.8; stroke-linecap: round;
-            animation: progress 2s ease-out forwards;
-        }
-
-        @keyframes progress {
-            0% { stroke-dasharray: 0 100; }
-        }
-
-        /* HUD Frame */
-        .hud-frame {
-            border: 1px solid rgba(0, 210, 255, 0.2);
-            background: rgba(0, 210, 255, 0.02);
-            clip-path: polygon(0 0, 90% 0, 100% 15%, 100% 100%, 10% 100%, 0 85%);
+        /* 3D Container */
+        .perspective-container {
+            transform-style: preserve-3d;
+            transform: rotateX(20deg) rotateY(-10deg) translateZ(-200px); /* Initial 3D tilt */
+            transition: transform 0.5s ease-out;
+            max-width: 1200px;
+            margin: 50px auto;
             position: relative;
+            z-index: 10;
         }
 
-        .hud-frame::before {
-            content: "CORE_UNIT"; position: absolute; top: 0; left: 20px;
-            background: var(--neon-blue); color: #000; font-size: 8px;
-            padding: 0 5px; font-weight: bold;
+        /* Glitch Effect - More aggressive */
+        .glitch-heavy {
+            position: relative;
+            animation: glitch-pulse 2s steps(2, start) infinite;
+        }
+        .glitch-heavy::before, .glitch-heavy::after {
+            content: attr(data-text);
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+        }
+        .glitch-heavy::before {
+            left: 2px; text-shadow: -2px 0 var(--accent-red);
+            clip-path: polygon(0 20%, 100% 20%, 100% 25%, 0 25%);
+            animation: glitch-anim-1 2s steps(2, start) infinite;
+        }
+        .glitch-heavy::after {
+            left: -2px; text-shadow: 2px 0 var(--accent-purple);
+            clip-path: polygon(0 60%, 100% 60%, 100% 65%, 0 65%);
+            animation: glitch-anim-2 2s steps(2, start) infinite;
+        }
+        @keyframes glitch-pulse {
+            0%, 100% { opacity: 1; }
+            10%, 30%, 50%, 70%, 90% { opacity: 0.8; }
+            20%, 40%, 60%, 80% { opacity: 1; }
+        }
+        @keyframes glitch-anim-1 {
+            0% { clip-path: polygon(0 20%, 100% 20%, 100% 25%, 0 25%); }
+            15% { clip-path: polygon(0 60%, 100% 60%, 100% 65%, 0 65%); }
+            30% { clip-path: polygon(0 10%, 100% 10%, 100% 15%, 0 15%); }
+            45% { clip-path: polygon(0 70%, 100% 70%, 100% 75%, 0 75%); }
+            60% { clip-path: polygon(0 30%, 100% 30%, 100% 35%, 0 35%); }
+            75% { clip-path: polygon(0 80%, 100% 80%, 100% 85%, 0 85%); }
+            100% { clip-path: polygon(0 20%, 100% 20%, 100% 25%, 0 25%); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip-path: polygon(0 60%, 100% 60%, 100% 65%, 0 65%); }
+            15% { clip-path: polygon(0 10%, 100% 10%, 100% 15%, 0 15%); }
+            30% { clip-path: polygon(0 70%, 100% 70%, 100% 75%, 0 75%); }
+            45% { clip-path: polygon(0 20%, 100% 20%, 100% 25%, 0 25%); }
+            60% { clip-path: polygon(0 80%, 100% 80%, 100% 85%, 0 85%); }
+            75% { clip-path: polygon(0 30%, 100% 30%, 100% 35%, 0 35%); }
+            100% { clip-path: polygon(0 60%, 100% 60%, 100% 65%, 0 65%); }
         }
 
-        .glitch-hover:hover {
-            text-shadow: 2px 0 var(--neon-red), -2px 0 var(--neon-blue);
-            transform: skewX(-5deg);
+
+        /* Data Block - 3D Card effect */
+        .data-block {
+            background: rgba(255, 51, 102, 0.05); /* Red tinted transparent */
+            border: 1px solid var(--accent-red);
+            box-shadow: 0 0 15px var(--accent-red);
+            transform: translateZ(var(--z-offset, 0px)); /* Apply 3D depth */
+            transition: all 0.3s ease-out;
+            position: relative;
+            z-index: 1;
         }
+        .data-block:hover {
+            box-shadow: 0 0 25px var(--accent-red), 0 0 50px var(--accent-purple);
+            transform: translateZ(var(--z-offset, 0px)) translateY(-10px);
+            background: rgba(255, 51, 102, 0.1);
+            z-index: 2; /* Bring to front on hover */
+        }
+        .data-block::before {
+            content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-purple));
+            z-index: -1;
+            filter: blur(10px);
+            opacity: 0.1;
+            transition: opacity 0.3s;
+        }
+        .data-block:hover::before { opacity: 0.3; }
+
+        /* Animated Progress Bar (more subtle) */
+        .progress-bar {
+            height: 4px; background: rgba(255,255,255,0.05); position: relative; overflow: hidden;
+            border-radius: 2px;
+        }
+        .progress-fill {
+            height: 100%; left: 0; top: 0; position: absolute;
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-purple));
+            box-shadow: 0 0 8px var(--accent-red);
+        }
+
+        /* Button - Cybercriminal style */
+        .btn-access {
+            background: var(--accent-red); color: var(--bg-dark);
+            border: 1px solid var(--accent-red);
+            box-shadow: 0 0 15px var(--accent-red);
+            transition: all 0.3s;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .btn-access:hover {
+            background: var(--accent-purple); border-color: var(--accent-purple);
+            box-shadow: 0 0 25px var(--accent-purple), 0 0 50px var(--accent-red);
+            transform: scale(1.05);
+        }
+
+        /* Console Log */
+        .console-log {
+            background: rgba(0,0,0,0.8);
+            border: 1px dashed var(--accent-red);
+            box-shadow: inset 0 0 10px rgba(255,51,102,0.3);
+            max-height: 250px;
+            overflow-y: auto;
+            animation: flicker 1s infinite alternate;
+        }
+        @keyframes flicker {
+            0%, 100% { box-shadow: inset 0 0 10px rgba(255,51,102,0.3); }
+            50% { box-shadow: inset 0 0 12px rgba(255,51,102,0.5), 0 0 5px rgba(255,51,102,0.2); }
+        }
+        .console-line {
+            line-height: 1.4;
+            color: rgba(255,255,255,0.7);
+            padding-left: 5px;
+        }
+        .console-line.success { color: #00ff66; }
+        .console-line.error { color: var(--accent-red); }
+        .console-line.warning { color: #ffff00; }
+
     </style>
 </head>
-<body class="p-4 md:p-12">
-    <div class="scanner"></div>
+<body>
+    <div class="matrix-rain" id="matrixBackground"></div>
 
-    <header class="max-w-6xl mx-auto flex justify-between items-end mb-20 border-b border-white/10 pb-6">
-        <div>
-            <h1 class="orbitron text-4xl font-black tracking-widest text-white glitch-hover">RONIXF<span class="text-cyan-400">.LOG</span></h1>
-            <p class="text-xs tracking-[0.4em] opacity-50 uppercase mt-2">Neural Interface Security System v4.0.2</p>
+    <nav class="fixed top-0 w-full z-50 p-6 flex justify-between items-center bg-black/50 backdrop-blur-sm">
+        <div class="font-title font-bold text-xl tracking-tighter text-white">
+            <span class="text-xs text-red-500 mr-1">//</span> RONIXF<span class="text-purple-500">_OPS</span>
         </div>
-        <div class="text-right hidden md:block">
-            <p class="text-[10px] opacity-40 uppercase">Connection Status</p>
-            <p class="text-green-400 font-bold animate-pulse text-sm uppercase">Secure Trunk-Link: Active</p>
+        <div class="flex gap-8 text-[10px] tracking-[0.3em] font-bold uppercase text-gray-400">
+            <a href="#" class="hover:text-red-500 transition">DATASCAPE</a>
+            <a href="#" class="hover:text-red-500 transition">TARGETS</a>
+            <a href="#" class="hover:text-red-500 transition">DECRYPT</a>
         </div>
-    </header>
+    </nav>
 
-    <section class="max-w-6xl mx-auto">
-        <div class="flex items-center gap-4 mb-10">
-            <h2 class="orbitron text-xl font-bold uppercase tracking-widest">>> SKILL_ANALYSIS</h2>
-            <div class="h-[1px] flex-grow bg-gradient-to-r from-cyan-500 to-transparent"></div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-            
-            <div class="hud-frame p-8 flex flex-col items-center group transition-all">
-                <svg viewBox="0 0 36 36" class="circle-chart mb-4">
-                    <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                    <path class="circle" stroke="#00ff9d" stroke-dasharray="98, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                </svg>
-                <span class="orbitron text-2xl font-black text-white">98%</span>
-                <span class="text-xs tracking-widest text-green-400 mt-1 uppercase font-bold">PYTHON_CORE</span>
-                <p class="text-[9px] opacity-40 mt-4 text-center">AI integration, Automation, Backend-Logic</p>
-            </div>
-
-            <div class="hud-frame p-8 flex flex-col items-center group border-pink-500/20">
-                <svg viewBox="0 0 36 36" class="circle-chart mb-4" style="filter: drop-shadow(0 0 8px var(--neon-red));">
-                    <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                    <path class="circle" stroke="#ff0055" stroke-dasharray="92, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                </svg>
-                <span class="orbitron text-2xl font-black text-white">92%</span>
-                <span class="text-xs tracking-widest text-pink-500 mt-1 uppercase font-bold">JAVASCRIPT</span>
-                <p class="text-[9px] opacity-40 mt-4 text-center">React, DOM Manipulation, Async System</p>
-            </div>
-
-            <div class="hud-frame p-8 flex flex-col items-center group">
-                <svg viewBox="0 0 36 36" class="circle-chart mb-4">
-                    <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                    <path class="circle" stroke="#00d2ff" stroke-dasharray="85, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                </svg>
-                <span class="orbitron text-2xl font-black text-white">85%</span>
-                <span class="text-xs tracking-widest text-cyan-400 mt-1 uppercase font-bold">PHP_ENGINE</span>
-                <p class="text-[9px] opacity-40 mt-4 text-center">Server-Side, Laravel, Database Architecture</p>
-            </div>
-
-            <div class="hud-frame p-8 flex flex-col items-center group opacity-70">
-                <div class="text-center py-10">
-                    <span class="text-[10px] block opacity-40 mb-2">OTHER_SYSTEMS</span>
-                    <ul class="text-[10px] font-bold space-y-2 uppercase tracking-tighter">
-                        <li class="flex justify-between gap-4"><span>SQL</span> <span class="text-cyan-400">80%</span></li>
-                        <li class="flex justify-between gap-4"><span>LINUX</span> <span class="text-cyan-400">90%</span></li>
-                        <li class="flex justify-between gap-4"><span>C++</span> <span class="text-cyan-400">65%</span></li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <main class="max-w-6xl mx-auto mt-20 grid grid-cols-1 md:grid-cols-12 gap-10">
-        <div class="md:col-span-4 border-l-2 border-cyan-500 pl-6 space-y-6">
-            <h3 class="orbitron text-sm font-bold tracking-widest bg-cyan-500 text-black inline-block px-2">OVERVIEW</h3>
-            <p class="text-sm leading-relaxed text-gray-400">
-                Unit **RONIXF** terdeteksi memiliki spesialisasi tinggi dalam pengolahan data menggunakan <span class="text-white">Python</span>. Mampu melakukan penetrasi sistem dan membangun arsitektur <span class="text-white">Full-stack</span> yang tangguh.
+    <div class="perspective-container p-6">
+        <section class="min-h-screen flex flex-col justify-center items-center text-center -mt-20 px-4">
+            <p class="text-[12px] tracking-[0.4em] text-red-400 mb-4 chakra-petch uppercase float">
+                // UNAUTHORIZED_ACCESS //
             </p>
-            <div class="p-4 bg-white/5 border border-white/10 text-[10px] font-mono leading-loose">
-                >> EXECUTING_BIO...<br>
-                >> Location: Earth_Sector_ID<br>
-                >> Threat_Level: High_Creative<br>
-                >> Task: Building_Better_Worlds
-            </div>
-        </div>
+            <h1 class="chakra-petch text-7xl md:text-9xl font-black uppercase text-white glitch-heavy" data-text="RONIXF">RONIXF</h1>
+            <p class="mt-8 text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed border-b border-red-500/30 pb-6 mb-8">
+                Operating beyond the digital frontier. Specializing in **Advanced System Infiltration**, **Data Exfiltration**, and **Cyber-Warfare Architecture**.
+            </p>
+            <button class="btn-access px-12 py-4 font-bold uppercase text-sm tracking-widest mt-8">
+                Initiate Recon
+            </button>
+        </section>
 
-        <div class="md:col-span-8">
-            <div class="bg-black/80 rounded border border-white/5 p-4 font-mono text-[11px] h-48 overflow-hidden relative shadow-2xl">
-                <div class="flex gap-2 mb-3 border-b border-white/10 pb-2">
-                    <div class="w-2 h-2 rounded-full bg-red-500/50"></div>
-                    <div class="w-2 h-2 rounded-full bg-yellow-500/50"></div>
-                    <div class="w-2 h-2 rounded-full bg-green-500/50"></div>
-                </div>
-                <p class="text-blue-400">[info] system.init_ronixf_brain_link()</p>
-                <p class="text-white">[ok] Python v3.11 core detected... 98% efficiency.</p>
-                <p class="text-white">[ok] Javascript V8 engine optimized.</p>
-                <p class="text-white">[ok] PHP secure_tunneling established.</p>
-                <p class="text-pink-500 mt-2 animate-pulse font-bold">>> READY FOR DEPLOYMENT_</p>
-                <div class="absolute bottom-4 right-4 text-[40px] font-black opacity-5 orbitron">RXF</div>
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-20">
+            <div class="data-block p-8" style="--z-offset: 50px;">
+                <div class="text-[10px] text-purple-400 font-bold mb-2 uppercase">// Module: INFILTRATION</div>
+                <h3 class="chakra-petch text-2xl font-bold mb-4 uppercase">Ghost_Protocol</h3>
+                <p class="text-sm text-gray-400 mb-6">Zero-trace network penetration and bypass of advanced perimeter defenses.</p>
+                <div class="progress-bar"><div class="progress-fill" style="width: 98%;"></div></div>
+                <div class="text-[10px] opacity-40 mt-2">STATUS: UNDETECTED</div>
             </div>
-        </div>
-    </main>
 
-    <footer class="max-w-6xl mx-auto mt-32 text-center border-t border-white/5 pt-10">
-        <button class="orbitron border border-cyan-500 text-cyan-400 px-12 py-3 hover:bg-cyan-500 hover:text-black transition-all duration-500 text-xs tracking-[0.5em] mb-10">
-            CONNECT_WITH_OPERATIVE
-        </button>
-        <p class="text-[9px] opacity-20 tracking-widest uppercase">Encryption provided by Ronixf Protocols © 2026</p>
+            <div class="data-block p-8" style="--z-offset: 20px;">
+                <div class="text-[10px] text-red-400 font-bold mb-2 uppercase">// Module: EXFILTRATION</div>
+                <h3 class="chakra-petch text-2xl font-bold mb-4 uppercase">Data_Siphon</h3>
+                <p class="text-sm text-gray-400 mb-6">High-speed data extraction and obfuscation from secure servers.</p>
+                <div class="progress-bar"><div class="progress-fill" style="width: 95%;"></div></div>
+                <div class="text-[10px] opacity-40 mt-2">STATUS: EXTRACTING</div>
+            </div>
+
+            <div class="data-block p-8" style="--z-offset: 0px;">
+                <div class="text-[10px] text-purple-400 font-bold mb-2 uppercase">// Module: CODE_BREAKER</div>
+                <h3 class="chakra-petch text-2xl font-bold mb-4 uppercase">Black_ICE</h3>
+                <p class="text-sm text-gray-400 mb-6">Proprietary decryption algorithms and exploit development.</p>
+                <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+                <div class="text-[10px] opacity-40 mt-2">STATUS: CRACKING</div>
+            </div>
+
+            <div class="data-block p-8" style="--z-offset: 40px;">
+                <div class="text-[10px] text-red-400 font-bold mb-2 uppercase">// Core_Skill: PYTHON</div>
+                <h3 class="chakra-petch text-2xl font-bold mb-4 uppercase">Serpent_Script</h3>
+                <p class="text-sm text-gray-400 mb-6">Advanced Python for automation, AI, and exploit scripting.</p>
+                <div class="progress-bar"><div class="progress-fill" style="width: 98%;"></div></div>
+                <div class="text-[10px] opacity-40 mt-2">PROFICIENCY: ELITE</div>
+            </div>
+
+            <div class="data-block p-8" style="--z-offset: 10px;">
+                <div class="text-[10px] text-purple-400 font-bold mb-2 uppercase">// Core_Skill: JAVASCRIPT</div>
+                <h3 class="chakra-petch text-2xl font-bold mb-4 uppercase">Phantom_JS</h3>
+                <p class="text-sm text-gray-400 mb-6">Stealthy client-side operations, XSS, and front-end exploit dev.</p>
+                <div class="progress-bar"><div class="progress-fill" style="width: 92%;"></div></div>
+                <div class="text-[10px] opacity-40 mt-2">PROFICIENCY: MASTER</div>
+            </div>
+
+            <div class="data-block p-8" style="--z-offset: 30px;">
+                <div class="text-[10px] text-red-400 font-bold mb-2 uppercase">// Core_Skill: PHP</div>
+                <h3 class="chakra-petch text-2xl font-bold mb-4 uppercase">Server_Breaker</h3>
+                <p class="text-sm text-gray-400 mb-6">Exploiting server-side vulnerabilities and database manipulation.</p>
+                <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
+                <div class="text-[10px] opacity-40 mt-2">PROFICIENCY: HIGH</div>
+            </div>
+
+        </section>
+
+        <section class="max-w-4xl mx-auto py-20">
+            <h2 class="chakra-petch text-3xl font-bold mb-8 uppercase text-red-400 text-center">
+                // SYSTEM_LOG //
+            </h2>
+            <div class="console-log p-6 font-mono text-xs">
+                <p class="console-line success">>> INITIALIZING_SHADOW_PROTOCOL...</p>
+                <p class="console-line success">>> CONNECTING_TO_DARKNET_NODES: [OK]</p>
+                <p class="console-line error">>> WARNING: FIREWALL_BREACH_DETECTED. STATUS: RESOLVING...</p>
+                <p class="console-line success">>> FIREWALL_BYPASS_SUCCESSFUL. PROXY_CHAIN_ESTABLISHED.</p>
+                <p class="console-line">>> SCANNING_TARGET_VULNERABILITIES: <span class="text-yellow-400">PORT_80_OPEN, SSH_V1_DETECTED.</span></p>
+                <p class="console-line">>> EXECUTING_PAYLOAD: <span class="text-purple-400">python exploit.py -t 192.168.1.1</span></p>
+                <p class="console-line success">>> ACCESS_GRANTED. ROOT_LEVEL_ACQUIRED.</p>
+                <p class="console-line warning">>> CAUTION: TRACE_DETECTED. EXITING_GRACEFULLY...</p>
+                <p class="console-line success mt-4 text-red-400 font-bold animate-pulse">>> MISSION_COMPLETE. TERMINATING_CONNECTION...</p>
+            </div>
+        </section>
+    </div>
+
+    <footer class="text-center py-10 text-gray-600 text-[10px] uppercase tracking-widest mt-20">
+        <p>© 2024 RONIXF_OPERATIONS. ALL RIGHTS REVERSED. CODE RED.</p>
     </footer>
 
+    <script>
+        // Matrix Rain Dynamic Generation
+        const matrixBackground = document.getElementById('matrixBackground');
+        const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ{}<>;~!@#$%^&*()_+-=';
+        const numColumns = Math.floor(window.innerWidth / 15); // Adjust column width
+
+        for (let i = 0; i < numColumns; i++) {
+            const column = document.createElement('div');
+            column.classList.add('matrix-column');
+            column.style.setProperty('--left', `${i * 15}px`); // Consistent column spacing
+            column.style.setProperty('--duration', `${Math.random() * 5 + 5}s`);
+            column.style.setProperty('--top', `-${Math.random() * 100}%`); // Start offscreen
+
+            for (let j = 0; j < 50; j++) { // Length of each falling stream
+                const charSpan = document.createElement('span');
+                charSpan.textContent = chars[Math.floor(Math.random() * chars.length)];
+                column.appendChild(charSpan);
+            }
+            matrixBackground.appendChild(column);
+        }
+
+        // Mouse hover to adjust 3D perspective
+        const perspectiveContainer = document.querySelector('.perspective-container');
+        document.addEventListener('mousemove', (e) => {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+            const rotateY = (e.clientX - centerX) / centerX * -10; // Invert for natural feel
+            const rotateX = (e.clientY - centerY) / centerY * 10;
+            perspectiveContainer.style.transform = `rotateX(${20 + rotateX}deg) rotateY(${-10 + rotateY}deg) translateZ(-200px)`;
+        });
+    </script>
 </body>
 </html>
