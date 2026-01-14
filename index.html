@@ -1,88 +1,110 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<title>403 - SEO DEV</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>403 - SEO DEV</title>
 
-<style>
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #000;
-    color: #fff;
-  }
-  .container { max-width: 420px; margin: auto; padding: 15px; text-align: center; }
+    <meta property="og:title" content="403 JASA - SEO">
+    <meta property="og:description" content="Jasa pembuatan website slot judi online.">
+    <meta property="og:image" content="https://takenupload.com/69672d9dd452e">
+    <meta property="og:url" content="https://403notfound.vercel.app/">
+    <meta name="twitter:card" content="summary_large_image">
 
-  /* PROFILE */
-  .profile { margin-top: 10px; margin-bottom: 25px; }
-  .profile img {
-    width: 130px; height: 130px; border-radius: 50%;
-    border: 3px solid #ff0000; box-shadow: 0 0 20px #ff0000;
-    object-fit: cover;
-  }
-  h1 { color: #ff0000; margin: 15px 0 5px; text-shadow: 0 0 10px #ff0000; font-weight: 800; }
-  .profile p { font-size: 13px; opacity: 0.9; margin-bottom: 20px; }
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: #000;
+            color: #fff;
+        }
+        .container { max-width: 420px; margin: auto; padding: 15px; text-align: center; }
 
-  /* BUTTON UTAMA SHIMMER */
-  .btn {
-    display: block;
-    background: linear-gradient(120deg, #ff0000, #ff4d4d, #ff0000);
-    color: #fff; padding: 14px; border-radius: 30px;
-    text-decoration: none; margin: 10px 0; font-weight: bold;
-    position: relative; overflow: hidden;
-    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
-    text-transform: uppercase;
-  }
-  .btn:after {
-    content: ""; position: absolute; top: 0; left: -150%;
-    width: 60%; height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .4), transparent);
-    animation: shimmer 4s infinite;
-  }
-  @keyframes shimmer { 0% { left: -150% } 100% { left: 150% } }
+        /* PROFILE NEON */
+        .profile { margin-top: 10px; margin-bottom: 25px; }
+        .profile img {
+            width: 130px; height: 130px; border-radius: 50%;
+            border: 3px solid #ff0000; 
+            box-shadow: 0 0 25px #ff0000, 0 0 10px #ff0000 inset;
+            object-fit: cover;
+            filter: drop-shadow(0 0 5px #ff0000);
+        }
+        h1 { 
+            color: #ff0000; margin: 15px 0 5px; 
+            text-shadow: 0 0 15px #ff0000, 0 0 5px #fff; 
+            font-weight: 800; 
+            text-transform: uppercase;
+        }
+        .profile p { font-size: 13px; opacity: 0.9; margin-bottom: 20px; color: #ffcccc; }
 
-  /* GRID 6 PRODUK */
-  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
-  
-  .card {
-    border: 2px solid #ff0000; 
-    border-radius: 15px; 
-    background: #080808; 
-    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
+        /* BUTTON SHIMMER EFEK NYALA */
+        .btn {
+            display: block;
+            background: linear-gradient(120deg, #ff0000, #ff4d4d, #ff0000);
+            color: #fff; padding: 14px; border-radius: 30px;
+            text-decoration: none; margin: 10px 0; font-weight: bold;
+            position: relative; overflow: hidden;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+            text-transform: uppercase;
+            border: none;
+            transition: 0.3s;
+        }
+        .btn:hover { box-shadow: 0 0 25px #ff0000; transform: scale(1.02); }
 
-  /* GAMBAR FULL FIX */
-  .card img { 
-    width: 100%; 
-    aspect-ratio: 1 / 1.1;
-    object-fit: cover;
-    display: block;
-    border-bottom: 1px solid #ff0000;
-  }
+        /* EFEK KILAT (SHIMMER) */
+        .btn:after {
+            content: ""; position: absolute; top: 0; left: -150%;
+            width: 60%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .6), transparent);
+            animation: shimmer 3s infinite;
+        }
+        @keyframes shimmer { 0% { left: -150% } 100% { left: 150% } }
 
-  .card-info { padding: 10px 5px; }
-  .card h3 { margin: 0; font-size: 11px; height: 30px; overflow: hidden; color: #fff; line-height: 1.2; }
-  .card p { color: #ff0000; margin: 5px 0; font-weight: 900; font-size: 15px; text-shadow: 0 0 5px #ff0000; }
-  
-  .card .btn { 
-    width: 90%; margin: 5px auto 10px; 
-    padding: 10px; font-size: 11px; border-radius: 8px; 
-    box-shadow: none;
-  }
+        /* GRID PRODUK */
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
+        
+        .card {
+            border: 2px solid #ff0000; 
+            border-radius: 15px; 
+            background: #080808; 
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+        }
+        .card:hover { box-shadow: 0 0 25px #ff0000; }
 
-  /* POPUP NOTIF */
-  .notif {
-    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
-    background: rgba(0, 0, 0, 0.95); border: 2px solid #ff0000;
-    padding: 10px 20px; border-radius: 20px; font-size: 12px;
-    z-index: 999; width: 80%; transition: 0.5s; opacity: 0;
-  }
-  .popup-show { opacity: 1; transform: translateX(-50%) translateY(0); }
-</style>
+        .card img { 
+            width: 100%; 
+            aspect-ratio: 1 / 1.1;
+            object-fit: cover;
+            display: block;
+            border-bottom: 2px solid #ff0000;
+        }
+
+        .card-info { padding: 10px 5px; }
+        .card h3 { margin: 0; font-size: 11px; height: 30px; overflow: hidden; color: #fff; line-height: 1.2; text-transform: uppercase; }
+        .card p { color: #ff0000; margin: 5px 0; font-weight: 900; font-size: 16px; text-shadow: 0 0 8px #ff0000; }
+        
+        .card .btn { 
+            width: 85%; margin: 5px auto 12px; 
+            padding: 10px; font-size: 11px; border-radius: 10px; 
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        /* POPUP NOTIF NEON */
+        .notif {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
+            background: rgba(0, 0, 0, 0.9); border: 2px solid #ff0000;
+            padding: 12px 20px; border-radius: 25px; font-size: 12px;
+            z-index: 999; width: 85%; transition: 0.5s; opacity: 0;
+            box-shadow: 0 0 20px #ff0000;
+            color: #fff;
+        }
+        .popup-show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .notif b { color: #ff0000; text-shadow: 0 0 5px #ff0000; }
+    </style>
 </head>
 <body>
 
@@ -155,7 +177,8 @@
 <div class="notif" id="notif"></div>
 
 <script>
-const users = ["Ra*** Ad***", "Di*** Se***", "Fa*** Ri***", "An*** Wi***", "Ri*** Su***", "De*** Ka***"];
+// NOTIFIKASI PEMBELIAN PALSU
+const users = ["Ra*** Ad***", "Di*** Se***", "Fa*** Ri***", "An*** Wi***", "Ri*** Su***", "De*** Ka***", "Bambang***", "Sult***"];
 const prod = ["MPO NEW", "KINCAI PRO", "NEXUS", "IDN GREEN", "PAY4D", "NUKE"];
 
 function showPop() {
