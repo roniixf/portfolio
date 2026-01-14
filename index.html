@@ -17,56 +17,89 @@
             font-family: 'Segoe UI', Arial, sans-serif;
             background: #000;
             color: #fff;
+            display: flex;
+            justify-content: center;
         }
-        .container { max-width: 420px; margin: auto; padding: 15px; text-align: center; }
 
-        /* PROFILE NEON */
-        .profile { margin-top: 10px; margin-bottom: 25px; }
+        .container { 
+            width: 100%;
+            max-width: 420px; 
+            padding: 15px; 
+            text-align: center; /* Ini kunci biar semua ke tengah */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Ini mastiin konten flex ke tengah */
+        }
+
+        /* PROFILE CENTERED & NEON */
+        .profile { 
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px; 
+            margin-bottom: 25px; 
+        }
+
         .profile img {
-            width: 130px; height: 130px; border-radius: 50%;
+            width: 130px; 
+            height: 130px; 
+            border-radius: 50%;
             border: 3px solid #ff0000; 
-            box-shadow: 0 0 25px #ff0000, 0 0 10px #ff0000 inset;
+            box-shadow: 0 0 25px #ff0000;
             object-fit: cover;
-            filter: drop-shadow(0 0 5px #ff0000);
+            margin-bottom: 15px;
         }
 
-        /* EFEK NAMA SHIMMER MERAH-PUTIH */
+        /* NAMA SHIMMER MERAH TENGAH */
         h1 { 
-            margin: 15px 0 5px; 
+            width: 100%;
+            margin: 0 auto 10px auto; 
             font-weight: 900; 
             text-transform: uppercase;
-            font-size: 32px;
-            /* Background gradasi buat efek kilat */
+            font-size: 28px;
+            text-align: center;
             background: linear-gradient(to right, #ff0000 0%, #ff0000 40%, #ffffff 50%, #ff0000 60%, #ff0000 100%);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            display: inline-block;
+            display: block; /* Mastiin dia ambil lebar penuh biar text-align jalan */
             filter: drop-shadow(0 0 10px #ff0000);
             animation: textShimmer 3s linear infinite;
         }
+
         @keyframes textShimmer {
             0% { background-position: -200% center; }
             100% { background-position: 200% center; }
         }
 
-        .profile p { font-size: 13px; opacity: 0.9; margin-bottom: 20px; color: #ffcccc; }
+        .profile p { 
+            font-size: 13px; 
+            opacity: 0.9; 
+            margin-bottom: 20px; 
+            color: #ffcccc; 
+            max-width: 300px;
+        }
 
-        /* BUTTON SHIMMER EFEK NYALA */
+        /* TOMBOL CENTER */
         .btn {
             display: block;
+            width: 100%; /* Tombol lebar rata tengah */
             background: linear-gradient(120deg, #ff0000, #ff4d4d, #ff0000);
-            color: #fff; padding: 14px; border-radius: 30px;
-            text-decoration: none; margin: 10px 0; font-weight: bold;
-            position: relative; overflow: hidden;
+            color: #fff; 
+            padding: 14px 0; 
+            border-radius: 30px;
+            text-decoration: none; 
+            margin: 10px 0; 
+            font-weight: bold;
+            position: relative; 
+            overflow: hidden;
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
             text-transform: uppercase;
             border: none;
-            transition: 0.3s;
+            box-sizing: border-box;
         }
-        .btn:hover { box-shadow: 0 0 25px #ff0000; transform: scale(1.02); }
 
-        /* EFEK KILAT (SHIMMER) PUTIH KE KANAN */
         .btn:after {
             content: ""; position: absolute; top: 0; left: -150%;
             width: 60%; height: 100%;
@@ -75,8 +108,14 @@
         }
         @keyframes shimmer { 0% { left: -150% } 100% { left: 150% } }
 
-        /* GRID PRODUK */
-        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
+        /* GRID */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 12px; 
+            width: 100%;
+            margin-top: 20px; 
+        }
         
         .card {
             border: 2px solid #ff0000; 
@@ -86,39 +125,35 @@
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            transition: 0.3s;
         }
-        .card:hover { box-shadow: 0 0 25px #ff0000; }
 
         .card img { 
             width: 100%; 
             aspect-ratio: 1 / 1.1;
             object-fit: cover;
-            display: block;
             border-bottom: 2px solid #ff0000;
         }
 
         .card-info { padding: 10px 5px; }
-        .card h3 { margin: 0; font-size: 11px; height: 30px; overflow: hidden; color: #fff; line-height: 1.2; text-transform: uppercase; }
+        .card h3 { margin: 0; font-size: 11px; height: 30px; color: #fff; line-height: 1.2; text-transform: uppercase; }
         .card p { color: #ff0000; margin: 5px 0; font-weight: 900; font-size: 16px; text-shadow: 0 0 8px #ff0000; }
         
         .card .btn { 
-            width: 85%; margin: 5px auto 12px; 
-            padding: 10px; font-size: 11px; border-radius: 10px; 
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+            width: 90%; 
+            margin: 5px auto 12px; 
+            padding: 10px 0; 
+            font-size: 11px; 
+            border-radius: 10px; 
         }
 
-        /* POPUP NOTIF NEON */
         .notif {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
             background: rgba(0, 0, 0, 0.9); border: 2px solid #ff0000;
             padding: 12px 20px; border-radius: 25px; font-size: 12px;
             z-index: 999; width: 85%; transition: 0.5s; opacity: 0;
             box-shadow: 0 0 20px #ff0000;
-            color: #fff;
         }
         .popup-show { opacity: 1; transform: translateX(-50%) translateY(0); }
-        .notif b { color: #ff0000; text-shadow: 0 0 5px #ff0000; }
     </style>
 </head>
 <body>
@@ -135,55 +170,37 @@
   <div class="grid">
     <div class="card">
       <img src="https://takenupload.com/6967768c233e8">
-      <div class="card-info">
-        <h3>TAMPILAN MPO NEW</h3>
-        <p>Rp 650,000</p>
-      </div>
+      <div class="card-info"><h3>TAMPILAN MPO NEW</h3><p>Rp 650,000</p></div>
       <a class="btn" href="bayar.html?id=11">Beli Sekarang</a>
     </div>
 
     <div class="card">
       <img src="https://takenupload.com/69677682c8d65">
-      <div class="card-info">
-        <h3>TAMPILAN KINCAI PRO</h3>
-        <p>Rp 650,000</p>
-      </div>
+      <div class="card-info"><h3>TAMPILAN KINCAI PRO</h3><p>Rp 650,000</p></div>
       <a class="btn" href="bayar.html?id=10">Beli Sekarang</a>
     </div>
 
     <div class="card">
       <img src="https://takenupload.com/6967767c8dd61">
-      <div class="card-info">
-        <h3>TAMPILAN NEXUS</h3>
-        <p>Rp 650,000</p>
-      </div>
+      <div class="card-info"><h3>TAMPILAN NEXUS</h3><p>Rp 650,000</p></div>
       <a class="btn" href="bayar.html?id=9">Beli Sekarang</a>
     </div>
 
     <div class="card">
       <img src="https://takenupload.com/696776763bce2">
-      <div class="card-info">
-        <h3>TAMPILAN IDN GREEN</h3>
-        <p>Rp 300,000</p>
-      </div>
+      <div class="card-info"><h3>TAMPILAN IDN GREEN</h3><p>Rp 300,000</p></div>
       <a class="btn" href="bayar.html?id=8">Beli Sekarang</a>
     </div>
 
     <div class="card">
       <img src="https://takenupload.com/696776710061f">
-      <div class="card-info">
-        <h3>TAMPILAN PAY4D</h3>
-        <p>Rp 400,000</p>
-      </div>
+      <div class="card-info"><h3>TAMPILAN PAY4D</h3><p>Rp 400,000</p></div>
       <a class="btn" href="bayar.html?id=7">Beli Sekarang</a>
     </div>
 
     <div class="card">
       <img src="https://takenupload.com/696776659112a">
-      <div class="card-info">
-        <h3>TAMPILAN NUKE</h3>
-        <p>Rp 550,000</p>
-      </div>
+      <div class="card-info"><h3>TAMPILAN NUKE</h3><p>Rp 550,000</p></div>
       <a class="btn" href="bayar.html?id=6">Beli Sekarang</a>
     </div>
   </div>
@@ -192,10 +209,8 @@
 <div class="notif" id="notif"></div>
 
 <script>
-// NOTIFIKASI PEMBELIAN PALSU
-const users = ["Ra*** Ad***", "Di*** Se***", "Fa*** Ri***", "An*** Wi***", "Ri*** Su***", "De*** Ka***", "Bambang***", "Sult***"];
-const prod = ["MPO NEW", "KINCAI PRO", "NEXUS", "IDN GREEN", "PAY4D", "NUKE"];
-
+const users = ["Ra*** Ad***", "Di*** Se***", "Fa*** Ri***", "An*** Wi***"];
+const prod = ["MPO NEW", "KINCAI PRO", "NEXUS", "IDN GREEN"];
 function showPop() {
   const u = users[Math.floor(Math.random() * users.length)];
   const p = prod[Math.floor(Math.random() * prod.length)];
@@ -205,7 +220,6 @@ function showPop() {
   setTimeout(() => { box.classList.remove("popup-show"); }, 4000);
 }
 setInterval(showPop, 8000);
-setTimeout(showPop, 2000);
 </script>
 
 </body>
