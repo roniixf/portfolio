@@ -7,48 +7,49 @@
     <style>
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; text-align: center; padding: 20px; }
         
-        /* HEADER */
-        h2 { color: #ff0000; text-shadow: 0 0 15px #ff0000; text-transform: uppercase; margin-top: 10px; }
-        .price { color: #fff; font-weight: bold; font-size: 24px; margin-bottom: 25px; border-bottom: 2px solid #ff0000; display: inline-block; padding-bottom: 5px; }
+        /* HEADER MERAH NEON CERAH */
+        h2 { color: #ff0000; text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000; text-transform: uppercase; margin-top: 10px; }
+        .price { color: #fff; font-weight: bold; font-size: 24px; margin-bottom: 25px; border-bottom: 2px solid #ff0000; display: inline-block; padding-bottom: 5px; text-shadow: 0 0 10px #ff0000; }
 
-        /* TOMBOL MENU MERAH NEON */
+        /* TOMBOL MENU MERAH NEON NYALA */
         .pay-btn {
             display: block; width: 100%; max-width: 400px; margin: 12px auto;
             padding: 16px; border-radius: 12px; border: 2px solid #ff0000; 
             font-weight: 800; cursor: pointer; font-size: 16px; transition: 0.3s; 
             color: #fff; text-transform: uppercase;
             background: #000;
-            box-shadow: 0 0 10px #ff0000;
+            box-shadow: 0 0 15px #ff0000;
         }
-        .pay-btn:hover { box-shadow: 0 0 20px #ff0000; background: #330000; }
-        .back { background: #111; border: 1px solid #444; margin-top: 20px; font-size: 14px; text-decoration: none; box-shadow: none; }
+        .pay-btn:hover { box-shadow: 0 0 30px #ff0000; background: #220000; transform: scale(1.02); }
+        .back { background: #111; border: 1px solid #444; margin-top: 20px; font-size: 14px; text-decoration: none; box-shadow: none; opacity: 0.8; }
 
-        /* BOX KONTEN */
+        /* BOX KONTEN INTERAKTIF */
         .content { 
             display: none; width: 100%; max-width: 400px; margin: 20px auto; 
             padding: 20px; border: 2px solid #ff0000; border-radius: 15px; 
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.6); background: #080808; 
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8); background: #080808; 
             box-sizing: border-box;
-            animation: fadeIn 0.5s;
+            animation: neonPulse 1.5s infinite alternate;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes neonPulse { from { box-shadow: 0 0 20px #ff0000; } to { box-shadow: 0 0 40px #ff0000; } }
 
-        /* LOGO FIX */
-        .logo-pay { width: 150px; height: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; filter: drop-shadow(0 0 2px #fff); }
-        .qris-img { width: 100%; border-radius: 10px; border: 3px solid #fff; box-shadow: 0 0 15px #ff0000; }
-        .acc-number { font-size: 26px; color: #ff0000; font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 8px #ff0000; margin: 10px 0; }
+        /* LOGO FIX MENGGUNAKAN LINK BARU */
+        .logo-pay { width: 180px; height: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; }
+        .qris-img { width: 100%; border-radius: 10px; border: 3px solid #fff; box-shadow: 0 0 20px #ff0000; }
+        .acc-number { font-size: 28px; color: #ff0000; font-weight: 900; letter-spacing: 1px; text-shadow: 0 0 15px #ff0000; margin: 10px 0; }
 
-        /* AREA UPLOAD */
+        /* AREA UPLOAD BUKTI */
         .upload-section {
             width: 100%; max-width: 400px; margin: 30px auto; 
-            padding: 20px; border: 1px dashed #ff0000; border-radius: 15px;
+            padding: 20px; border: 2px dashed #ff0000; border-radius: 15px;
             background: #0a0a0a; box-sizing: border-box;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
         }
-        .upload-section h3 { color: #ff0000; margin-top: 0; font-size: 18px; text-transform: uppercase; }
+        .upload-section h3 { color: #ff0000; margin-top: 0; font-size: 18px; text-transform: uppercase; text-shadow: 0 0 10px #ff0000; }
         
         input[type="text"] { 
             width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; 
-            border: 1px solid #333; background: #000; color: #fff; box-sizing: border-box;
+            border: 1px solid #ff0000; background: #000; color: #fff; box-sizing: border-box;
         }
         input[type="file"] {
             width: 100%; background: #fff; color: #000; padding: 10px; border-radius: 8px;
@@ -56,11 +57,13 @@
         }
 
         .btn-submit { 
-            background: #ff0000; color: #fff; padding: 16px; border-radius: 50px; 
+            background: #ff0000; color: #fff; padding: 18px; border-radius: 50px; 
             font-weight: 900; border: none; cursor: pointer; width: 100%; 
             margin-top: 15px; text-transform: uppercase; 
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+            box-shadow: 0 0 25px #ff0000;
+            transition: 0.3s;
         }
+        .btn-submit:hover { box-shadow: 0 0 40px #ff0000; background: #ff3333; }
     </style>
 </head>
 <body>
@@ -73,29 +76,29 @@
     <button class="pay-btn" onclick="showPay('ovo-box')">Bayar via OVO</button>
 
     <div id="qris-box" class="content">
-        <h3 style="color:#ff0000; margin-top:0;">SCAN QRIS</h3>
+        <h3 style="color:#ff0000; margin-top:0; text-shadow: 0 0 10px #ff0000;">SCAN QRIS</h3>
         <img src="https://takenupload.com/696782a493356" class="qris-img">
-        <p>Silahkan scan kode QR di atas</p>
+        <p style="font-weight: bold;">Silahkan scan kode QR di atas</p>
     </div>
 
     <div id="dana-box" class="content">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_danain.svg/512px-Logo_danain.svg.png" class="logo-pay" alt="DANA">
-        <p>TRANSFER DANA KE:</p>
+        <img src="https://takenupload.com/696784de4f74d" class="logo-pay" alt="DANA">
+        <p style="font-weight: bold;">TRANSFER DANA KE:</p>
         <div class="acc-number">082245390572</div>
-        <p style="font-size: 12px; color: #aaa;">Pastikan nomor sudah benar sebelum transfer</p>
+        <p style="font-size: 13px; color: #ffcccc;">Pastikan nomor sudah benar sebelum transfer</p>
     </div>
 
     <div id="ovo-box" class="content">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Logo_ovo_purple.svg/512px-Logo_ovo_purple.svg.png" class="logo-pay" alt="OVO">
-        <p>TRANSFER OVO KE:</p>
+        <p style="font-weight: bold;">TRANSFER OVO KE:</p>
         <div class="acc-number">08385080976</div>
-        <p style="font-size: 12px; color: #aaa;">Pastikan nomor sudah benar sebelum transfer</p>
+        <p style="font-size: 13px; color: #ffcccc;">Pastikan nomor sudah benar sebelum transfer</p>
     </div>
 
     <div class="upload-section">
         <h3>UPLOAD BUKTI TRANSFER</h3>
-        <input type="text" id="user-nama" placeholder="Nama Anda">
-        <input type="text" id="user-wa" placeholder="Nomor WhatsApp">
+        <input type="text" id="user-nama" placeholder="Masukan Nama Anda">
+        <input type="text" id="user-wa" placeholder="Masukan Nomor WhatsApp">
         <input type="file" id="user-file">
         <button class="btn-submit" onclick="kirimKonfirmasi()">Kirim Bukti Pembayaran</button>
     </div>
@@ -103,6 +106,7 @@
     <a href="index.html" class="pay-btn back">Kembali ke Produk</a>
 
     <script>
+        // DATA PRODUK OTOMATIS
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
         const data = {
@@ -121,18 +125,19 @@
 
         function showPay(boxId) {
             document.querySelectorAll('.content').forEach(el => el.style.display = 'none');
-            document.getElementById(boxId).style.display = 'block';
-            window.scrollTo({ top: document.getElementById(boxId).offsetTop - 20, behavior: 'smooth' });
+            const target = document.getElementById(boxId);
+            target.style.display = 'block';
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
         function kirimKonfirmasi() {
             const nama = document.getElementById('user-nama').value;
             const wa = document.getElementById('user-wa').value;
             const produk = document.getElementById('prod-name').innerText;
-            if(!nama || !wa) { alert('Nama & WA wajib diisi bos!'); return; }
+            if(!nama || !wa) { alert('Lengkapi Nama & WA bos!'); return; }
             
             const waLink = "https://wa.me/628385080976?text=" + encodeURIComponent(
-                "KONFIRMASI PEMBAYARAN\nNama: " + nama + "\nWA: " + wa + "\nProduk: " + produk
+                "KONFIRMASI PEMBAYARAN\nNama: " + nama + "\nWA: " + wa + "\nProduk: " + produk + "\n\nCek bukti transfer yang saya kirim!"
             );
             window.location.href = waLink;
         }
