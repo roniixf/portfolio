@@ -5,78 +5,193 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RONIIXF // CYBERCRIME</title>
     <style>
-        /* RESET & BASE */
+        /* BASE SETUP */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background-color: #000;
             color: #fff;
-            font-family: 'Consolas', monospace;
+            font-family: 'Consolas', 'Courier New', monospace;
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* MATRIX BG DARAH CERAH */
-        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.3; }
+        /* MATRIX BG */
+        canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.2; }
 
-        /* NEON TEXT GILA (GAK BURIK) */
-        .neon-red {
-            color: #ff0000;
-            text-shadow: 0 0 10px #f00, 0 0 20px #f00, 0 0 40px #f00, 0 0 60px #f00;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 5px;
+        /* HAMBURGER MENU NAV */
+        .nav-container {
+            position: fixed; top: 20px; right: 20px; z-index: 1000;
         }
 
-        /* PROFILE HUD RADAR (DENGAN FOTO LO) */
+        .menu-toggle {
+            width: 40px; height: 30px;
+            display: flex; flex-direction: column; justify-content: space-between;
+            cursor: pointer; z-index: 1001; position: relative;
+        }
+
+        .menu-toggle span {
+            display: block; width: 100%; height: 4px;
+            background: #ff0000; box-shadow: 0 0 10px #f00;
+            transition: 0.3s;
+        }
+
+        /* FULLSCREEN MENU SLIDE */
+        .menu-overlay {
+            position: fixed; top: 0; right: -100%;
+            width: 70%; height: 100%;
+            background: rgba(10, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            border-left: 2px solid #f00;
+            transition: 0.5s; display: flex;
+            flex-direction: column; align-items: center; justify-content: center;
+            z-index: 999;
+        }
+
+        .menu-overlay.active { right: 0; }
+
+        .menu-overlay a {
+            color: #fff; text-decoration: none; font-size: 20px;
+            margin: 20px 0; text-transform: uppercase; letter-spacing: 5px;
+            transition: 0.3s;
+        }
+
+        .menu-overlay a:hover { color: #f00; text-shadow: 0 0 15px #f00; }
+
+        /* PROFILE HUD */
         .hud-profile {
-            position: relative;
-            width: 220px; height: 220px;
-            margin: 40px 0;
+            position: relative; width: 220px; height: 220px;
+            margin: 60px 0 30px;
             display: flex; align-items: center; justify-content: center;
         }
 
         .img-avatar {
-            width: 160px; height: 160px;
-            border-radius: 50%;
-            border: 4px solid #f00;
-            box-shadow: 0 0 40px #f00;
-            z-index: 5;
-            object-fit: cover;
-            background: #111;
+            width: 160px; height: 160px; border-radius: 50%;
+            border: 3px solid #f00; box-shadow: 0 0 40px #f00;
+            z-index: 5; object-fit: cover;
         }
 
-        .scanner-ring {
+        .scanner {
             position: absolute; width: 100%; height: 100%;
-            border: 2px dashed #f00;
-            border-radius: 50%;
-            animation: spin 4s linear infinite;
-        }
-
-        .scanner-glow {
-            position: absolute; width: 115%; height: 115%;
-            border: 1px solid rgba(255,0,0,0.3);
-            border-top: 4px solid #f00;
-            border-radius: 50%;
-            animation: spin 2s linear infinite reverse;
+            border: 2px solid transparent; border-top: 2px solid #f00;
+            border-radius: 50%; animation: spin 3s linear infinite;
         }
 
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* CONTENT CARDS GAHAR */
-        .container { width: 90%; max-width: 500px; }
-
-        .card {
-            background: rgba(10, 0, 0, 0.9);
-            border: 1px solid #f00;
-            padding: 25px;
-            margin: 20px 0;
-            box-shadow: inset 0 0 20px rgba(255,0,0,0.3), 0 0 15px rgba(255,0,0,0.2);
-            position: relative;
+        /* TEXT STYLES */
+        .neon-title {
+            font-size: 26px; color: #ff0000;
+            text-shadow: 0 0 15px #f00, 0 0 30px #f00;
+            letter-spacing: 4px; text-align: center; margin-bottom: 40px;
         }
 
-        .card::before {
+        .cold-box {
+            width: 90%; max-width: 480px;
+            background: rgba(15, 0, 0, 0.85);
+            border: 1px solid #f00; padding: 25px;
+            margin-bottom: 30px; position: relative;
+            box-shadow: inset 0 0 20px rgba(255,0,0,0.2);
+        }
+
+        .cold-box::before {
+            content: ">> ENCRYPTED_MSG";
+            position: absolute; top: -10px; left: 10px;
+            background: #f00; color: #000; font-size: 10px; padding: 2px 5px;
+        }
+
+        /* SKILL SECTION */
+        .skills { width: 90%; max-width: 480px; }
+        .skill-info { font-size: 10px; color: #f00; margin-bottom: 5px; font-weight: bold; }
+        .bar-outer { height: 6px; background: #111; margin-bottom: 20px; border: 1px solid #300; }
+        .bar-inner { height: 100%; background: #f00; box-shadow: 0 0 15px #f00; }
+
+        footer { padding: 40px; font-size: 9px; color: #300; letter-spacing: 8px; }
+    </style>
+</head>
+<body>
+
+    <canvas id="matrix"></canvas>
+
+    <div class="nav-container">
+        <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <div class="menu-overlay" id="menuOverlay">
+        <a href="#">// HOME</a>
+        <a href="#">// TARGETS</a>
+        <a href="#">// EXPLOITS</a>
+        <a href="#">// CONTACT</a>
+        <p style="color: #400; font-size: 8px; margin-top: 50px;">ACCESSING VIA SHADOW_NET</p>
+    </div>
+
+    <div class="hud-profile">
+        <div class="scanner"></div>
+        <img src="https://takenupload.com/69672d9dd452e" alt="RONIIXF" class="img-avatar">
+    </div>
+
+    <h1 class="neon-title">RONIIXF // CYBERCRIME</h1>
+
+    <div class="cold-box">
+        <p style="font-size: 14px; color: #ccc; line-height: 1.7; font-style: italic;">
+            "Gue gak butuh pengakuan. Saat lo sadar sistem lo jebol, itu artinya gue udah dapet apa yang gue mau. Jangan repot-repot ganti password; lo cuma nunda waktu gue buat balik lagi."
+        </p>
+    </div>
+
+    <div class="skills">
+        <p class="skill-info">>> SYSTEM_INFILTRATION [99%]</p>
+        <div class="bar-outer"><div class="bar-inner" style="width: 99%;"></div></div>
+        
+        <p class="skill-info">>> DATA_REAPING [95%]</p>
+        <div class="bar-outer"><div class="bar-inner" style="width: 95%;"></div></div>
+        
+        <p class="skill-info">>> LOG_VANISHING [100%]</p>
+        <div class="bar-outer"><div class="bar-inner" style="width: 100%;"></div></div>
+    </div>
+
+    <footer>STAY_UNTRACEABLE // 2026</footer>
+
+    <script>
+        // MATRIX EFFECT
+        const c = document.getElementById('matrix');
+        const ctx = c.getContext('2d');
+        c.width = window.innerWidth;
+        c.height = window.innerHeight;
+        const txt = "010101";
+        const drops = Array(Math.floor(c.width/16)).fill(1);
+        function draw() {
+            ctx.fillStyle = "rgba(0,0,0,0.05)";
+            ctx.fillRect(0,0,c.width,c.height);
+            ctx.fillStyle = "#f00";
+            ctx.font = "16px monospace";
+            drops.forEach((y, i) => {
+                const char = txt[Math.floor(Math.random()*txt.length)];
+                ctx.fillText(char, i*16, y*16);
+                if(y*16 > c.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+        setInterval(draw, 40);
+
+        // MENU TOGGLE SCRIPT
+        const toggle = document.getElementById('menuToggle');
+        const overlay = document.getElementById('menuOverlay');
+        toggle.addEventListener('click', () => {
+            overlay.classList.toggle('active');
+            // Animasi transisi garis tiga jadi X (Opsional)
+            const spans = toggle.getElementsByTagName('span');
+            spans[0].style.transform = overlay.classList.contains('active') ? 'rotate(45deg) translate(8px, 8px)' : 'none';
+            spans[1].style.opacity = overlay.classList.contains('active') ? '0' : '1';
+            spans[2].style.transform = overlay.classList.contains('active') ? 'rotate(-45deg) translate(10px, -10px)' : 'none';
+        });
+    </script>
+</body>
+</html>
             content: ">> THREAT_DETECTED";
             position: absolute; top: -10px; left: 15px;
             background: #f00; color: #000;
