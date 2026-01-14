@@ -2,89 +2,82 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>JASAWEBKU - SEO DEV Red Edition</title>
+<title>JASAWEBKU - SEO DEV RED</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
   body {
     margin: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    /* Background diubah ke gradasi Hitam - Merah Gelap */
+    font-family: Arial, sans-serif;
     background: radial-gradient(circle at top, #330000, #000);
     color: #fff;
-    overflow-x: hidden;
   }
-  .container { max-width: 420px; margin: auto; padding: 20px; text-align: center; }
+  .container { max-width: 420px; margin: auto; padding: 15px; text-align: center; }
 
   /* PROFILE */
-  .profile { margin-top: 15px; margin-bottom: 25px; }
   .profile img {
-    width: 140px; height: 140px; border-radius: 50%;
-    /* Border diubah jadi Merah Menyala */
-    border: 4px solid #ff0000; box-shadow: 0 0 25px #ff0000;
-    object-fit: cover;
+    width: 120px; height: 120px; border-radius: 50%;
+    border: 3px solid #ff0000; box-shadow: 0 0 20px #ff0000;
+    object-fit: cover; margin-top: 10px;
   }
-  h1 { color: #ff0000; margin: 15px 0 5px 0; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255,0,0,0.5); }
-  .profile p { font-size: 14px; opacity: 0.8; margin-bottom: 20px; }
+  h1 { color: #ff0000; margin: 10px 0; font-size: 22px; text-shadow: 0 0 10px #ff0000; }
 
-  /* BUTTON UTAMA (Warna Merah Shimmer) */
-  .btn {
-    display: block;
-    background: linear-gradient(120deg, #ff0000, #ff6666, #ff0000);
-    color: #fff; padding: 14px; border-radius: 30px;
-    text-decoration: none; margin: 10px 0; font-weight: bold;
-    position: relative; overflow: hidden; transition: transform 0.2s;
-    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+  /* TOMBOL KONTAK */
+  .btn-contact {
+    display: block; background: linear-gradient(to right, #ff0000, #990000);
+    color: #fff; padding: 12px; border-radius: 25px;
+    text-decoration: none; margin: 8px 0; font-weight: bold;
+    box-shadow: 0 4px 10px rgba(255,0,0,0.3);
   }
-  .btn:active { transform: scale(0.95); }
-  .btn:after {
-    content: ""; position: absolute; top: 0; left: -150%;
-    width: 60%; height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .5), transparent);
-    animation: shimmer 4s infinite;
-  }
-  @keyframes shimmer { 0% { left: -150% } 100% { left: 150% } }
 
-  /* GRID PRODUK */
-  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+  /* GRID PRODUK - Dibuat lebih rapat agar foto menonjol */
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 25px; }
+  
   .card {
-    border: 1px solid rgba(255, 0, 0, 0.4); border-radius: 18px; padding: 10px;
-    background: #050505; box-shadow: 0 4px 15px rgba(0,0,0,0.7);
-    transition: 0.3s;
+    background: #0a0a0a; border: 1px solid #440000;
+    border-radius: 15px; overflow: hidden; /* Biar foto yang melengkung ikut kotak */
+    transition: 0.3s; padding-bottom: 10px;
   }
-  .card:hover { border-color: #ff0000; box-shadow: 0 0 15px rgba(255, 0, 0, 0.3); }
-  .card img { width: 100%; height: 110px; border-radius: 12px; margin-bottom: 8px; object-fit: cover; }
-  .card h3 { margin: 5px 0; font-size: 13px; height: 32px; overflow: hidden; text-transform: uppercase; color: #fff; }
-  .card p { color: #ff0000; margin: 5px 0; font-weight: bold; font-size: 15px; }
-  .card .btn { padding: 10px; font-size: 12px; border-radius: 10px; }
+  
+  /* BAGIAN FOTO - Dibuat Full ke pinggir box */
+  .card img { 
+    width: 100%; 
+    height: 140px; /* Tinggi foto ditambah biar kelihatan jelas */
+    object-fit: cover; /* Foto dipotong rapi memenuhi kotak */
+    border-bottom: 2px solid #ff0000;
+  }
 
-  /* POPUP NOTIFIKASI (Tema Merah) */
+  .card h3 { font-size: 12px; margin: 10px 5px 5px; height: 30px; overflow: hidden; color: #eee; }
+  .card p { color: #ff0000; font-weight: bold; margin: 5px 0; font-size: 14px; }
+
+  /* TOMBOL BELI */
+  .btn-buy {
+    display: inline-block; width: 85%;
+    background: #ff0000; color: #fff;
+    padding: 8px 0; border-radius: 8px;
+    text-decoration: none; font-weight: bold; font-size: 12px;
+  }
+
+  /* POPUP NOTIF */
   .notif, .review {
     position: fixed; left: 50%; transform: translateX(-50%) translateY(100px);
-    background: rgba(20, 0, 0, 0.95); border: 1px solid #ff0000;
-    padding: 10px 20px; border-radius: 25px;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
-    font-size: 13px; z-index: 999; width: 85%; max-width: 350px;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    opacity: 0; visibility: hidden;
-    backdrop-filter: blur(5px);
+    background: rgba(20, 0, 0, 0.9); border: 1px solid #ff0000;
+    padding: 10px; border-radius: 20px; font-size: 12px;
+    width: 80%; z-index: 999; transition: 0.5s; opacity: 0;
   }
+  .popup-show { opacity: 1; transform: translateX(-50%) translateY(0); }
   .notif { bottom: 20px; }
-  .review { bottom: 75px; border-radius: 15px; }
-  
-  .popup-show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
-  .stars { color: #ff0000; margin-right: 8px; font-size: 14px; }
+  .review { bottom: 70px; }
 </style>
 </head>
 <body>
 
 <div class="container">
   <div class="profile">
-    <img src="https://takenupload.com/69672d9dd452e" alt="Profile">
+    <img src="https://takenupload.com/69672d9dd452e">
     <h1>SEO DEV</h1>
-    <p>Solusi Tampilan Website Premium & SEO Friendly</p>
-    <a class="btn" href="https://wa.me/628385080976">WhatsApp Admin</a>
-    <a class="btn" href="https://t.me/axionwl1">Telegram Channel</a>
+    <a href="https://wa.me/628385080976" class="btn-contact">WhatsApp Admin</a>
+    <a href="https://t.me/axionwl1" class="btn-contact">Telegram Channel</a>
   </div>
 
   <div class="grid">
@@ -92,42 +85,42 @@
       <img src="https://takenupload.com/6967768c233e8">
       <h3>TAMPILAN MPO NEW</h3>
       <p>Rp 650,000</p>
-      <a class="btn" href="bayar.php?id=11">Beli Sekarang</a>
+      <a href="bayar.php?id=11" class="btn-buy">Beli Sekarang</a>
     </div>
 
     <div class="card">
       <img src="https://takenupload.com/69677682c8d65">
       <h3>TAMPILAN KINCAI PRO</h3>
       <p>Rp 650,000</p>
-      <a class="btn" href="bayar.php?id=10">Beli Sekarang</a>
+      <a href="bayar.php?id=10" class="btn-buy">Beli Sekarang</a>
     </div>
 
     <div class="card">
       <img src="https://takenupload.com/6967767c8dd61">
       <h3>TAMPILAN NEXUS</h3>
       <p>Rp 650,000</p>
-      <a class="btn" href="bayar.php?id=9">Beli Sekarang</a>
+      <a href="bayar.php?id=9" class="btn-buy">Beli Sekarang</a>
     </div>
 
     <div class="card">
       <img src="https://takenupload.com/696776763bce2">
       <h3>TAMPILAN IDN GREEN</h3>
       <p>Rp 300,000</p>
-      <a class="btn" href="bayar.php?id=8">Beli Sekarang</a>
+      <a href="bayar.php?id=8" class="btn-buy">Beli Sekarang</a>
     </div>
 
     <div class="card">
       <img src="https://takenupload.com/696776710061f">
       <h3>TAMPILAN PAY4D</h3>
       <p>Rp 400,000</p>
-      <a class="btn" href="bayar.php?id=7">Beli Sekarang</a>
+      <a href="bayar.php?id=7" class="btn-buy">Beli Sekarang</a>
     </div>
 
     <div class="card">
       <img src="https://takenupload.com/696776659112a">
       <h3>TAMPILAN NUKE</h3>
       <p>Rp 550,000</p>
-      <a class="btn" href="bayar.php?id=6">Beli Sekarang</a>
+      <a href="bayar.php?id=6" class="btn-buy">Beli Sekarang</a>
     </div>
   </div>
 </div>
@@ -136,22 +129,9 @@
 <div class="review" id="review"></div>
 
 <script>
-const users = ["Ra*** Ad***", "Di*** Se***", "Fa*** Ri***", "An*** Wi***", "Ri*** Su***", "De*** Ka***", "Ir*** Pa***", "Sa*** Nu***", "Mi*** Yo***", "Ke*** Al***"];
-const produkNotif = [
-  {nama: "TAMPILAN MPO NEW"},
-  {nama: "TAMPILAN KINCAI PRO"},
-  {nama: "TAMPILAN NEXUS"},
-  {nama: "TAMPILAN IDN GREEN"},
-  {nama: "TAMPILAN PAY4D"},
-  {nama: "TAMPILAN NUKE"}
-];
-const komentar = [
-  "Desainnya merahnya sangar!",
-  "Admin fast respon 👍",
-  "Tampilan premium, ga nyesel beli",
-  "Work semua, mantap!",
-  "Langsung dipasang, hasil memuaskan 🔥"
-];
+const users = ["Ra*** Ad***", "Di*** Se***", "Fa*** Ri***", "An*** Wi***", "Ri*** Su***", "De*** Ka***"];
+const produkNotif = ["MPO NEW", "KINCAI PRO", "NEXUS", "IDN GREEN", "PAY4D", "NUKE"];
+const komentar = ["Desainnya mantap!", "Admin fast respon 👍", "Keren tampilannya", "Work 100%", "Puas banget!"];
 
 function showPopups() {
   const u = users[Math.floor(Math.random() * users.length)];
@@ -161,8 +141,8 @@ function showPopups() {
   const boxNotif = document.getElementById("notif");
   const boxReview = document.getElementById("review");
 
-  boxNotif.innerHTML = `🔔 <b>${u}</b> baru saja membeli <b>${p.nama}</b>`;
-  boxReview.innerHTML = `<span class="stars">★★★★★</span> ${c}`;
+  boxNotif.innerHTML = `🔔 <b>${u}</b> membeli <b>${p}</b>`;
+  boxReview.innerHTML = `<span style="color:red">★★★★★</span> ${c}`;
 
   boxNotif.classList.add("popup-show");
   boxReview.classList.add("popup-show");
@@ -173,10 +153,8 @@ function showPopups() {
   }, 4000);
 }
 
-setTimeout(() => {
-  showPopups();
-  setInterval(showPopups, 8000);
-}, 3000);
+setInterval(showPopups, 8000);
+setTimeout(showPopups, 2000);
 </script>
 
 </body>
