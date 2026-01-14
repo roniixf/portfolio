@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RONIIXF // CYBERCRIME</title>
     <style>
-        /* RESET TOTAL */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background-color: #000;
@@ -17,23 +16,238 @@
             align-items: center;
         }
 
-        /* MATRIX BG DARAH */
+        /* MATRIX BG */
         canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.25; }
 
-        /* NAVIGASI HAMBURGER */
-        .nav-header {
-            width: 100%; padding: 20px;
-            display: flex; justify-content: flex-end;
-            position: fixed; top: 0; z-index: 1000;
+        /* HEADER & HAMBURGER */
+        header {
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            justify-content: flex-end;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
         }
-        .menu-btn {
-            width: 35px; height: 25px;
-            display: flex; flex-direction: column; justify-content: space-between;
+
+        #menuBtn {
+            width: 40px;
+            height: 30px;
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: none;
+            border: none;
+            outline: none;
         }
-        .menu-btn span {
-            display: block; width: 100%; height: 3px;
-            background: #f00; box-shadow: 0 0 10px #f00;
+
+        #menuBtn span {
+            display: block;
+            width: 100%;
+            height: 4px;
+            background: #ff0000;
+            box-shadow: 0 0 10px #f00;
+            transition: 0.4s;
+        }
+
+        /* SIDE NAV SLIDE */
+        #sideNav {
+            position: fixed;
+            top: 0;
+            right: -100%; /* Sembunyi di kanan */
+            width: 280px;
+            height: 100%;
+            background: rgba(15, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            border-left: 2px solid #ff0000;
+            transition: 0.5s ease-in-out;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            padding: 100px 30px;
+        }
+
+        #sideNav.open {
+            right: 0; /* Muncul pas diklik */
+        }
+
+        #sideNav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+            margin: 20px 0;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255,0,0,0.1);
+            padding-bottom: 10px;
+            transition: 0.3s;
+        }
+
+        #sideNav a:hover {
+            color: #f00;
+            text-shadow: 0 0 15px #f00;
+            padding-left: 10px;
+        }
+
+        /* PROFILE SECTION */
+        .profile-box {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin-top: 100px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .img-profile {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 35px #ff0000;
+            z-index: 10;
+            object-fit: cover;
+        }
+
+        .radar-anim {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid transparent;
+            border-top: 3px solid #ff0000;
+            border-radius: 50%;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin { from {transform: rotate(0deg)} to {transform: rotate(360deg)} }
+
+        /* TEXTS */
+        .neon-title {
+            font-size: 26px;
+            color: #ff0000;
+            text-shadow: 0 0 20px #f00;
+            letter-spacing: 5px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .quote-card {
+            width: 90%;
+            max-width: 450px;
+            background: rgba(20, 0, 0, 0.85);
+            border-left: 5px solid #f00;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,1);
+        }
+
+        .quote-card p {
+            font-size: 15px;
+            font-style: italic;
+            color: #ccc;
+            line-height: 1.7;
+        }
+
+        footer {
+            padding: 50px;
+            color: #300;
+            font-size: 10px;
+            letter-spacing: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="mtx"></canvas>
+
+    <header>
+        <button id="menuBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <nav id="sideNav">
+        <a href="#">// MAIN_FRAME</a>
+        <a href="#">// EXPLOIT_DB</a>
+        <a href="#">// NETWORK_MAP</a>
+        <a href="#">// LOG_OFF</a>
+        <p style="color: #400; font-size: 8px; margin-top: auto;">SHADOW_OPERATIVE // v1.0</p>
+    </nav>
+
+    <div class="profile-box">
+        <div class="radar-anim"></div>
+        <img src="https://takenupload.com/69672d9dd452e" class="img-profile" alt="RONIIXF">
+    </div>
+
+    <h1 class="neon-title">RONIIXF // CYBERCRIME</h1>
+
+    <div class="quote-card">
+        <p>
+            "Gue gak ngetuk pintu mainframe lo, gue bakar seluruh gedungnya lewat satu baris kode. Keamanan lo cuma pajangan buat gue hancurin."
+        </p>
+    </div>
+
+    <footer>EST 2026 // NO PERMISSION</footer>
+
+    <script>
+        // MATRIX SCRIPT
+        const c = document.getElementById('mtx');
+        const ctx = c.getContext('2d');
+        c.width = window.innerWidth;
+        c.height = window.innerHeight;
+        const txt = "0101";
+        const drops = Array(Math.floor(c.width/16)).fill(1);
+        function draw() {
+            ctx.fillStyle = "rgba(0,0,0,0.05)";
+            ctx.fillRect(0,0,c.width,c.height);
+            ctx.fillStyle = "#f00";
+            ctx.font = "16px monospace";
+            drops.forEach((y, i) => {
+                ctx.fillText(txt[Math.floor(Math.random()*txt.length)], i*16, y*16);
+                if(y*16 > c.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+        setInterval(draw, 40);
+
+        // MENU INTERACTION SCRIPT
+        const menuBtn = document.getElementById('menuBtn');
+        const sideNav = document.getElementById('sideNav');
+
+        menuBtn.addEventListener('click', () => {
+            sideNav.classList.toggle('open');
+            
+            // Animasi Garis Hamburger (Opsional)
+            const spans = menuBtn.getElementsByTagName('span');
+            if(sideNav.classList.contains('open')) {
+                spans[0].style.transform = "rotate(45deg) translate(8px, 10px)";
+                spans[1].style.opacity = "0";
+                spans[2].style.transform = "rotate(-45deg) translate(8px, -10px)";
+            } else {
+                spans[0].style.transform = "none";
+                spans[1].style.opacity = "1";
+                spans[2].style.transform = "none";
+            }
+        });
+
+        // Close menu kalau klik di luar area menu
+        window.addEventListener('click', (e) => {
+            if (!sideNav.contains(e.target) && !menuBtn.contains(e.target) && sideNav.classList.contains('open')) {
+                sideNav.classList.remove('open');
+                const spans = menuBtn.getElementsByTagName('span');
+                spans[0].style.transform = "none";
+                spans[1].style.opacity = "1";
+                spans[2].style.transform = "none";
+            }
+        });
+    </script>
+</body>
+</html>
             transition: 0.4s;
         }
 
