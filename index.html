@@ -5,66 +5,103 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RONIIXF // CYBERCRIME</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#fff;font-family:monospace;overflow-x:hidden;display:flex;flex-direction:column;align-items:center}
-canvas{position:fixed;top:0;left:0;z-index:-1;opacity:0.2}
-/* NAVIGATION MENU */
-.nav-toggle{position:fixed;top:20px;right:20px;z-index:1000;cursor:pointer}
-.nav-toggle div{width:30px;height:4px;background:#f00;margin:5px;box-shadow:0 0 10px #f00;transition:0.3s}
-#sideBar{position:fixed;top:0;right:-100%;width:250px;height:100%;background:rgba(10,0,0,0.98);border-left:2px solid #f00;z-index:999;transition:0.5s;display:flex;flex-direction:column;padding:80px 20px}
-#sideBar.show{right:0}
-#sideBar a{color:#fff;text-decoration:none;font-size:18px;margin:15px 0;letter-spacing:2px;border-bottom:1px solid #300;padding-bottom:5px}
-/* PROFILE & RADAR */
-.p-hud{position:relative;width:200px;height:200px;margin:70px 0 20px;display:flex;justify-content:center;align-items:center}
-.p-hud img{width:150px;height:150px;border-radius:50%;border:3px solid #f00;box-shadow:0 0 30px #f00;z-index:10;object-fit:cover}
-.radar{position:absolute;width:100%;height:100%;border:2px solid transparent;border-top:3px solid #f00;border-radius:50%;animation:spin 2s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-/* MAIN CONTENT */
-.neon-txt{font-size:24px;color:#f00;text-shadow:0 0 15px #f00;letter-spacing:5px;margin-bottom:30px;text-align:center;font-weight:900}
-.card{width:90%;max-width:450px;background:rgba(20,0,0,0.8);border:1px solid #f00;padding:20px;margin-bottom:20px;box-shadow:inset 0 0 15px rgba(255,0,0,0.2);border-left:5px solid #f00}
-.quote{font-size:14px;font-style:italic;color:#ccc;line-height:1.6}
-.bar-wrap{width:90%;max-width:450px;margin-bottom:10px}
-.bar-bg{width:100%;height:8px;background:#111;margin:5px 0 15px;border:1px solid #300}
-.bar-fill{height:100%;background:#f00;box-shadow:0 0 10px #f00}
-footer{padding:40px;color:#300;font-size:9px;letter-spacing:10px;text-align:center}
+  /* CSS RESET */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #000; color: #fff; font-family: 'Consolas', monospace; overflow-x: hidden; display: flex; flex-direction: column; align-items: center; }
+  canvas { position: fixed; top: 0; left: 0; z-index: -1; opacity: 0.2; }
+
+  /* TOMBOL MENU GARIS TIGA */
+  .menu-btn { position: fixed; top: 20px; right: 20px; z-index: 1001; cursor: pointer; padding: 5px; }
+  .menu-btn div { width: 30px; height: 3px; background: #f00; margin: 6px 0; box-shadow: 0 0 10px #f00; transition: 0.4s; }
+
+  /* SIDE NAV PANEL */
+  #sideNav { position: fixed; top: 0; right: -100%; width: 260px; height: 100%; background: rgba(10, 0, 0, 0.95); border-left: 2px solid #f00; z-index: 1000; transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); display: flex; flex-direction: column; padding: 100px 25px; box-shadow: -10px 0 30px rgba(255,0,0,0.2); }
+  #sideNav.active { right: 0; }
+  #sideNav a { color: #fff; text-decoration: none; font-size: 18px; margin: 15px 0; letter-spacing: 3px; border-bottom: 1px solid #300; padding-bottom: 5px; text-transform: uppercase; }
+  #sideNav a:hover { color: #f00; text-shadow: 0 0 10px #f00; }
+
+  /* PROFILE HUD */
+  .p-frame { position: relative; width: 220px; height: 220px; margin: 80px 0 20px; display: flex; align-items: center; justify-content: center; }
+  .p-frame img { width: 160px; height: 160px; border-radius: 50%; border: 3px solid #f00; box-shadow: 0 0 35px #f00; z-index: 5; object-fit: cover; }
+  .radar-line { position: absolute; width: 100%; height: 100%; border: 2px solid transparent; border-top: 3px solid #f00; border-radius: 50%; animation: rot 2s linear infinite; }
+  @keyframes rot { from {transform: rotate(0deg)} to {transform: rotate(360deg)} }
+
+  /* TEXT & CARDS */
+  .neon-title { font-size: 26px; color: #f00; font-weight: 900; text-shadow: 0 0 20px #f00; letter-spacing: 5px; text-align: center; margin-bottom: 40px; }
+  .box-nyindir { width: 90%; max-width: 480px; background: rgba(15, 0, 0, 0.85); border: 1px solid #f00; padding: 25px; margin-bottom: 30px; position: relative; box-shadow: inset 0 0 20px rgba(255,0,0,0.2); border-left: 5px solid #f00; }
+  .box-nyindir p { font-size: 14px; font-style: italic; color: #ccc; line-height: 1.8; }
+  
+  /* SKILL BAR */
+  .skill-cont { width: 90%; max-width: 480px; margin-bottom: 50px; }
+  .skill-name { font-size: 11px; color: #f00; margin-bottom: 5px; font-weight: bold; letter-spacing: 2px; }
+  .bar-bg { width: 100%; height: 8px; background: #111; margin-bottom: 15px; border: 1px solid #300; }
+  .bar-fill { height: 100%; background: #f00; box-shadow: 0 0 15px #f00; }
+
+  footer { padding-bottom: 50px; font-size: 10px; color: #300; letter-spacing: 10px; text-align: center; }
 </style>
 </head>
 <body>
-<canvas id="mtx"></canvas>
-<div class="nav-toggle" onclick="toggleNav()"><div></div><div></div><div></div></div>
-<div id="sideBar">
-<a href="#">// SYSTEM_ROOT</a><a href="#">// EXPLOIT_DATABASE</a><a href="#">// NETWORK_MAP</a><a href="#">// EXIT_SESSION</a>
+
+<canvas id="matrix"></canvas>
+
+<div class="menu-btn" onclick="openMenu()">
+  <div></div><div></div><div></div>
 </div>
-<div class="p-hud">
-<div class="radar"></div>
-<img src="https://takenupload.com/69672d9dd452e" alt="RONIIXF">
+
+<div id="sideNav">
+  <a href="#">// ROOT_ACCESS</a>
+  <a href="#">// EXPLOIT_DB</a>
+  <a href="#">// SHADOW_LOG</a>
+  <a href="#">// DISCONNECT</a>
+  <p style="margin-top: auto; font-size: 8px; color: #400;">RONIIXF_SABOTEUR_SYSTEM</p>
 </div>
-<h1 class="neon-txt">RONIIXF // CYBERCRIME</h1>
-<div class="card">
-<p class="quote">"Gue gak butuh kunci buat masuk ke sistem lo, gue cuma butuh satu detik kecerobohan adminnya. Keamanan lo itu cuma ilusi."</p>
+
+<div class="p-frame">
+  <div class="radar-line"></div>
+  <img src="https://takenupload.com/69672d9dd452e" alt="RONIIXF">
 </div>
-<div class="bar-wrap">
-<p style="font-size:10px;color:#f00">>> KERNEL_PENETRATION [99%]</p>
-<div class="bar-bg"><div class="bar-fill" style="width:99%"></div></div>
-<p style="font-size:10px;color:#f00">>> DATA_EXFILTRATION [95%]</p>
-<div class="bar-bg"><div class="bar-fill" style="width:95%"></div></div>
+
+<h1 class="neon-title">RONIIXF // CYBERCRIME</h1>
+
+<div class="box-nyindir">
+  <p>"Gue gak butuh kunci buat masuk ke sistem lo, gue cuma butuh satu detik kecerobohan adminnya. Keamanan lo itu cuma ilusi, dan gue adalah kenyataan pahit yang gak bisa lo hindari."</p>
 </div>
-<footer>EST 2026 // NO PERMISSION NEEDED</footer>
+
+<div class="skill-cont">
+  <div class="skill-name">>> SYSTEM_PENETRATION [99%]</div>
+  <div class="bar-bg"><div class="bar-fill" style="width: 99%;"></div></div>
+  <div class="skill-name">>> DATABASE_EXFILTRATION [95%]</div>
+  <div class="bar-bg"><div class="bar-fill" style="width: 95%;"></div></div>
+</div>
+
+<footer>EST 2026 // SILENCE IS DEADLY</footer>
+
 <script>
-const cvs=document.getElementById('mtx'),ctx=cvs.getContext('2d');
-cvs.width=window.innerWidth;cvs.height=window.innerHeight;
-const txt="01",drops=Array(Math.floor(cvs.width/16)).fill(1);
-function draw(){
-ctx.fillStyle="rgba(0,0,0,0.05)";ctx.fillRect(0,0,cvs.width,cvs.height);
-ctx.fillStyle="#f00";ctx.font="16px monospace";
-drops.forEach((y,i)=>{
-ctx.fillText(txt[Math.floor(Math.random()*txt.length)],i*16,y*16);
-if(y*16>cvs.height&&Math.random()>0.975)drops[i]=0;drops[i]++;
-});
-}
-setInterval(draw,40);
-// FUNGSI KLIK MENU
-function toggleNav(){document.getElementById('sideBar').classList.toggle('show')}
+  // MATRIX EFFECT
+  const c = document.getElementById('matrix');
+  const ctx = c.getContext('2d');
+  c.width = window.innerWidth;
+  c.height = window.innerHeight;
+  const drops = Array(Math.floor(c.width/16)).fill(1);
+  function draw() {
+    ctx.fillStyle = "rgba(0,0,0,0.05)";
+    ctx.fillRect(0,0,c.width,c.height);
+    ctx.fillStyle = "#f00";
+    ctx.font = "16px monospace";
+    drops.forEach((y, i) => {
+      ctx.fillText(Math.floor(Math.random()*2), i*16, y*16);
+      if(y*16 > c.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    });
+  }
+  setInterval(draw, 40);
+
+  // MENU INTERACTION SCRIPT
+  function openMenu() {
+    const nav = document.getElementById('sideNav');
+    nav.classList.toggle('active');
+  }
 </script>
+
 </body>
 </html>
