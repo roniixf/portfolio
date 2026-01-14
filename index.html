@@ -2,149 +2,185 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
+<title>JASAWEBKU - SEO DEV</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RONIIXF // 403_INTERNAL_SYSTEM_ERROR</title>
+
 <style>
-    :root { --red: #ff0000; --darker: #050000; --glow: rgba(255, 0, 0, 0.6); }
-    * { margin:0; padding:0; box-sizing:border-box; font-family:'Consolas', monospace; scroll-behavior: smooth; }
-    body { background: var(--darker); color: var(--red); overflow-x: hidden; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: radial-gradient(circle at top, #1a1400, #000);
+    color: #fff;
+    overflow-x: hidden;
+  }
+  .container { max-width: 420px; margin: auto; padding: 20px; text-align: center; }
 
-    /* CRT SCANLINES */
-    body::after { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); z-index: 9999; background-size: 100% 2px, 3px 100%; pointer-events: none; }
+  /* PROFILE */
+  .profile { margin-top: 15px; margin-bottom: 25px; }
+  .profile img {
+    width: 140px; height: 140px; border-radius: 50%;
+    border: 4px solid gold; box-shadow: 0 0 25px gold;
+    object-fit: cover;
+  }
+  h1 { color: gold; margin: 15px 0 5px 0; letter-spacing: 2px; }
+  .profile p { font-size: 14px; opacity: 0.8; margin-bottom: 20px; }
 
-    canvas { position: fixed; top: 0; left: 0; z-index: 1; opacity: 0.1; }
+  /* BUTTON UTAMA */
+  .btn {
+    display: block;
+    background: linear-gradient(120deg, #ffcc00, #fff1a8, #ffcc00);
+    color: #000; padding: 14px; border-radius: 30px;
+    text-decoration: none; margin: 10px 0; font-weight: bold;
+    position: relative; overflow: hidden; transition: transform 0.2s;
+  }
+  .btn:active { transform: scale(0.95); }
+  .btn:after {
+    content: ""; position: absolute; top: 0; left: -150%;
+    width: 60%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .8), transparent);
+    animation: shimmer 4s infinite;
+  }
+  @keyframes shimmer { 0% { left: -150% } 100% { left: 150% } }
 
-    /* HARDWARE STATUS BARS */
-    .system-hud { position: fixed; top: 80px; left: 20px; z-index: 100; font-size: 9px; line-height: 1.6; color: #400; text-transform: uppercase; }
-    .system-hud span { color: var(--red); font-weight: bold; }
+  /* GRID PRODUK */
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px; }
+  .card {
+    border: 1px solid rgba(255, 215, 0, 0.5); border-radius: 18px; padding: 10px;
+    background: #050505; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    transition: 0.3s;
+  }
+  .card:hover { border-color: gold; box-shadow: 0 0 15px rgba(255, 215, 0, 0.2); }
+  .card img { width: 100%; height: 110px; border-radius: 12px; margin-bottom: 8px; object-fit: cover; }
+  .card h3 { margin: 5px 0; font-size: 13px; height: 32px; overflow: hidden; text-transform: uppercase; }
+  .card p { color: gold; margin: 5px 0; font-weight: bold; font-size: 15px; }
+  .card .btn { padding: 10px; font-size: 12px; border-radius: 10px; }
 
-    header { position: fixed; top: 0; width: 100%; padding: 20px; display: flex; justify-content: space-between; align-items: center; z-index: 1100; border-bottom: 1px solid #200; background: rgba(0,0,0,0.9); backdrop-filter: blur(5px); }
-    .node-status { font-size: 10px; letter-spacing: 4px; }
-
-    #nav-btn { cursor: pointer; border: 1px solid var(--red); padding: 8px 15px; font-size: 11px; transition: 0.3s; background: transparent; color: var(--red); }
-    #nav-btn:hover { background: var(--red); color: #000; box-shadow: 0 0 20px var(--red); }
-
-    /* FULL SCREEN MENU */
-    nav { position: fixed; top: 0; right: -100%; width: 100%; height: 100%; background: #000; z-index: 2000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: 0.6s cubic-bezier(1, 0, 0, 1); }
-    nav.open { right: 0; }
-    nav a { color: #fff; text-decoration: none; font-size: 24px; margin: 20px; letter-spacing: 15px; font-weight: 900; position: relative; }
-    nav a:hover { color: var(--red); text-shadow: 0 0 15px var(--red); }
-
-    main { position: relative; z-index: 50; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
-
-    /* PROFILE SECTION */
-    .p-container { position: relative; margin-bottom: 30px; }
-    .p-container img { width: 170px; height: 170px; border-radius: 50%; border: 3px solid var(--red); filter: grayscale(1) contrast(1.3); box-shadow: 0 0 40px var(--glow); }
-    .radar { position: absolute; top: -15px; left: -15px; width: 200px; height: 200px; border: 2px solid transparent; border-top: 2px solid var(--red); border-radius: 50%; animation: rot 2.5s linear infinite; }
-    @keyframes rot { to { transform: rotate(360deg); } }
-
-    .glitch-nick { font-size: 32px; letter-spacing: 12px; font-weight: 900; color: #fff; text-shadow: 0 0 10px var(--red); margin-bottom: 5px; }
-    .sub-nick { font-size: 14px; letter-spacing: 10px; color: var(--red); font-weight: bold; margin-bottom: 40px; }
-
-    /* COLD PANEL */
-    .cold-box { width: 100%; max-width: 550px; padding: 30px; background: rgba(10,0,0,0.9); border: 1px solid #300; border-left: 6px solid var(--red); position: relative; }
-    .cold-box::before { content: "CLASSIFIED_INFO"; position: absolute; top: -10px; right: 10px; background: var(--red); color: #000; font-size: 9px; padding: 2px 8px; font-weight: bold; }
-    .cold-box p { font-size: 14px; line-height: 1.8; color: #999; font-style: italic; text-align: left; }
-
-    /* DATA OVERFLOW SECTION (TEKS BANYAK) */
-    .data-overflow { margin-top: 50px; width: 90%; max-width: 800px; font-size: 8px; color: #150000; text-align: justify; word-break: break-all; user-select: none; opacity: 0.5; }
-
-    /* DYNAMIC TERMINAL FOOTER */
-    #term { position: fixed; bottom: 0; width: 100%; height: 120px; background: rgba(0,0,0,0.95); border-top: 1px solid #300; padding: 15px; font-size: 10px; z-index: 1000; pointer-events: none; }
-    .log-l { margin-bottom: 4px; color: #300; }
-    .log-l.hi { color: var(--red); text-shadow: 0 0 5px var(--red); }
-
-    footer { position: relative; margin: 50px 0; font-size: 10px; letter-spacing: 15px; color: #200; text-align: center; }
+  /* POPUP NOTIFIKASI */
+  .notif, .review {
+    position: fixed; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: rgba(17, 17, 17, 0.95); border: 1px solid gold;
+    padding: 10px 20px; border-radius: 25px;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+    font-size: 13px; z-index: 999; width: 85%; max-width: 350px;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0; visibility: hidden;
+    backdrop-filter: blur(5px);
+  }
+  .notif { bottom: 20px; }
+  .review { bottom: 75px; border-radius: 15px; }
+  
+  .popup-show { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+  .stars { color: gold; margin-right: 8px; font-size: 14px; }
 </style>
 </head>
 <body>
 
-<canvas id="matrix"></canvas>
+<div class="container">
+  <div class="profile">
+    <img src="https://takenupload.com/69672d9dd452e" alt="Profile">
+    <h1>SEO DEV</h1>
+    <p>Hubungi kontak di bawah untuk konsultasi atau panel admin</p>
+    <a class="btn" href="https://wa.me/628385080976">WhatsApp Admin</a>
+    <a class="btn" href="https://t.me/axionwl1">Telegram Channel</a>
+  </div>
 
-<div class="system-hud">
-    CPU: <span>40.3%</span> <br>
-    RAM: <span>8.22GB/16GB</span> <br>
-    NET: <span>STABLE</span> <br>
-    LOC: <span>UNDISCLOSED</span>
+  <div class="grid">
+    <div class="card">
+      <img src="https://takenupload.com/6967768c233e8" alt="MPO NEW">
+      <h3>TAMPILAN MPO NEW</h3>
+      <p>Rp 650,000</p>
+      <a class="btn" href="bayar.php?id=11">Beli Sekarang</a>
+      <a class="btn" style="background:#222;color:#fff" href="https://takenupload.com/6967768c233e8" target="_blank">Cek Demo</a>
+    </div>
+
+    <div class="card">
+      <img src="https://takenupload.com/69677682c8d65" alt="KINCAI PRO">
+      <h3>TAMPILAN KINCAI PRO</h3>
+      <p>Rp 650,000</p>
+      <a class="btn" href="bayar.php?id=10">Beli Sekarang</a>
+      <a class="btn" style="background:#222;color:#fff" href="https://takenupload.com/69677682c8d65" target="_blank">Cek Demo</a>
+    </div>
+
+    <div class="card">
+      <img src="https://takenupload.com/6967767c8dd61" alt="NEXUS">
+      <h3>TAMPILAN NEXUS</h3>
+      <p>Rp 650,000</p>
+      <a class="btn" href="bayar.php?id=9">Beli Sekarang</a>
+      <a class="btn" style="background:#222;color:#fff" href="https://takenupload.com/6967767c8dd61" target="_blank">Cek Demo</a>
+    </div>
+
+    <div class="card">
+      <img src="https://takenupload.com/696776763bce2" alt="IDN GREEN">
+      <h3>TAMPILAN IDN GREEN</h3>
+      <p>Rp 300,000</p>
+      <a class="btn" href="bayar.php?id=8">Beli Sekarang</a>
+      <a class="btn" style="background:#222;color:#fff" href="https://takenupload.com/696776763bce2" target="_blank">Cek Demo</a>
+    </div>
+
+    <div class="card">
+      <img src="https://takenupload.com/696776710061f" alt="PAY4D">
+      <h3>TAMPILAN PAY4D</h3>
+      <p>Rp 400,000</p>
+      <a class="btn" href="bayar.php?id=7">Beli Sekarang</a>
+      <a class="btn" style="background:#222;color:#fff" href="https://takenupload.com/696776710061f" target="_blank">Cek Demo</a>
+    </div>
+
+    <div class="card">
+      <img src="https://takenupload.com/696776659112a" alt="NUKE">
+      <h3>TAMPILAN NUKE</h3>
+      <p>Rp 550,000</p>
+      <a class="btn" href="bayar.php?id=6">Beli Sekarang</a>
+      <a class="btn" style="background:#222;color:#fff" href="https://takenupload.com/696776659112a" target="_blank">Cek Demo</a>
+    </div>
+  </div>
 </div>
 
-<header>
-    <div class="node-status">RONIIXF // NODE_403</div>
-    <button id="nav-btn" onclick="tgl()">[ OPEN_MENU ]</button>
-</header>
-
-<nav id="menu">
-    <a href="#" onclick="tgl()">0x1_ROOT</a>
-    <a href="#" onclick="tgl()">0x2_DATABASE</a>
-    <a href="#" onclick="tgl()">0x3_EXPLOIT</a>
-    <a href="#" onclick="tgl()" style="color:#300; margin-top:50px;">CLOSE</a>
-</nav>
-
-<main>
-    <div class="p-container">
-        <div class="radar"></div>
-        <img src="https://takenupload.com/69672d9dd452e" alt="RONIIXF">
-    </div>
-
-    <h1 class="glitch-nick">RONIIXF</h1>
-    <p class="sub-nick">403 NOT FOUND</p>
-
-    <div class="cold-box">
-        <p>"Gue gak ngetuk pintu mainframe lo, gue bakar seluruh gedungnyo lewat satu baris kode. Keamanan lo cuma pajangan buat gue hancurin. Gak usah ganti password, itu cuma nunda waktu gue buat balik lagi."</p>
-    </div>
-
-    <div class="data-overflow">
-        <span id="overflow-target"></span>
-    </div>
-
-    <footer>EST 2026 // SILENCE IS DEADLY</footer>
-</main>
-
-<div id="term"></div>
+<div class="notif" id="notif"></div>
+<div class="review" id="review"></div>
 
 <script>
-    function tgl() { document.getElementById('menu').classList.toggle('open'); }
+const users = ["Ra*** Ad***", "Di*** Se***", "Fa*** Ri***", "An*** Wi***", "Ri*** Su***", "De*** Ka***", "Ir*** Pa***", "Sa*** Nu***", "Mi*** Yo***", "Ke*** Al***"];
+const produkNotif = [
+  {nama: "TAMPILAN MPO NEW"},
+  {nama: "TAMPILAN KINCAI PRO"},
+  {nama: "TAMPILAN NEXUS"},
+  {nama: "TAMPILAN IDN GREEN"},
+  {nama: "TAMPILAN PAY4D"},
+  {nama: "TAMPILAN NUKE"}
+];
+const komentar = [
+  "Desainnya keren banget!",
+  "Admin fast respon 👍",
+  "Tampilan premium, ga nyesel beli",
+  "Work semua, mantap!",
+  "Langsung dipasang, hasil memuaskan 🔥"
+];
 
-    // GENERATE RIBUAN TEKS DATA DUMP
-    const target = document.getElementById('overflow-target');
-    let massiveData = "";
-    for(let i=0; i<5000; i++) {
-        massiveData += (Math.random().toString(16).substring(2, 8) + " ");
-    }
-    target.innerText = massiveData;
+function showPopups() {
+  const u = users[Math.floor(Math.random() * users.length)];
+  const p = produkNotif[Math.floor(Math.random() * produkNotif.length)];
+  const c = komentar[Math.floor(Math.random() * komentar.length)];
+  
+  const boxNotif = document.getElementById("notif");
+  const boxReview = document.getElementById("review");
 
-    // TERMINAL LOGS
-    const term = document.getElementById('term');
-    const logs = [
-        "SABOTAGING_NETWORK_ADAPTER...", "BYPASSING_AUTH_TOKEN_001x", "403_FORBIDDEN_BY_RONIIXF",
-        "INJECTING_REMOTE_SHELL_V4", "DUMPING_MASTER_KEY...", "CLEANING_SYSTEM_HISTORY",
-        "ENCRYPTING_HOST_FILES", "RONIIXF_NODE_CONNECTED"
-    ];
+  boxNotif.innerHTML = `🔔 <b>${u}</b> baru saja membeli <b>${p.nama}</b>`;
+  boxReview.innerHTML = `<span class="stars">★★★★★</span> ${c}`;
 
-    setInterval(() => {
-        const d = document.createElement('div');
-        d.className = 'log-l';
-        if(Math.random() > 0.7) d.className += ' hi';
-        d.innerText = `[${new Date().toLocaleTimeString()}] >> ${logs[Math.floor(Math.random()*logs.length)]}`;
-        term.prepend(d);
-        if(term.childNodes.length > 8) term.lastChild.remove();
-    }, 700);
+  boxNotif.classList.add("popup-show");
+  boxReview.classList.add("popup-show");
 
-    // MATRIX RAIN
-    const c = document.getElementById('matrix');
-    const ctx = c.getContext('2d');
-    c.width = window.innerWidth; c.height = window.innerHeight;
-    const drops = Array(Math.floor(c.width/18)).fill(1);
-    function draw() {
-        ctx.fillStyle = "rgba(0,0,0,0.05)"; ctx.fillRect(0,0,c.width,c.height);
-        ctx.fillStyle = "#200"; ctx.font = "15px monospace";
-        drops.forEach((y, i) => {
-            ctx.fillText(Math.floor(Math.random()*2), i*18, y*18);
-            if(y*18 > c.height && Math.random() > 0.98) drops[i] = 0;
-            drops[i]++;
-        });
-    }
-    setInterval(draw, 50);
+  setTimeout(() => {
+    boxNotif.classList.remove("popup-show");
+    boxReview.classList.remove("popup-show");
+  }, 4000);
+}
+
+// Jalankan popup pertama
+setTimeout(() => {
+  showPopups();
+  setInterval(showPopups, 8000);
+}, 3000);
 </script>
 
 </body>
