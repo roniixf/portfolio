@@ -3,140 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RONIXF // PORTFOLIO</title>
+    <title>RONIXF // BEYOND_THE_VOID</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@900&family=Space+Mono&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --red-glow: #ff003c;
+            --bg-black: #080808;
+        }
+
         body {
-            background-color: #050505;
-            color: #ffffff;
-            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-black);
+            color: #d1d1d1;
+            font-family: 'Space Mono', monospace;
             overflow-x: hidden;
+            background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
         }
 
-        .mono { font-family: 'JetBrains Mono', monospace; }
+        h1, .font-title { font-family: 'Red Hat Display', sans-serif; }
 
-        /* Neon Glow Aksen */
-        .neon-text { color: #ff0055; text-shadow: 0 0 10px rgba(255, 0, 85, 0.5); }
-        .neon-border { border: 1px solid rgba(255, 0, 85, 0.3); }
-
-        /* Foto Profile Bulat & HUD Ring */
-        .profile-container {
+        /* Profile Ring - Advanced Animated */
+        .profile-wrapper {
             position: relative;
-            width: 180px;
-            height: 180px;
-            margin: 0 auto;
+            width: 220px; height: 220px;
+            display: flex; align-items: center; justify-content: center;
         }
 
-        .profile-pic {
-            width: 150px;
-            height: 150px;
+        .profile-img {
+            width: 160px; height: 160px;
             border-radius: 50%;
+            border: 2px solid var(--red-glow);
             object-fit: cover;
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            border: 2px solid #ff0055;
-            z-index: 10;
+            filter: grayscale(1) contrast(1.2);
+            z-index: 5;
+            box-shadow: 0 0 20px rgba(255, 0, 60, 0.4);
         }
 
-        .hud-ring {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            border: 2px dashed #ff0055;
-            border-radius: 50%;
-            animation: spin 10s linear infinite;
-            opacity: 0.5;
+        .ring-outer {
+            position: absolute; width: 100%; height: 100%;
+            border: 1px solid var(--red-glow);
+            border-radius: 50%; opacity: 0.3;
+            animation: spin 15s linear infinite;
         }
 
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .ring-mid {
+            position: absolute; width: 190px; height: 190px;
+            border: 4px double var(--red-glow);
+            border-radius: 50%; opacity: 0.6;
+            animation: spin-reverse 10s linear infinite;
         }
 
-        /* Menu Styles */
-        .nav-link {
-            font-size: 0.75rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            transition: all 0.3s;
-            padding: 5px 10px;
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        @keyframes spin-reverse { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+
+        /* Scanline Effect - Subtle */
+        .scanline {
+            width: 100%; height: 2px; background: rgba(255, 0, 60, 0.1);
+            position: fixed; z-index: 100; pointer-events: none;
+            animation: scan 6s linear infinite;
+        }
+        @keyframes scan { 0% { top: -10%; } 100% { top: 110%; } }
+
+        /* Cyber Button */
+        .btn-red {
+            background: transparent; border: 1px solid var(--red-glow);
+            color: var(--red-glow); padding: 10px 30px;
+            transition: 0.3s; position: relative; overflow: hidden;
+            text-transform: uppercase; font-weight: bold; font-size: 12px;
+        }
+        .btn-red:hover {
+            background: var(--red-glow); color: black;
+            box-shadow: 0 0 30px var(--red-glow);
         }
 
-        .nav-link:hover {
-            background: #ff0055;
-            color: white;
-            box-shadow: 0 0 15px #ff0055;
+        /* Skill Box */
+        .skill-node {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid #1a1a1a;
+            padding: 20px; transition: 0.4s;
+        }
+        .skill-node:hover {
+            border-color: var(--red-glow);
+            background: rgba(255, 0, 60, 0.05);
         }
 
-        /* Skill Card */
-        .skill-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 3px solid #ff0055;
-            padding: 1.5rem;
-            transition: 0.3s;
-        }
+        .bar-bg { width: 100%; height: 4px; background: #1a1a1a; margin-top: 10px; }
+        .bar-fill { height: 100%; background: var(--red-glow); box-shadow: 0 0 10px var(--red-glow); }
 
-        .skill-card:hover {
-            background: rgba(255, 255, 255, 0.07);
-            transform: translateX(10px);
+        /* Menu */
+        .menu-item {
+            font-size: 11px; color: #666; transition: 0.3s;
+            letter-spacing: 2px; text-decoration: none;
         }
-
-        .progress-bg { height: 6px; background: rgba(255,255,255,0.1); width: 100%; border-radius: 10px; }
-        .progress-fill { height: 100%; background: #ff0055; box-shadow: 0 0 10px #ff0055; border-radius: 10px; }
+        .menu-item:hover { color: var(--red-glow); text-shadow: 0 0 5px var(--red-glow); }
     </style>
 </head>
-<body class="p-6">
+<body class="p-4">
+    <div class="scanline"></div>
 
-    <nav class="max-w-5xl mx-auto flex justify-between items-center mb-16 py-4 border-b border-white/10">
-        <div class="font-bold tracking-tighter text-xl mono">RONIXF<span class="neon-text">_</span></div>
-        <div class="flex gap-6">
-            <a href="#about" class="nav-link">About</a>
-            <a href="#skills" class="nav-link">Skills</a>
-            <a href="#contact" class="nav-link">Contact</a>
+    <nav class="max-w-6xl mx-auto flex justify-between items-center py-6 mb-16 border-b border-white/5">
+        <div class="font-title text-xl font-black text-white tracking-tighter italic">RONIXF_SYSTEMS</div>
+        <div class="space-x-8 uppercase hidden md:block">
+            <a href="#" class="menu-item font-bold">Infiltration</a>
+            <a href="#" class="menu-item font-bold">Archives</a>
+            <a href="#" class="menu-item font-bold text-red-600">Secure_Link</a>
         </div>
     </nav>
 
-    <section class="max-w-3xl mx-auto text-center mb-24" id="about">
-        <div class="profile-container mb-8">
-            <div class="hud-ring"></div>
-            <img src="https://via.placeholder.com/150" alt="Ronixf" class="profile-pic">
+    <main class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-5 flex flex-col items-center">
+            <div class="profile-wrapper mb-10">
+                <div class="ring-outer"></div>
+                <div class="ring-mid"></div>
+                <img src="https://via.placeholder.com/200" alt="RONIXF" class="profile-img">
+            </div>
+            <div class="text-center">
+                <h1 class="font-title text-6xl font-black text-white leading-none">RONIXF</h1>
+                <p class="text-red-600 text-xs mt-4 tracking-[0.6em] font-bold uppercase underline decoration-double">System Operative</p>
+            </div>
         </div>
-        
-        <h1 class="text-5xl font-bold mb-4 tracking-tight">RONIXF</h1>
-        <p class="mono text-pink-500 text-sm mb-6 uppercase tracking-[0.3em]">Cybersecurity & Full-Stack Developer</p>
-        <p class="text-gray-400 leading-relaxed">
-            Spesialis dalam pengembangan sistem aman dan arsitektur web modern. 
-            Fokus pada optimasi backend dan pertahanan sistem digital.
-        </p>
-    </section>
 
-    <section class="max-w-4xl mx-auto mb-24" id="skills">
-        <h2 class="mono text-xs uppercase tracking-[0.5em] mb-10 text-center text-gray-500">System_Capabilities</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="skill-card">
-                <div class="flex justify-between mb-4">
-                    <span class="mono font-bold">PYTHON</span>
-                    <span class="neon-text">98%</span>
+        <div class="lg:col-span-7 space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <div class="skill-node">
+                    <div class="flex justify-between text-xs font-bold">
+                        <span>// PYTHON_EXPLOIT</span>
+                        <span class="text-red-600">98%</span>
+                    </div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 98%;"></div>
+                    </div>
                 </div>
-                <div class="progress-bg">
-                    <div class="progress-fill" style="width: 98%;"></div>
+
+                <div class="skill-node">
+                    <div class="flex justify-between text-xs font-bold">
+                        <span>// JAVASCRIPT_VOID</span>
+                        <span class="text-red-600">92%</span>
+                    </div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 92%;"></div>
+                    </div>
                 </div>
+
+                <div class="skill-node">
+                    <div class="flex justify-between text-xs font-bold">
+                        <span>// PHP_BACKDOOR</span>
+                        <span class="text-red-600">85%</span>
+                    </div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 85%;"></div>
+                    </div>
+                </div>
+
+                <div class="skill-node">
+                    <div class="flex justify-between text-xs font-bold">
+                        <span>// SEC_PROTOCOLS</span>
+                        <span class="text-red-600">80%</span>
+                    </div>
+                    <div class="bar-bg">
+                        <div class="bar-fill" style="width: 80%;"></div>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="skill-card">
-                <div class="flex justify-between mb-4">
-                    <span class="mono font-bold">JAVASCRIPT</span>
-                    <span class="neon-text">92%</span>
-                </div>
-                <div class="progress-bg">
-                    <div class="progress-fill" style="width: 92%;"></div>
-                </div>
+            <div class="p-6 bg-white/5 border-l-2 border-red-600 mt-6 font-mono text-sm leading-relaxed italic">
+                "Bukan tentang siapa yang memiliki akses, tapi tentang siapa yang mampu mengendalikan alurnya. Saya membangun arsitektur digital dengan presisi militer dan keamanan tanpa celah."
             </div>
 
-            <div class="skill-card">
+            <div class="flex gap-4 pt-6">
+                <button class="btn-red">Download_Manifesto</button>
+                <button class="px-8 py-2 text-xs font-bold text-gray-500 hover:text-white transition uppercase tracking-widest">Connect_Uplink</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="max-w-6xl mx-auto mt-32 flex flex-col md:flex-row justify-between border-t border-white/5 pt-10 text-[10px] text-gray-600 uppercase tracking-widest gap-6">
+        <div>IP_STATUS: <span class="text-red-900">MASKED</span> // LATENCY: 2ms</div>
+        <div class="flex gap-10">
+            <a href="#" class="hover:text-red-600">Github</a>
+            <a href="#" class="hover:text-red-600">Deep_Web</a>
+            <a href="#" class="hover:text-red-600">Contact</a>
+        </div>
+        <div>© 2026 RONIXF_SHADOW_OPS</div>
+    </footer>
+
+</body>
+</html>
                 <div class="flex justify-between mb-4">
                     <span class="mono font-bold">PHP</span>
                     <span class="neon-text">85%</span>
