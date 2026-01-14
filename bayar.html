@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>PEMBAYARAN - SEO DEV</title>
+<title>CHECKOUT - SEO DEV</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
   body {
@@ -12,117 +12,108 @@
     color: #fff;
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    padding-top: 50px;
   }
   .pay-container {
     width: 90%;
     max-width: 400px;
-    background: #080808;
+    text-align: center;
+  }
+  
+  /* HEADER JUDUL */
+  h2 { color: #ff0000; text-shadow: 0 0 15px #ff0000; font-size: 24px; text-transform: uppercase; margin-bottom: 30px; }
+
+  /* BOX DETAIL TRANSAKSI */
+  .detail-card {
+    background: #0a0a0a;
     border: 2px solid #ff0000;
     border-radius: 20px;
-    padding: 25px;
-    text-align: center;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
-  }
-  h2 { color: #ff0000; text-shadow: 0 0 10px #ff0000; margin-top: 0; }
-  .detail-box {
-    background: #111;
-    border: 1px dashed #ff0000;
-    padding: 15px;
-    border-radius: 10px;
-    margin: 20px 0;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
     text-align: left;
+    margin-bottom: 25px;
   }
-  .detail-box p { margin: 5px 0; font-size: 14px; }
-  .detail-box b { color: #ff0000; }
-  
-  .qris-box img {
-    width: 100%;
-    border-radius: 10px;
-    border: 5px solid #fff; /* QRIS biasanya background putih biar scan lancar */
-    margin: 10px 0;
-  }
-  
-  .btn-confirm {
-    display: block;
-    background: linear-gradient(to right, #b30000, #ff0000);
-    color: #fff;
+  .detail-card h3 { margin-top: 0; font-size: 16px; border-bottom: 1px solid #330000; padding-bottom: 10px; color: #ff0000; }
+  .detail-card p { margin: 10px 0; font-size: 14px; display: flex; justify-content: space-between; }
+  .detail-card b { color: #fff; }
+  .price-tag { font-size: 18px; color: #ff0000 !important; font-weight: 900; }
+
+  /* QRIS AREA */
+  .qris-area {
+    background: #fff;
     padding: 15px;
-    border-radius: 30px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 20px;
-    text-transform: uppercase;
-    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+    border-radius: 15px;
+    margin-bottom: 20px;
   }
-  .timer { font-size: 12px; color: #888; margin-top: 10px; }
+  .qris-area img { width: 100%; display: block; }
+
+  /* TOMBOL KONFIRMASI MERAH NEON */
+  .btn-pay {
+    display: block;
+    background: linear-gradient(to right, #cc0000, #ff0000);
+    color: #fff;
+    padding: 16px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 16px;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px #ff0000;
+    margin-top: 10px;
+  }
+  .btn-pay:active { transform: scale(0.95); box-shadow: 0 0 30px #ff0000; }
+
+  .timer-text { margin-top: 20px; font-size: 13px; color: #888; }
+  .timer-text span { color: #ff0000; font-weight: bold; }
 </style>
 </head>
 <body>
 
 <div class="pay-container">
-  <h2>CHECKOUT PEMBAYARAN</h2>
+  <h2>Order Confirmation</h2>
   
-  <div class="detail-box">
-    <p>Produk: <b id="prod-name">Memuat...</b></p>
-    <p>Total Tagihan: <b id="prod-price">Memuat...</b></p>
-    <p>Metode: <b>QRIS ALL PAYMENT</b></p>
+  <div class="detail-card">
+    <h3>Detail Pesanan</h3>
+    <p>Nama Produk: <b id="p-name">Memuat...</b></p>
+    <p>ID Transaksi: <b id="p-id">#SDV-8821</b></p>
+    <p>Metode Bayar: <b>QRIS All Payment</b></p>
+    <p>Total Tagihan: <b id="p-price" class="price-tag">Rp 0</b></p>
   </div>
 
-  <div class="qris-box">
-    <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=CONTOH_QRIS_LU" alt="QRIS">
-    <p style="font-size: 11px; color: #aaa;">Scan QRIS di atas untuk menyelesaikan pembayaran</p>
+  <div class="qris-area">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=SEODEV_PAYMENT" alt="QRIS">
   </div>
+  <p style="font-size: 12px; color: #ccc;">Silahkan scan QRIS diatas dan upload bukti tf ke admin</p>
 
-  <a id="wa-confirm" href="#" class="btn-confirm">Konfirmasi Pembayaran</a>
-  <p class="timer">Selesaikan pembayaran dalam <span id="time">05:00</span></p>
+  <a id="wa-link" href="#" class="btn-pay">Konfirmasi Pembayaran</a>
+
+  <p class="timer-text">Selesaikan pembayaran dalam <span>05:00</span></p>
 </div>
 
 <script>
-  // Script untuk ambil ID produk dari URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get('id');
+  // Ambil data dari URL
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
 
-  // Database sederhana biar otomatis sesuai ID
-  const dataProduk = {
-    '11': { nama: 'TAMPILAN MPO NEW', harga: 'Rp 650,000' },
-    '10': { nama: 'TAMPILAN KINCAI PRO', harga: 'Rp 650,000' },
-    '9': { nama: 'TAMPILAN NEXUS', harga: 'Rp 650,000' },
-    '8': { nama: 'TAMPILAN IDN GREEN', harga: 'Rp 300,000' },
-    '7': { nama: 'TAMPILAN PAY4D', harga: 'Rp 400,000' },
-    '6': { nama: 'TAMPILAN NUKE', harga: 'Rp 550,000' }
+  // List Produk Biar Sesuai Depan
+  const list = {
+    '11': { n: 'TAMPILAN MPO NEW', h: 'Rp 650,000' },
+    '10': { n: 'TAMPILAN KINCAI PRO', h: 'Rp 650,000' },
+    '9': { n: 'TAMPILAN NEXUS', h: 'Rp 650,000' },
+    '8': { n: 'TAMPILAN IDN GREEN', h: 'Rp 300,000' },
+    '7': { n: 'TAMPILAN PAY4D', h: 'Rp 400,000' },
+    '6': { n: 'TAMPILAN NUKE', h: 'Rp 550,000' }
   };
 
-  if (dataProduk[id]) {
-    document.getElementById('prod-name').innerText = dataProduk[id].nama;
-    document.getElementById('prod-price').innerText = dataProduk[id].harga;
-    
-    // Link WA Konfirmasi Otomatis
-    const waLink = "https://wa.me/628385080976?text=" + encodeURIComponent(
-      "Halo Admin, saya ingin konfirmasi pembayaran.\n\n" +
-      "Produk: " + dataProduk[id].nama + "\n" +
-      "Harga: " + dataProduk[id].harga + "\n" +
-      "Metode: QRIS\n\nMohon segera diproses."
-    );
-    document.getElementById('wa-confirm').href = waLink;
-  }
+  if (list[id]) {
+    document.getElementById('p-name').innerText = list[id].n;
+    document.getElementById('p-price').innerText = list[id].h;
+    document.getElementById('p-id').innerText = "#SDV-" + Math.floor(1000 + Math.random() * 9000);
 
-  // Timer Hitung Mundur Sederhana
-  function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    setInterval(function () {
-      minutes = parseInt(timer / 60, 10);
-      seconds = parseInt(timer % 60, 10);
-      minutes = minutes < 10 ? "0" + minutes : minutes;
-      seconds = seconds < 10 ? "0" + seconds : seconds;
-      display.textContent = minutes + ":" + seconds;
-      if (--timer < 0) { timer = duration; }
-    }, 1000);
+    // Link WA otomatis
+    const txt = encodeURIComponent("Halo Admin,\nSaya ingin konfirmasi pembayaran produk:\n\nProduk: " + list[id].n + "\nHarga: " + list[id].h + "\n\nBukti transfer saya lampirkan.");
+    document.getElementById('wa-link').href = "https://wa.me/628385080976?text=" + txt;
   }
-  window.onload = function () {
-    startTimer(300, document.querySelector('#time'));
-  };
 </script>
 
 </body>
