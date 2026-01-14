@@ -34,14 +34,12 @@
             filter: drop-shadow(0 0 8px #ff0000); 
         }
 
-        .qris-img { width: 100%; border-radius: 10px; border: 2px solid #fff; filter: drop-shadow(0 0 10px #ff0000); }
+        .qris-img { width: 100%; border-radius: 10px; border: 2px solid #fff; filter: drop-shadow(0 0 10px #ff0000); margin-bottom: 15px; }
         .acc-number { font-size: 28px; color: #ff0000; font-weight: 900; text-shadow: 0 0 15px #ff0000; margin: 10px 0; }
 
-        /* AREA FORM UPLOAD (TEXT UPLOAD BUKTI DIHAPUS) */
-        .upload-section {
-            width: 100%; max-width: 400px; margin: 30px auto; 
-            padding: 25px 20px; border: 2px dashed #ff0000; border-radius: 15px;
-            background: #0a0a0a; box-sizing: border-box;
+        /* AREA FORM UPLOAD DALAM BOX */
+        .upload-inside {
+            margin-top: 20px; padding-top: 20px; border-top: 1px dashed #ff0000;
         }
         
         input[type="text"] { 
@@ -56,18 +54,16 @@
         .btn-submit { 
             background: #ff0000; color: #fff; padding: 18px; border-radius: 50px; 
             font-weight: 900; border: none; cursor: pointer; width: 100%; 
-            margin-top: 15px; text-transform: uppercase; box-shadow: 0 0 20px #ff0000;
+            margin-top: 10px; text-transform: uppercase; box-shadow: 0 0 20px #ff0000;
         }
 
-        /* TOMBOL KEMBALI WARNA MERAH NEON */
+        /* TOMBOL KEMBALI MERAH NEON */
         .btn-back-red {
             display: block; width: 100%; max-width: 400px; margin: 20px auto;
             padding: 16px; border-radius: 12px; border: 2px solid #ff0000;
             background: #000; color: #fff; text-decoration: none; font-weight: 800;
             text-transform: uppercase; box-shadow: 0 0 15px #ff0000;
-            transition: 0.3s;
         }
-        .btn-back-red:hover { box-shadow: 0 0 30px #ff0000; background: #220000; }
     </style>
 </head>
 <body>
@@ -82,25 +78,36 @@
     <div id="qris-box" class="content">
         <h3 style="color:#ff0000; text-shadow: 0 0 10px #ff0000;">SCAN QRIS</h3>
         <img src="https://takenupload.com/696782a493356" class="qris-img">
+        <div class="upload-inside">
+            <input type="text" class="u-nama" placeholder="Masukan Nama Anda">
+            <input type="text" class="u-wa" placeholder="Masukan Nomor WhatsApp">
+            <input type="file">
+            <button class="btn-submit" onclick="kirimKonfirmasi()">Kirim Bukti Pembayaran</button>
+        </div>
     </div>
 
     <div id="dana-box" class="content">
         <img src="https://i.ibb.co/S769z6r/DANA-Logo.png" class="logo-pay" alt="DANA">
         <p>TRANSFER DANA KE:</p>
         <div class="acc-number">082245390572</div>
+        <div class="upload-inside">
+            <input type="text" class="u-nama" placeholder="Masukan Nama Anda">
+            <input type="text" class="u-wa" placeholder="Masukan Nomor WhatsApp">
+            <input type="file">
+            <button class="btn-submit" onclick="kirimKonfirmasi()">Kirim Bukti Pembayaran</button>
+        </div>
     </div>
 
     <div id="ovo-box" class="content">
         <img src="https://i.ibb.co/3WqYq5V/OVO-Logo.png" class="logo-pay" alt="OVO">
         <p>TRANSFER OVO KE:</p>
         <div class="acc-number">08385080976</div>
-    </div>
-
-    <div class="upload-section">
-        <input type="text" id="user-nama" placeholder="Masukan Nama Anda">
-        <input type="text" id="user-wa" placeholder="Masukan Nomor WhatsApp">
-        <input type="file" id="user-file">
-        <button class="btn-submit" onclick="kirimKonfirmasi()">Kirim Bukti Pembayaran</button>
+        <div class="upload-inside">
+            <input type="text" class="u-nama" placeholder="Masukan Nama Anda">
+            <input type="text" class="u-wa" placeholder="Masukan Nomor WhatsApp">
+            <input type="file">
+            <button class="btn-submit" onclick="kirimKonfirmasi()">Kirim Bukti Pembayaran</button>
+        </div>
     </div>
 
     <a href="index.html" class="btn-back-red">Kembali ke Produk</a>
@@ -128,8 +135,11 @@
         }
 
         function kirimKonfirmasi() {
-            const nama = document.getElementById('user-nama').value;
-            const wa = document.getElementById('user-wa').value;
+            // Mengambil data dari box yang sedang aktif
+            const activeBox = document.querySelector('.content[style*="display: block"]');
+            const nama = activeBox.querySelector('.u-nama').value;
+            const wa = activeBox.querySelector('.u-wa').value;
+            
             if(!nama || !wa) { alert('Isi Nama & WA dulu bos!'); return; }
             
             const waLink = "https://wa.me/628385080976?text=" + encodeURIComponent(
