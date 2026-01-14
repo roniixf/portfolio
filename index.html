@@ -3,80 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RONIXF // DATABASE_OVERRIDE</title>
+    <title>RONIXF // SHADOW_OPERATIVE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
     <style>
+        /* CSS internal lo taruh di sini, jangan di luar tag style! */
         body {
-            background: #000;
+            background-color: #000;
             color: #fff;
             font-family: 'JetBrains Mono', monospace;
             overflow-x: hidden;
         }
         .cyber-font { font-family: 'Chakra Petch', sans-serif; }
         
-        /* Efek Latar Belakang Digital Static */
-        body::before {
-            content: "";
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
-            background-size: 100% 2px, 3px 100%;
-            z-index: 100; pointer-events: none;
-        }
-
-        /* Profile Pulse Effect */
-        .profile-wrapper {
+        .profile-frame {
             position: relative;
-            width: 150px; height: 150px;
+            width: 140px; height: 140px;
             margin: 0 auto;
         }
         .profile-img {
-            width: 100%; height: 100%;
+            width: 120px; height: 120px;
             border-radius: 50%;
-            border: 3px solid #ff003c;
-            object-fit: cover;
-            z-index: 10; position: relative;
+            border: 2px solid #ff003c;
+            position: absolute; top: 10px; left: 10px;
+            z-index: 10; object-fit: cover;
             filter: grayscale(1) brightness(0.8);
         }
-        .pulse {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            border: 2px solid #ff003c;
+        .radar {
+            position: absolute; width: 100%; height: 100%;
+            border: 1px solid #ff003c;
             border-radius: 50%;
-            animation: pulse-anim 2s infinite;
+            animation: pulse 2s infinite;
         }
-        @keyframes pulse-anim {
+        @keyframes pulse {
             0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(1.5); opacity: 0; }
+            100% { transform: scale(1.4); opacity: 0; }
         }
-
-        /* Skill Cards */
-        .skill-box {
-            background: rgba(20, 2, 2, 0.6);
-            border-left: 4px solid #ff003c;
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-        .progress-bg { height: 4px; background: #222; width: 100%; margin-top: 8px; }
-        .progress-fill { height: 100%; background: #ff003c; box-shadow: 0 0 10px #ff003c; }
-
-        /* Glitch Title */
-        .glitch {
-            text-shadow: 2px 0 #ff003c, -2px 0 #00f0ff;
-            animation: glitch-skew 1s infinite linear alternate-reverse;
-        }
-        @keyframes glitch-skew {
-            0% { transform: skew(0deg); }
-            20% { transform: skew(3deg); }
-            100% { transform: skew(-1deg); }
-        }
+        .stat-bar { height: 4px; background: #1a1a1a; width: 100%; margin-top: 8px; }
+        .stat-fill { height: 100%; background: #ff003c; box-shadow: 0 0 10px #ff003c; }
     </style>
 </head>
 <body class="p-4 md:p-10">
 
-    <nav class="max-w-4xl mx-auto flex justify-between items-center mb-16 border-b border-red-900 pb-4">
-        <div class="cyber-font text-xl font-bold tracking-tighter text-red-600 uppercase">RONIXF_CORE</div>
-        <div class="flex gap-4 text-[10px] font-bold opacity-70">
+    <nav class="max-w-4xl mx-auto flex justify-between items-center mb-12 border-b border-red-950 pb-4">
+        <div class="cyber-font text-lg font-bold text-red-600">RONIXF_CORE</div>
+        <div class="text-[10px] text-green-500 font-bold tracking-widest animate-pulse">SYSTEM_ACTIVE</div>
+    </nav>
+
+    <header class="text-center mb-16">
+        <div class="profile-frame mb-8">
+            <div class="radar"></div>
+            <img src="https://via.placeholder.com/150" alt="RONIXF" class="profile-img">
+        </div>
+        
+        <h1 class="cyber-font text-5xl font-black mb-2 tracking-tighter">RONIXF</h1>
+        <p class="text-red-500 text-[10px] tracking-[0.5em] font-bold uppercase mb-8">Professional System Infiltrator</p>
+        
+        <div class="max-w-lg mx-auto p-4 bg-red-950/10 border-l-4 border-red-600 text-xs italic text-gray-400">
+            "Keamanan hanyalah sebuah doa. Bagi saya, setiap enkripsi hanyalah sebuah teka-teki yang menunggu untuk dipecahkan. Saya tidak mengetuk pintu, saya menciptakan pintu."
+        </div>
+    </header>
+
+    <section class="max-w-2xl mx-auto space-y-6">
+        <div class="bg-zinc-950 p-4 border border-zinc-900">
+            <div class="flex justify-between text-[10px] font-bold">
+                <span>// PYTHON_ENGINE</span>
+                <span class="text-red-600">98%</span>
+            </div>
+            <div class="stat-bar"><div class="stat-fill" style="width: 98%"></div></div>
+        </div>
+
+        <div class="bg-zinc-950 p-4 border border-zinc-900">
+            <div class="flex justify-between text-[10px] font-bold">
+                <span>// JAVASCRIPT_VOID</span>
+                <span class="text-red-600">92%</span>
+            </div>
+            <div class="stat-bar"><div class="stat-fill" style="width: 92%"></div></div>
+        </div>
+
+        <div class="bg-zinc-950 p-4 border border-zinc-900">
+            <div class="flex justify-between text-[10px] font-bold">
+                <span>// PHP_BACKDOOR</span>
+                <span class="text-red-600">85%</span>
+            </div>
+            <div class="stat-bar"><div class="stat-fill" style="width: 85%"></div></div>
+        </div>
+    </section>
+
+    <footer class="max-w-4xl mx-auto mt-20 text-center border-t border-zinc-900 pt-8">
+        <div class="text-[9px] text-gray-600 tracking-widest uppercase">
+            ESTABLISHED 2026 // NO TRACE LEFT BEHIND // RONIXF_MAINFRAME
+        </div>
+    </footer>
+
+</body>
+</html>
             <span>[NET_ID: 882-XF]</span>
             <span class="text-green-500 animate-pulse text-center">● ONLINE</span>
         </div>
