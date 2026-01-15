@@ -15,7 +15,7 @@
         body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #000; color: #fff; display: flex; justify-content: center; }
         .container { width: 100%; max-width: 420px; padding: 15px; text-align: center; display: flex; flex-direction: column; align-items: center; }
 
-        /* PROFILE NEON CERAH BANGET BANGET */
+        /* PROFILE NEON */
         .profile { width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: 10px; margin-bottom: 25px; }
         .profile img { 
             width: 130px; height: 130px; border-radius: 50%; 
@@ -25,7 +25,7 @@
             filter: drop-shadow(0 0 10px #ff0000);
         }
 
-        /* NAMA SHIMMER MERAH CERAH */
+        /* NAMA SHIMMER MERAH */
         h1 { 
             width: 100%; margin: 0 auto 10px auto; font-weight: 900; text-transform: uppercase; font-size: 28px; text-align: center;
             background: linear-gradient(to right, #ff0000 0%, #ff0000 40%, #ffffff 50%, #ff0000 60%, #ff0000 100%);
@@ -36,7 +36,7 @@
         
         .profile p { font-size: 13px; opacity: 0.9; margin-bottom: 20px; color: #ffcccc; text-shadow: 0 0 5px #ff0000; }
 
-        /* TOMBOL UTAMA SHIMMER */
+        /* TOMBOL UTAMA */
         .btn {
             display: block; width: 100%; background: linear-gradient(120deg, #ff0000, #ff4d4d, #ff0000);
             color: #fff; padding: 14px 0; border-radius: 30px; text-decoration: none; margin: 8px 0;
@@ -45,6 +45,22 @@
         }
         .btn:after { content: ""; position: absolute; top: 0; left: -150%; width: 60%; height: 100%; background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .6), transparent); animation: shimmer 3s infinite; }
         @keyframes shimmer { 0% { left: -150% } 100% { left: 150% } }
+
+        /* MUSIC PLAYER NEON RED */
+        .music-box {
+            width: 100%; background: #080808; border: 2px solid #ff0000; border-radius: 20px;
+            padding: 15px; margin-top: 10px; box-shadow: 0 0 20px #ff0000; box-sizing: border-box;
+        }
+        .music-box h4 { margin: 0 0 10px 0; font-size: 14px; color: #ff0000; text-shadow: 0 0 5px #ff0000; text-transform: uppercase; }
+        .music-controls { display: flex; flex-direction: column; gap: 8px; }
+        .track-btn {
+            background: #111; border: 1px solid #ff0000; color: #fff; padding: 8px;
+            border-radius: 10px; cursor: pointer; font-size: 12px; transition: 0.3s;
+            text-transform: uppercase; font-weight: bold;
+        }
+        .track-btn.active { background: #ff0000; box-shadow: 0 0 15px #ff0000; }
+        
+        audio { width: 100%; height: 30px; margin-top: 10px; filter: invert(100%) hue-rotate(180deg) brightness(1.5); }
 
         /* GRID */
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; margin-top: 20px; }
@@ -55,19 +71,15 @@
         .card p { color: #ff0000; margin: 5px 0; font-weight: 900; font-size: 16px; text-shadow: 0 0 8px #ff0000; }
         .card .btn { width: 90%; margin: 5px auto 12px; padding: 10px 0; font-size: 11px; border-radius: 10px; box-shadow: 0 0 10px #ff0000; }
 
-        /* NOTIF CENTER & GEDE KOMENTAR */
+        /* NOTIF */
         .notif {
             position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(150px);
             background: rgba(0, 0, 0, 0.95); border: 2px solid #ff0000;
             padding: 20px; border-radius: 25px; font-size: 15px; 
-            z-index: 9999; width: 85%; text-align: center; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            z-index: 9999; width: 85%; text-align: center; transition: 0.6s; 
             opacity: 0; box-shadow: 0 0 40px #ff0000; color: #fff; box-sizing: border-box;
-            line-height: 1.5;
         }
         .popup-show { opacity: 1; transform: translateX(-50%) translateY(0); }
-        .notif b { color: #ff0000; text-shadow: 0 0 5px #ff0000; font-size: 16px; }
-        .notif span { color: #00ff00; font-weight: bold; } /* Hijau buat produk */
-        .notif i { display: block; margin-top: 5px; color: #fff; font-style: italic; opacity: 0.9; }
     </style>
 </head>
 <body>
@@ -76,10 +88,22 @@
   <div class="profile">
     <img src="https://takenupload.com/69672d9dd452e">
     <h1>403 - SEO DEV</h1>
-    <p>Untuk melihat panel admin silahkan hubungi kontak di bawah ini</p>
+    <p>Hubungi admin untuk mendapatkan akses panel</p>
     
     <a class="btn" href="https://wa.me/628385080976">WhatsApp Admin</a>
     <a class="btn" href="https://t.me/devcasinoo">Telegram Channel</a>
+
+    <div class="music-box">
+        <h4>Vibe Music Player</h4>
+        <div class="music-controls">
+            <button class="track-btn" onclick="playTrack('track1', this)">🔊 Luxury Casino</button>
+            <button class="track-btn" onclick="playTrack('track2', this)">🔊 Energy Bass</button>
+            <button class="track-btn" onclick="playTrack('track3', this)">🔊 Oriental Hoki</button>
+        </div>
+        <audio id="mainAudio" controls>
+            <source id="audioSource" src="" type="audio/mpeg">
+        </audio>
+    </div>
   </div>
 
   <div class="grid">
@@ -119,30 +143,43 @@
 <div class="notif" id="notif"></div>
 
 <script>
+// DAFTAR LINK LAGU (Ganti link di bawah ini dengan link MP3 lu nanti)
+const playlist = {
+    track1: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    track2: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    track3: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+};
+
+const audio = document.getElementById('mainAudio');
+const source = document.getElementById('audioSource');
+
+function playTrack(id, btn) {
+    // Reset tombol active
+    document.querySelectorAll('.track-btn').forEach(b => b.classList.remove('active'));
+    
+    // Set lagu baru
+    source.src = playlist[id];
+    audio.load();
+    audio.play();
+    
+    // Tambah efek nyala di tombol
+    btn.classList.add('active');
+}
+
+// SCRIPT NOTIF (Bawaan Lu)
 const users = ["Ra*** Ad***", "Di*** Se***", "Fa*** Ri***", "An*** Wi***", "Sult***", "Riz***", "Bamb***"];
 const prod = ["MPO NEW", "KINCAI PRO", "NEXUS", "IDN GREEN", "PAY4D", "NUKE"];
-const komentar = [
-  "Desainnya keren banget!",
-  "Admin fast respon 👍",
-  "Tampilan premium, ga nyesel beli",
-  "Work semua, mantap!",
-  "Langsung dipasang, hasil memuaskan 🔥"
-];
+const komentar = ["Desainnya keren!", "Admin fast respon 👍", "Premium bgt!", "Work semua!", "Puas 🔥"];
 
 function showPop() {
   const u = users[Math.floor(Math.random() * users.length)];
   const p = prod[Math.floor(Math.random() * prod.length)];
-  const k = komentar[Math.floor(Math.random() * komentar.length)];
   const box = document.getElementById("notif");
-  
-  box.innerHTML = `🔔 <b>${u}</b> beli <span>${p}</span><br><i>"${k}"</i>`;
-  
+  box.innerHTML = `🔔 <b>${u}</b> beli <span>${p}</span>`;
   box.classList.add("popup-show");
   setTimeout(() => { box.classList.remove("popup-show"); }, 5000);
 }
-
 setInterval(showPop, 10000);
-setTimeout(showPop, 2000);
 </script>
 
 </body>
