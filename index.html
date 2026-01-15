@@ -5,11 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>403 - SEO DEV</title>
 
+    <meta property="og:title" content="403 - SEO DEV">
+    <meta property="og:description" content="Jasa pembuatan website slot judi online.">
+    <meta property="og:image" content="https://takenupload.com/69672d9dd452e">
+    <meta property="og:url" content="https://403notfound.vercel.app/">
+    <meta name="twitter:card" content="summary_large_image">
+
     <style>
         body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #000; color: #fff; display: flex; justify-content: center; }
         .container { width: 100%; max-width: 420px; padding: 15px; text-align: center; display: flex; flex-direction: column; align-items: center; }
 
-        /* PROFILE NEON NYALA BANGET */
+        /* PROFILE NEON CERAH BANGET BANGET */
         .profile { width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: 10px; margin-bottom: 25px; }
         .profile img { 
             width: 130px; height: 130px; border-radius: 50%; 
@@ -21,7 +27,7 @@
 
         /* NAMA SHIMMER MERAH CERAH */
         h1 { 
-            width: 100%; margin: 0 auto 10px auto; font-weight: 900; text-transform: uppercase; font-size: 28px;
+            width: 100%; margin: 0 auto 10px auto; font-weight: 900; text-transform: uppercase; font-size: 28px; text-align: center;
             background: linear-gradient(to right, #ff0000 0%, #ff0000 40%, #ffffff 50%, #ff0000 60%, #ff0000 100%);
             background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             display: block; filter: drop-shadow(0 0 15px #ff0000); animation: textShimmer 3s linear infinite;
@@ -40,10 +46,10 @@
         .btn:after { content: ""; position: absolute; top: 0; left: -150%; width: 60%; height: 100%; background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .6), transparent); animation: shimmer 3s infinite; }
         @keyframes shimmer { 0% { left: -150% } 100% { left: 150% } }
 
-        /* MENU MUSIK NEON MERAH */
+        /* MENU MUSIK NEON RED */
         .music-box {
             width: 100%; background: #080808; border: 2px solid #ff0000; border-radius: 20px;
-            padding: 15px; margin: 10px 0 20px 0; box-shadow: 0 0 25px #ff0000; box-sizing: border-box;
+            padding: 15px; margin: 10px 0 25px 0; box-shadow: 0 0 25px #ff0000; box-sizing: border-box;
         }
         .music-box h3 { font-size: 14px; margin-bottom: 12px; color: #fff; text-shadow: 0 0 10px #ff0000; text-transform: uppercase; }
         .music-grid { display: grid; grid-template-columns: 1fr; gap: 8px; }
@@ -54,7 +60,7 @@
         }
         .m-btn.active { background: #ff0000; box-shadow: 0 0 20px #ff0000; border: 1px solid #fff; }
 
-        /* GRID PRODUK (FULL SEMUA PRODUK LU) */
+        /* GRID */
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; margin-top: 20px; }
         .card { border: 2px solid #ff0000; border-radius: 15px; background: #080808; box-shadow: 0 0 15px rgba(255, 0, 0, 0.6); overflow: hidden; display: flex; flex-direction: column; }
         .card img { width: 100%; aspect-ratio: 1 / 1.1; object-fit: cover; border-bottom: 2px solid #ff0000; }
@@ -63,15 +69,19 @@
         .card p { color: #ff0000; margin: 5px 0; font-weight: 900; font-size: 16px; text-shadow: 0 0 8px #ff0000; }
         .card .btn { width: 90%; margin: 5px auto 12px; padding: 10px 0; font-size: 11px; border-radius: 10px; box-shadow: 0 0 10px #ff0000; }
 
-        /* NOTIF */
+        /* NOTIF CENTER & GEDE KOMENTAR */
         .notif {
             position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(150px);
             background: rgba(0, 0, 0, 0.95); border: 2px solid #ff0000;
             padding: 20px; border-radius: 25px; font-size: 15px; 
-            z-index: 9999; width: 85%; text-align: center; transition: 0.6s; 
-            opacity: 0; box-shadow: 0 0 40px #ff0000; color: #fff;
+            z-index: 9999; width: 85%; text-align: center; transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            opacity: 0; box-shadow: 0 0 40px #ff0000; color: #fff; box-sizing: border-box;
+            line-height: 1.5;
         }
         .popup-show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .notif b { color: #ff0000; text-shadow: 0 0 5px #ff0000; font-size: 16px; }
+        .notif span { color: #00ff00; font-weight: bold; } /* Hijau buat produk */
+        .notif i { display: block; margin-top: 5px; color: #fff; font-style: italic; opacity: 0.9; }
     </style>
 </head>
 <body>
@@ -133,6 +143,7 @@
 <div class="notif" id="notif"></div>
 
 <script>
+// --- MUSIC PLAYER ---
 const player = document.getElementById('mainAudio');
 function playTrack(url, btn) {
     document.querySelectorAll('.m-btn').forEach(b => b.classList.remove('active'));
@@ -145,16 +156,38 @@ function playTrack(url, btn) {
     }
 }
 
-// SCRIPT NOTIF BAWAAN LU
-const users = ["Ra*** Ad***", "Di*** Se***", "Fa*** Ri***", "An*** Wi***"];
+// --- NOTIFIKASI REAL ---
+const users = ["Ra*** Ad***", "Di*** Se***", "Fa*** Ri***", "An*** Wi***", "Sult***", "Riz***", "Bamb***", "Ki*** Ma***"];
+const products = [
+    { n: "MPO NEW", h: "Rp 650,000" },
+    { n: "KINCAI PRO", h: "Rp 650,000" },
+    { n: "NEXUS", h: "Rp 650,000" },
+    { n: "IDN GREEN", h: "Rp 300,000" },
+    { n: "PAY4D", h: "Rp 400,000" },
+    { n: "NUKE", h: "Rp 550,000" }
+];
+const komentar = [
+    "Mantap, engine stabil banget! 🔥",
+    "Admin fast respon 👍",
+    "Tampilan premium, rekomen!",
+    "Work semua, hasil memuaskan 🔥",
+    "Winrate sakti Boskuh! 💸"
+];
+
 function showPop() {
   const u = users[Math.floor(Math.random() * users.length)];
+  const p = products[Math.floor(Math.random() * products.length)];
+  const k = komentar[Math.floor(Math.random() * komentar.length)];
   const box = document.getElementById("notif");
-  box.innerHTML = `🔔 <b>${u}</b> baru saja beli di 403-DEV!`;
+  
+  box.innerHTML = `🔔 <b>${u}</b> beli <span>${p.n}</span><br><b>${p.h}</b><br><i>"${k}"</i>`;
+  
   box.classList.add("popup-show");
   setTimeout(() => { box.classList.remove("popup-show"); }, 5000);
 }
-setInterval(showPop, 10000);
+
+setInterval(showPop, 12000);
+setTimeout(showPop, 2000);
 </script>
 
 </body>
