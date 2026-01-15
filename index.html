@@ -9,177 +9,150 @@
     <meta property="og:description" content="Jasa pembuatan website slot judi online.">
     <meta property="og:image" content="https://takenupload.com/69672d9dd452e">
     <meta property="og:url" content="https://403notfound.vercel.app/">
-    <meta name="twitter:card" content="summary_large_image">
 
     <style>
-        body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #000; color: #fff; display: flex; justify-content: center; }
+        body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #000; color: #fff; display: flex; justify-content: center; overflow-x: hidden; }
         .container { width: 100%; max-width: 420px; padding: 15px; text-align: center; display: flex; flex-direction: column; align-items: center; }
 
-        /* PROFILE NEON */
-        .profile { width: 100%; display: flex; flex-direction: column; align-items: center; margin-top: 10px; margin-bottom: 25px; }
+        /* PROFILE NEON MERAH */
         .profile img { 
             width: 130px; height: 130px; border-radius: 50%; 
             border: 3px solid #ff0000; 
-            box-shadow: 0 0 45px #ff0000, 0 0 15px #ff0000 inset; 
+            box-shadow: 0 0 30px #ff0000; 
             object-fit: cover; margin-bottom: 15px; 
-            filter: drop-shadow(0 0 10px #ff0000);
         }
 
-        /* NAMA SHIMMER MERAH */
         h1 { 
-            width: 100%; margin: 0 auto 10px auto; font-weight: 900; text-transform: uppercase; font-size: 28px; text-align: center;
-            background: linear-gradient(to right, #ff0000 0%, #ff0000 40%, #ffffff 50%, #ff0000 60%, #ff0000 100%);
-            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            display: block; filter: drop-shadow(0 0 15px #ff0000); animation: textShimmer 3s linear infinite;
+            font-weight: 900; text-transform: uppercase; font-size: 28px;
+            background: linear-gradient(to right, #ff0000, #ffffff, #ff0000);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px #ff0000); animation: textShimmer 3s infinite;
         }
-        @keyframes textShimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
-        
-        .profile p { font-size: 13px; opacity: 0.9; margin-bottom: 20px; color: #ffcccc; text-shadow: 0 0 5px #ff0000; }
+        @keyframes textShimmer { 0% { background-position: -200%; } 100% { background-position: 200%; } }
 
-        /* TOMBOL UTAMA */
+        /* MUSIC PLAYER MENU - NEON RED */
+        .music-menu {
+            width: 100%; background: #0a0a0a; border: 2px solid #ff0000; border-radius: 20px;
+            padding: 15px; margin: 20px 0; box-shadow: 0 0 20px #ff0000 inset, 0 0 10px #ff0000;
+        }
+        .music-menu h4 { margin: 0 0 10px; color: #ff0000; text-transform: uppercase; letter-spacing: 2px; font-size: 14px; }
+        
+        .track-list { display: flex; flex-direction: column; gap: 8px; }
+        .track-item {
+            background: #111; border: 1px solid #444; color: #ccc; padding: 10px;
+            border-radius: 12px; cursor: pointer; font-size: 12px; font-weight: bold;
+            transition: 0.3s; text-align: left; display: flex; align-items: center; gap: 10px;
+        }
+        .track-item:hover { border-color: #ff0000; color: #fff; box-shadow: 0 0 10px #ff0000; }
+        .track-item.active { background: #ff0000; color: #fff; border-color: #fff; box-shadow: 0 0 15px #ff0000; }
+        
+        /* Hidden Audio Player */
+        #mainAudio { display: none; }
+
+        /* BUTTONS */
         .btn {
-            display: block; width: 100%; background: linear-gradient(120deg, #ff0000, #ff4d4d, #ff0000);
+            display: block; width: 100%; background: linear-gradient(120deg, #ff0000, #7a0000);
             color: #fff; padding: 14px 0; border-radius: 30px; text-decoration: none; margin: 8px 0;
-            font-weight: bold; position: relative; overflow: hidden; box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
-            text-transform: uppercase; border: none; box-sizing: border-box;
+            font-weight: bold; box-shadow: 0 0 15px #ff0000; text-transform: uppercase;
         }
-        .btn:after { content: ""; position: absolute; top: 0; left: -150%; width: 60%; height: 100%; background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .6), transparent); animation: shimmer 3s infinite; }
-        @keyframes shimmer { 0% { left: -150% } 100% { left: 150% } }
-
-        /* MUSIC PLAYER NEON RED */
-        .music-box {
-            width: 100%; background: #080808; border: 2px solid #ff0000; border-radius: 20px;
-            padding: 15px; margin-top: 10px; box-shadow: 0 0 20px #ff0000; box-sizing: border-box;
-        }
-        .music-box h4 { margin: 0 0 10px 0; font-size: 14px; color: #ff0000; text-shadow: 0 0 5px #ff0000; text-transform: uppercase; }
-        .music-controls { display: flex; flex-direction: column; gap: 8px; }
-        .track-btn {
-            background: #111; border: 1px solid #ff0000; color: #fff; padding: 8px;
-            border-radius: 10px; cursor: pointer; font-size: 12px; transition: 0.3s;
-            text-transform: uppercase; font-weight: bold;
-        }
-        .track-btn.active { background: #ff0000; box-shadow: 0 0 15px #ff0000; }
-        
-        audio { width: 100%; height: 30px; margin-top: 10px; filter: invert(100%) hue-rotate(180deg) brightness(1.5); }
 
         /* GRID */
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; margin-top: 20px; }
-        .card { border: 2px solid #ff0000; border-radius: 15px; background: #080808; box-shadow: 0 0 15px rgba(255, 0, 0, 0.6); overflow: hidden; display: flex; flex-direction: column; }
-        .card img { width: 100%; aspect-ratio: 1 / 1.1; object-fit: cover; border-bottom: 2px solid #ff0000; }
-        .card-info { padding: 10px 5px; }
-        .card h3 { margin: 0; font-size: 11px; height: 30px; color: #fff; line-height: 1.2; text-transform: uppercase; }
-        .card p { color: #ff0000; margin: 5px 0; font-weight: 900; font-size: 16px; text-shadow: 0 0 8px #ff0000; }
-        .card .btn { width: 90%; margin: 5px auto 12px; padding: 10px 0; font-size: 11px; border-radius: 10px; box-shadow: 0 0 10px #ff0000; }
+        .card { border: 2px solid #ff0000; border-radius: 15px; background: #080808; overflow: hidden; }
+        .card img { width: 100%; aspect-ratio: 1/1.1; object-fit: cover; }
+        .card-info { padding: 10px; }
+        .card p { color: #ff0000; font-weight: 900; font-size: 16px; margin: 5px 0; }
 
-        /* NOTIF */
+        /* NOTIF POPUP */
         .notif {
-            position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(150px);
-            background: rgba(0, 0, 0, 0.95); border: 2px solid #ff0000;
-            padding: 20px; border-radius: 25px; font-size: 15px; 
-            z-index: 9999; width: 85%; text-align: center; transition: 0.6s; 
-            opacity: 0; box-shadow: 0 0 40px #ff0000; color: #fff; box-sizing: border-box;
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(150px);
+            background: #000; border: 2px solid #ff0000; padding: 15px; border-radius: 20px;
+            width: 80%; text-align: center; transition: 0.5s; opacity: 0; z-index: 100;
         }
-        .popup-show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .show { transform: translateX(-50%) translateY(0); opacity: 1; }
     </style>
 </head>
 <body>
 
 <div class="container">
-  <div class="profile">
-    <img src="https://takenupload.com/69672d9dd452e">
-    <h1>403 - SEO DEV</h1>
-    <p>Hubungi admin untuk mendapatkan akses panel</p>
-    
-    <a class="btn" href="https://wa.me/628385080976">WhatsApp Admin</a>
-    <a class="btn" href="https://t.me/devcasinoo">Telegram Channel</a>
-
-    <div class="music-box">
-        <h4>Vibe Music Player</h4>
-        <div class="music-controls">
-            <button class="track-btn" onclick="playTrack('track1', this)">🔊 Luxury Casino</button>
-            <button class="track-btn" onclick="playTrack('track2', this)">🔊 Energy Bass</button>
-            <button class="track-btn" onclick="playTrack('track3', this)">🔊 Oriental Hoki</button>
+    <div class="profile">
+        <img src="https://takenupload.com/69672d9dd452e">
+        <h1>403 - SEO DEV</h1>
+        <p style="color:#ffcccc">Pusat Development Engine Website Judi Online</p>
+        
+        <a class="btn" href="https://wa.me/628385080976">WhatsApp Admin</a>
+        
+        <div class="music-menu">
+            <h4>PILIH VIBE MUSIC</h4>
+            <div class="track-list">
+                <div class="track-item" onclick="changeMusic('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', this)">
+                    🔴 <span>MODE MAFIA (PHONK)</span>
+                </div>
+                <div class="track-item" onclick="changeMusic('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3', this)">
+                    🔴 <span>MODE PARTY (HOUSE)</span>
+                </div>
+                <div class="track-item" onclick="changeMusic('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3', this)">
+                    🔴 <span>MODE CHILL (SYNTH)</span>
+                </div>
+            </div>
+            <audio id="mainAudio" controls loop>
+                <source id="audioSrc" src="" type="audio/mpeg">
+            </audio>
+            <p id="status" style="font-size:10px; margin-top:10px; color:#666;">Klik salah satu untuk putar musik</p>
         </div>
-        <audio id="mainAudio" controls>
-            <source id="audioSource" src="" type="audio/mpeg">
-        </audio>
-    </div>
-  </div>
 
-  <div class="grid">
-    <div class="card">
-      <img src="https://takenupload.com/6967768c233e8">
-      <div class="card-info"><h3>TAMPILAN MPO NEW</h3><p>Rp 650,000</p></div>
-      <a class="btn" href="bayar.html?id=11">Beli Sekarang</a>
+        <a class="btn" style="background:#111; border:1px solid #ff0000" href="https://t.me/devcasinoo">Telegram Channel</a>
     </div>
-    <div class="card">
-      <img src="https://takenupload.com/69677682c8d65">
-      <div class="card-info"><h3>TAMPILAN KINCAI PRO</h3><p>Rp 650,000</p></div>
-      <a class="btn" href="bayar.html?id=10">Beli Sekarang</a>
+
+    <div class="grid">
+        <div class="card">
+            <img src="https://takenupload.com/6967768c233e8">
+            <div class="card-info"><h3>MPO NEW</h3><p>Rp 650,000</p></div>
+            <a class="btn" style="width:80%; margin:auto auto 10px; font-size:10px;" href="bayar.html?id=11">Beli</a>
+        </div>
+        <div class="card">
+            <img src="https://takenupload.com/69677682c8d65">
+            <div class="card-info"><h3>KINCAI PRO</h3><p>Rp 650,000</p></div>
+            <a class="btn" style="width:80%; margin:auto auto 10px; font-size:10px;" href="bayar.html?id=10">Beli</a>
+        </div>
     </div>
-    <div class="card">
-      <img src="https://takenupload.com/6967767c8dd61">
-      <div class="card-info"><h3>TAMPILAN NEXUS</h3><p>Rp 650,000</p></div>
-      <a class="btn" href="bayar.html?id=9">Beli Sekarang</a>
-    </div>
-    <div class="card">
-      <img src="https://takenupload.com/696776763bce2">
-      <div class="card-info"><h3>TAMPILAN IDN GREEN</h3><p>Rp 300,000</p></div>
-      <a class="btn" href="bayar.html?id=8">Beli Sekarang</a>
-    </div>
-    <div class="card">
-      <img src="https://takenupload.com/696776710061f">
-      <div class="card-info"><h3>TAMPILAN PAY4D</h3><p>Rp 400,000</p></div>
-      <a class="btn" href="bayar.html?id=7">Beli Sekarang</a>
-    </div>
-    <div class="card">
-      <img src="https://takenupload.com/696776659112a">
-      <div class="card-info"><h3>TAMPILAN NUKE</h3><p>Rp 550,000</p></div>
-      <a class="btn" href="bayar.html?id=6">Beli Sekarang</a>
-    </div>
-  </div>
 </div>
 
-<div class="notif" id="notif"></div>
+<div id="popup" class="notif"></div>
 
 <script>
-// DAFTAR LINK LAGU (Ganti link di bawah ini dengan link MP3 lu nanti)
-const playlist = {
-    track1: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    track2: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-    track3: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
-};
+    const audio = document.getElementById('mainAudio');
+    const audioSrc = document.getElementById('audioSrc');
+    const statusText = document.getElementById('status');
 
-const audio = document.getElementById('mainAudio');
-const source = document.getElementById('audioSource');
+    function changeMusic(url, el) {
+        // Hapus class active dari semua tombol
+        document.querySelectorAll('.track-item').forEach(item => item.classList.remove('active'));
+        
+        // Pasang musik & play
+        audioSrc.src = url;
+        audio.load();
+        audio.play();
+        
+        // Tandai tombol active
+        el.classList.add('active');
+        statusText.innerText = "Playing: " + el.innerText;
+        statusText.style.color = "#ff0000";
+    }
 
-function playTrack(id, btn) {
-    // Reset tombol active
-    document.querySelectorAll('.track-btn').forEach(b => b.classList.remove('active'));
+    // Script Notif Otomatis
+    const fakeUsers = ["Rafi", "Sultan", "Bambang", "Rizki", "Andre"];
+    const fakeProds = ["MPO NEW", "NEXUS", "KINCAI PRO"];
     
-    // Set lagu baru
-    source.src = playlist[id];
-    audio.load();
-    audio.play();
-    
-    // Tambah efek nyala di tombol
-    btn.classList.add('active');
-}
-
-// SCRIPT NOTIF (Bawaan Lu)
-const users = ["Ra*** Ad***", "Di*** Se***", "Fa*** Ri***", "An*** Wi***", "Sult***", "Riz***", "Bamb***"];
-const prod = ["MPO NEW", "KINCAI PRO", "NEXUS", "IDN GREEN", "PAY4D", "NUKE"];
-const komentar = ["Desainnya keren!", "Admin fast respon 👍", "Premium bgt!", "Work semua!", "Puas 🔥"];
-
-function showPop() {
-  const u = users[Math.floor(Math.random() * users.length)];
-  const p = prod[Math.floor(Math.random() * prod.length)];
-  const box = document.getElementById("notif");
-  box.innerHTML = `🔔 <b>${u}</b> beli <span>${p}</span>`;
-  box.classList.add("popup-show");
-  setTimeout(() => { box.classList.remove("popup-show"); }, 5000);
-}
-setInterval(showPop, 10000);
+    function showNotif() {
+        const u = fakeUsers[Math.floor(Math.random()*fakeUsers.length)];
+        const p = fakeProds[Math.floor(Math.random()*fakeProds.length)];
+        const pop = document.getElementById('popup');
+        pop.innerHTML = `🔔 <b>${u}</b> baru saja order <b>${p}</b>`;
+        pop.classList.add('show');
+        setTimeout(() => pop.classList.remove('show'), 4000);
+    }
+    setInterval(showNotif, 12000);
 </script>
 
 </body>
