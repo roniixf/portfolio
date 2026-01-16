@@ -28,19 +28,20 @@
             box-sizing: border-box;
         }
 
+        /* EFEK TRANSF ARAN & GLOW PADA LOGO */
         .logo-pay { 
             width: 160px; height: auto; margin-bottom: 15px; 
             display: block; margin-left: auto; margin-right: auto;
-            filter: drop-shadow(0 0 8px #ff0000); 
+            /* Trik bikin transparan & efek sisi menyatu */
+            mix-blend-mode: screen; 
+            filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.8)); 
+            border-radius: 8px;
         }
 
         .qris-img { width: 100%; border-radius: 10px; border: 2px solid #fff; filter: drop-shadow(0 0 10px #ff0000); margin-bottom: 15px; }
         .acc-number { font-size: 28px; color: #ff0000; font-weight: 900; text-shadow: 0 0 15px #ff0000; margin: 10px 0; }
 
-        /* AREA FORM UPLOAD DALAM BOX */
-        .upload-inside {
-            margin-top: 20px; padding-top: 20px; border-top: 1px dashed #ff0000;
-        }
+        .upload-inside { margin-top: 20px; padding-top: 20px; border-top: 1px dashed #ff0000; }
         
         input[type="text"] { 
             width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; 
@@ -57,7 +58,6 @@
             margin-top: 10px; text-transform: uppercase; box-shadow: 0 0 20px #ff0000;
         }
 
-        /* TOMBOL KEMBALI MERAH NEON */
         .btn-back-red {
             display: block; width: 100%; max-width: 400px; margin: 20px auto;
             padding: 16px; border-radius: 12px; border: 2px solid #ff0000;
@@ -138,9 +138,7 @@
             const activeBox = document.querySelector('.content[style*="display: block"]');
             const nama = activeBox.querySelector('.u-nama').value;
             const wa = activeBox.querySelector('.u-wa').value;
-            
             if(!nama || !wa) { alert('Isi Nama & WA dulu bos!'); return; }
-            
             const waLink = "https://wa.me/628385080976?text=" + encodeURIComponent(
                 "KONFIRMASI PEMBAYARAN\nNama: " + nama + "\nWA: " + wa + "\nProduk: " + document.getElementById('prod-name').innerText
             );
