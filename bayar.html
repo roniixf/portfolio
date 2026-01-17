@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>403 - SEO DEV PEMBAYARAN</title>
+    <title>403 - SEO DEV JASA PEMBUATAN WEBSITE SLOT</title>
     <style>
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #000; color: #fff; text-align: center; padding: 20px; }
         
@@ -26,15 +26,22 @@
             box-sizing: border-box;
         }
 
-        /* FIX TOTAL: NGILANGIN KOTAK PUTIH & BIKIN EFEK NYALA MERAH */
-        .logo-pay { 
-            width: 160px; height: auto; margin-bottom: 15px; 
-            display: block; margin-left: auto; margin-right: auto;
-            
-            /* Trik sakti: Membalik warna lalu dijadiin merah glow */
-            filter: invert(1) sepia(1) saturate(100) hue-rotate(320deg) drop-shadow(0 0 10px #ff0000);
-            mix-blend-mode: screen;
+        /* TRIK SAKTI LOGO TRANSPARAN + NEON GLOW */
+        .logo-wrapper {
+            background: transparent;
+            padding: 10px;
+            display: inline-block;
+            margin-bottom: 10px;
         }
+
+        .logo-pay { 
+            width: 180px; height: auto; 
+            display: block; margin: 0 auto;
+            /* Trik buang background putih gambar & ganti jadi glow neon */
+            filter: drop-shadow(0 0 12px #ff0000) drop-shadow(0 0 5px #ff0000);
+            mix-blend-mode: screen; 
+        }
+
         .qris-img { width: 100%; border-radius: 10px; border: 2px solid #fff; filter: drop-shadow(0 0 10px #ff0000); margin-bottom: 15px; }
         .acc-number { font-size: 28px; color: #ff0000; font-weight: 900; text-shadow: 0 0 15px #ff0000; margin: 10px 0; }
 
@@ -84,7 +91,9 @@
     </div>
 
     <div id="dana-box" class="content">
-        <img src="https://takenupload.com/696acef8317fb" class="logo-pay" alt="DANA">
+        <div class="logo-wrapper">
+            <img src="https://takenupload.com/696acef8317fb" class="logo-pay" alt="DANA">
+        </div>
         <p>TRANSFER DANA KE:</p>
         <div class="acc-number">082245390572</div>
         <div class="upload-inside">
@@ -96,7 +105,9 @@
     </div>
 
     <div id="ovo-box" class="content">
-        <img src="https://takenupload.com/696acef23513a" class="logo-pay" alt="OVO">
+        <div class="logo-wrapper">
+            <img src="https://takenupload.com/696acef23513a" class="logo-pay" alt="OVO">
+        </div>
         <p>TRANSFER OVO KE:</p>
         <div class="acc-number">08385080976</div>
         <div class="upload-inside">
