@@ -180,7 +180,7 @@ function showPop() {
   const p = products[Math.floor(Math.random() * products.length)];
   const k = komentar[Math.floor(Math.random() * komentar.length)];
   const box = document.getElementById("notif");
-  box.innerHTML = `🔔 <b>${u}</b>baru saja membeli <span>${p.n}</span><br><b>${p.h}</b><br><i>"${k}"</i>`;
+  box.innerHTML = `🔔 <b>${u}</b> baru saja membeli <span>${p.n}</span><br><b>${p.h}</b><br><i>"${k}"</i>`;
   box.classList.add("popup-show");
   setTimeout(() => { box.classList.remove("popup-show"); }, 5000);
 }
