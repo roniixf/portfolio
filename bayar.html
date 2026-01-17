@@ -26,26 +26,14 @@
             box-sizing: border-box;
         }
 
-        /* TRIK SAKTI BUANG BACKGROUND PUTIH & JADIIN NEON RED */
-        .logo-container {
-            width: 200px; height: 60px;
-            margin: 0 auto 15px auto;
-            background-color: #ff0000; /* Warna logo yang baru (Merah) */
-            /* Menggunakan gambar lu sebagai topeng (mask) */
-            -webkit-mask-size: contain;
-            mask-size: contain;
-            -webkit-mask-repeat: no-repeat;
-            mask-repeat: no-repeat;
-            -webkit-mask-position: center;
-            mask-position: center;
-            /* Efek Nyala */
-            box-shadow: 0 0 20px #ff0000;
-            filter: drop-shadow(0 0 10px #ff0000);
+        /* FIX LOGO: TRANSPARAN & NEON RED */
+        .logo-pay { 
+            width: 180px; height: auto; margin-bottom: 15px; 
+            display: block; margin-left: auto; margin-right: auto;
+            /* Invert buat balik warna putih jadi hitam supaya tembus pandang */
+            filter: invert(1) hue-rotate(180deg) brightness(1.5) drop-shadow(0 0 10px #ff0000);
+            mix-blend-mode: screen; 
         }
-
-        /* Spesifik Mask per Logo */
-        .mask-dana { -webkit-mask-image: url('https://takenupload.com/696acef8317fb'); mask-image: url('https://takenupload.com/696acef8317fb'); }
-        .mask-ovo { -webkit-mask-image: url('https://takenupload.com/696acef23513a'); mask-image: url('https://takenupload.com/696acef23513a'); }
 
         .qris-img { width: 100%; border-radius: 10px; border: 2px solid #fff; filter: drop-shadow(0 0 10px #ff0000); margin-bottom: 15px; }
         .acc-number { font-size: 28px; color: #ff0000; font-weight: 900; text-shadow: 0 0 15px #ff0000; margin: 10px 0; }
@@ -93,7 +81,7 @@
     </div>
 
     <div id="dana-box" class="content">
-        <div class="logo-container mask-dana"></div>
+        <img src="https://takenupload.com/696acef8317fb" class="logo-pay" alt="DANA">
         <p>TRANSFER DANA KE:</p>
         <div class="acc-number">082245390572</div>
         <div class="upload-inside">
@@ -105,7 +93,7 @@
     </div>
 
     <div id="ovo-box" class="content">
-        <div class="logo-container mask-ovo"></div>
+        <img src="https://takenupload.com/696acef23513a" class="logo-pay" alt="OVO">
         <p>TRANSFER OVO KE:</p>
         <div class="acc-number">08385080976</div>
         <div class="upload-inside">
