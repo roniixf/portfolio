@@ -26,15 +26,15 @@
             box-sizing: border-box;
         }
 
-        /* FIX LOGO TRANSPARAN + RED GLOW SESUAI FOTO */
+        /* FIX TOTAL: NGILANGIN KOTAK PUTIH & BIKIN EFEK NYALA MERAH */
         .logo-pay { 
             width: 160px; height: auto; margin-bottom: 15px; 
             display: block; margin-left: auto; margin-right: auto;
-            /* Menghapus background putih & bikin efek glow merah */
-            filter: drop-shadow(0 0 10px #ff0000) brightness(1.2);
-            mix-blend-mode: lighten;
+            
+            /* Trik sakti: Membalik warna lalu dijadiin merah glow */
+            filter: invert(1) sepia(1) saturate(100) hue-rotate(320deg) drop-shadow(0 0 10px #ff0000);
+            mix-blend-mode: screen;
         }
-
         .qris-img { width: 100%; border-radius: 10px; border: 2px solid #fff; filter: drop-shadow(0 0 10px #ff0000); margin-bottom: 15px; }
         .acc-number { font-size: 28px; color: #ff0000; font-weight: 900; text-shadow: 0 0 15px #ff0000; margin: 10px 0; }
 
